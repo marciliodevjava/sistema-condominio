@@ -28,22 +28,25 @@ public class Funcionario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "numero_funcionario", length = 20)
+    private Integer numeroFuncionario;
     @Column(name = "nome", length = 255, nullable = false)
     private String nome;
-    @Column(name = "cpf", length = 255, nullable = false)
+    @Column(name = "cpf", length = 11, nullable = false)
     private String cpf;
-    @Column(name = "rg", length = 255, nullable = false)
+    @Column(name = "rg", length = 10, nullable = false)
     private String rg;
-    @Column(name = "email", length = 255, nullable = false)
+    @Column(name = "email", length = 150, nullable = false)
     private String email;
-    @Column(name = "ddd", length = 255, nullable = false)
+    @Column(name = "ddd", length = 3, nullable = false)
     private String ddd;
-    @Column(name = "telefone", length = 255, nullable = false)
+    @Column(name = "telefone", length = 10, nullable = false)
     private String telefone;
-    @Column(name = "situacao", length = 255, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "situacao", length = 9, nullable = false)
     private EstadoEnum situacao;
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado_civil")
+    @Column(name = "estado_civil", length = 10, nullable = false)
     private EstadoCivilEnum estadoCivil;
     @Column(name = "dependentes")
     @Setter(onMethod = @__({@JsonProperty}))
