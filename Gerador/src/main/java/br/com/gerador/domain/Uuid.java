@@ -26,7 +26,7 @@ public class Uuid implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "uuid_gerado")
-    private UUID uuid;
+    private UUID uuidGerado;
     @Column(name = "data")
     private LocalDate data;
     @Column(name = "hora")
