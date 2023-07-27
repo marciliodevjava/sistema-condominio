@@ -1,13 +1,11 @@
 package br.com.funcionario.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_enderecos")
@@ -15,12 +13,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Endereco implements Serializable {
     @Serial
-    private static final long serialVersionUID = 6L;
+    private static final long serialVersionUID = 2L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "uuid_identificador", length = 36)
+    private UUID uuidIdentificador;
     @Column(name = "cep", length = 8)
     private String cep;
     @Column(name = "logradouro", length = 255)
