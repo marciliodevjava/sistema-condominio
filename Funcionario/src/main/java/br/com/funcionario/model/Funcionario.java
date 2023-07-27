@@ -5,15 +5,14 @@ import br.com.funcionario.model.enuns.EstadoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_funcionarios")
@@ -21,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Funcionario implements Serializable {
 
     @Serial
@@ -28,10 +28,14 @@ public class Funcionario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "uuid_identificador", length = 36)
+    private UUID uuidIdentificador;
     @Column(name = "numero_funcionario", length = 20)
     private Integer numeroFuncionario;
     @Column(name = "nome", length = 255, nullable = false)
     private String nome;
+    @Column(name = "data_nascimento")
+    private Date dataNascimento;
     @Column(name = "cpf", length = 11, nullable = false)
     private String cpf;
     @Column(name = "rg", length = 10, nullable = false)
