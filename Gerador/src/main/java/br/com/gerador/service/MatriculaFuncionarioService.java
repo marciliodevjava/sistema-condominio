@@ -14,12 +14,15 @@ public class MatriculaFuncionarioService {
 
     @Autowired
     private MatriculaFuncionarioMapper matriculaFuncionarioMapper;
+    @Autowired
+    private MatriculaFuncionarioRepository matriculaFuncionarioRepository;
 
     public MatriculaFuncionarioDto criarMatriculaFuncionarioService(Long id) {
 
         MatriculaFuncionario funcionario = new MatriculaFuncionario();
 
         funcionario = matriculaFuncionarioMapper.gerarFuncionario(id);
+        funcionario = matriculaFuncionarioRepository.save(funcionario);
 
 
         return null;
