@@ -31,9 +31,9 @@ public class MatriculaFuncionarioMapper {
             matricula = consulta.getNumeroFuncionario();
         }
 
-        MatriculaFuncionario inserir = this.montarDados(matricula, id);
+        MatriculaFuncionario inserirFuncionario = this.montarDados(matricula, id);
 
-        return null;
+        return inserirFuncionario;
     }
 
     private MatriculaFuncionario montarDados(Integer matricula, Long id) {
@@ -49,8 +49,6 @@ public class MatriculaFuncionarioMapper {
         matriculaFuncionarioInserir.setHora(LocalTime.now());
         matriculaFuncionarioInserir.setIdFuncionario(Integer.valueOf(Math.toIntExact(id)));
         matriculaFuncionarioInserir.setAtivo(EnumAtivo.ATIVO);
-
-        matriculaFuncionarioInserir = matriculaFuncionarioRepository.save(matriculaFuncionarioInserir);
 
         return matriculaFuncionarioInserir;
     }
