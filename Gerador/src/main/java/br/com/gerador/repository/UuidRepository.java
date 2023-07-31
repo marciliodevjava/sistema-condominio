@@ -9,5 +9,5 @@ import java.util.UUID;
 @Repository
 public interface UuidRepository extends JpaRepository<Uuid, Long> {
 
-    Uuid findByUuidGerado(UUID uuidGerado);
+    Uuid findByUuidGerado(String uuidGerado);
 }
