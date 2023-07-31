@@ -1,6 +1,7 @@
 package br.com.gerador.dto;
 
 import br.com.gerador.domain.enuns.EnumAtivo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MatriculaFuncionarioDto {
     private Integer numeroFuncionario;
     private Integer idFuncionario;
