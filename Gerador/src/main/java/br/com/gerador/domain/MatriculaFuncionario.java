@@ -24,6 +24,7 @@ public class MatriculaFuncionario implements Serializable {
     private static final long serialVersionUID = 4L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name = "uuid_identificador", length = 36)
     private String uuidIdentificador;
