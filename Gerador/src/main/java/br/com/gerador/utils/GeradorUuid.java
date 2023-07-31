@@ -24,14 +24,14 @@ public class GeradorUuid {
 
         do {
             identificador = UUID.randomUUID();
-            uuid = uuidRepository.findByUuidGerado(identificador);
+            uuid = uuidRepository.findByUuidGerado(String.valueOf(identificador));
         } while (uuid != null);
 
-        uuidGerado = String.valueOf(identificador);
+        uuidGerado = String.valueOf(String.valueOf(identificador));
 
         Uuid salvar = new Uuid();
 
-        salvar.setUuidGerado(identificador);
+        salvar.setUuidGerado(String.valueOf(identificador));
         salvar.setData(LocalDate.now());
         salvar.setHora(LocalTime.now());
         salvar.setProjeto(EnumProjeto.GERADOR);
