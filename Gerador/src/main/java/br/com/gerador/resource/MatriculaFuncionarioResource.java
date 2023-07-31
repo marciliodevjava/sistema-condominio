@@ -4,10 +4,7 @@ import br.com.gerador.dto.MatriculaFuncionarioDto;
 import br.com.gerador.service.MatriculaFuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/gerador")
@@ -19,6 +16,11 @@ public class MatriculaFuncionarioResource {
     @PostMapping("/{id}")
     public ResponseEntity<MatriculaFuncionarioDto> gerarMatricula(@PathVariable Long id){
         MatriculaFuncionarioDto matriculaFuncionario = funcionarioService.criarMatriculaFuncionarioService(id);
+        return ResponseEntity.ok(matriculaFuncionario);
+    }
+
+    @GetMapping
+    public ResponseEntity<MatriculaFuncionarioDto> getMatricula(@PathVariable Long id){
         return null;
     }
 }
