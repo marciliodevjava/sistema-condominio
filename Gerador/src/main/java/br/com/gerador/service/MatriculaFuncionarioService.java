@@ -3,7 +3,6 @@ package br.com.gerador.service;
 import br.com.gerador.domain.MatriculaFuncionario;
 import br.com.gerador.dto.MatriculaFuncionarioAtualizarDto;
 import br.com.gerador.dto.MatriculaFuncionarioDto;
-import br.com.gerador.dto.MatriculaFuncionarioUtualizarDto;
 import br.com.gerador.mapper.MatriculaFuncionarioMapper;
 import br.com.gerador.repository.MatriculaFuncionarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
