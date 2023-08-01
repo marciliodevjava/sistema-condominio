@@ -2,6 +2,7 @@ package br.com.gerador.service;
 
 import br.com.gerador.domain.MatriculaFuncionario;
 import br.com.gerador.dto.MatriculaFuncionarioDto;
+import br.com.gerador.dto.MatriculaFuncionarioUtualizarDto;
 import br.com.gerador.mapper.MatriculaFuncionarioMapper;
 import br.com.gerador.repository.MatriculaFuncionarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,5 +35,10 @@ public class MatriculaFuncionarioService {
     public MatriculaFuncionarioDto buscarFuncionarioPorId(Long id) {
         Optional<MatriculaFuncionario> matriculaFuncionario = matriculaFuncionarioRepository.findById(id);
         return objectMapper.convertValue(matriculaFuncionario, MatriculaFuncionarioDto.class);
+    }
+
+    public MatriculaFuncionarioDto atualizarMatricula(Long id, MatriculaFuncionarioUtualizarDto funcionarioAtualizarDto) {
+        Optional<MatriculaFuncionario> atualizarFuncionario = matriculaFuncionarioRepository.findById(id);
+        return objectMapper.convertValue(atualizarFuncionario, MatriculaFuncionarioDto.class);
     }
 }
