@@ -7,5 +7,8 @@ import lombok.Setter;
 @Setter
 public class NumeroDto {
 
-    private Integer numeroFuncionario;
+    private Long id;
+    private Long numeroFuncionario;
+    private Long idFuncionario;
+    private String ativo;
 }
