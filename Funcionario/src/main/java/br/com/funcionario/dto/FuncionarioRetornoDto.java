@@ -1,10 +1,17 @@
 package br.com.funcionario.dto;
 
+import br.com.funcionario.model.Dependentes;
+import br.com.funcionario.model.Endereco;
 import br.com.funcionario.model.enuns.EstadoCivilEnum;
 import br.com.funcionario.model.enuns.EstadoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -12,10 +19,10 @@ import java.util.List;
 public class FuncionarioRetornoDto {
 
     private Long id;
-
     private String uuidIdentificador;
     private Integer numeroFuncionario;
     private String nome;
+    private Date dataNascimento;
     private String cpf;
     private String rg;
     private String email;
@@ -23,7 +30,8 @@ public class FuncionarioRetornoDto {
     private String telefone;
     private EstadoEnum situacao;
     private EstadoCivilEnum estadoCivil;
-    private List<DependentesDto> dependentes;
-    private EnderecoDto endereco;
+    private List<Dependentes> dependentes = new ArrayList<Dependentes>();
+    private Endereco endereco;
+
 }
 
