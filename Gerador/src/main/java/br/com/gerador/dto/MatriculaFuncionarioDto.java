@@ -12,6 +12,7 @@ import java.time.LocalTime;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MatriculaFuncionarioDto {
+    private Long id;
     private Integer numeroFuncionario;
     private Integer idFuncionario;
     private EnumAtivo ativo;
