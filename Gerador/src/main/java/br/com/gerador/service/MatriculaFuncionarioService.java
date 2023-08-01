@@ -1,6 +1,7 @@
 package br.com.gerador.service;
 
 import br.com.gerador.domain.MatriculaFuncionario;
+import br.com.gerador.dto.MatriculaFuncionarioAtualizarDto;
 import br.com.gerador.dto.MatriculaFuncionarioDto;
 import br.com.gerador.dto.MatriculaFuncionarioUtualizarDto;
 import br.com.gerador.mapper.MatriculaFuncionarioMapper;
@@ -9,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,7 +37,7 @@ public class MatriculaFuncionarioService {
         return objectMapper.convertValue(matriculaFuncionario, MatriculaFuncionarioDto.class);
     }
 
-    public MatriculaFuncionarioDto atualizarMatricula(Long id, MatriculaFuncionarioUtualizarDto funcionarioAtualizarDto) {
+    public MatriculaFuncionarioDto atualizarMatricula(Long id, MatriculaFuncionarioAtualizarDto funcionarioAtualizarDto) {
         Optional<MatriculaFuncionario> atualizarFuncionario = matriculaFuncionarioRepository.findById(id);
         return objectMapper.convertValue(atualizarFuncionario, MatriculaFuncionarioDto.class);
     }
