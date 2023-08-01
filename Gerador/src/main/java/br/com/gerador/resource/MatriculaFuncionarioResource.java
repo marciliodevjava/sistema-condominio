@@ -1,5 +1,6 @@
 package br.com.gerador.resource;
 
+import br.com.gerador.dto.ErrosDto;
 import br.com.gerador.dto.MatriculaFuncionarioAtualizarDto;
 import br.com.gerador.dto.MatriculaFuncionarioDto;
 import br.com.gerador.service.MatriculaFuncionarioService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/gerador")
@@ -26,8 +28,9 @@ public class MatriculaFuncionarioResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MatriculaFuncionarioDto> getMatricula(@PathVariable Long id) {
+    public ResponseEntity<?> getMatricula(@PathVariable Long id) {
         MatriculaFuncionarioDto matriculaFuncionario = funcionarioService.buscarFuncionarioPorId(id);
+        if (Objects.isNull(matriculaFuncionario)) return ResponseEntity.ok(new ErrosDto("Matricula não existe.", id));
         return ResponseEntity.ok(matriculaFuncionario);
     }
 
