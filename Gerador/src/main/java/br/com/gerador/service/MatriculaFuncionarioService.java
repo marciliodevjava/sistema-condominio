@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class MatriculaFuncionarioService {
@@ -28,5 +29,10 @@ public class MatriculaFuncionarioService {
         funcionario = matriculaFuncionarioRepository.save(funcionario);
 
         return objectMapper.convertValue(funcionario, MatriculaFuncionarioDto.class);
+    }
+
+    public MatriculaFuncionarioDto buscarFuncionarioPorId(Long id) {
+        Optional<MatriculaFuncionario> matriculaFuncionario = matriculaFuncionarioRepository.findById(id);
+        return objectMapper.convertValue(matriculaFuncionario, MatriculaFuncionarioDto.class);
     }
 }
