@@ -37,6 +37,6 @@ public class FuncionarioService {
 
         NumeroDto numero = geradorClients.gerarFuncionario(id);
 
-        return numero.getNumeroFuncionario();
+        return Integer.parseInt(String.valueOf(numero.getNumeroFuncionario()));
     }
 }
