@@ -1,7 +1,7 @@
 package br.com.gerador.resource;
 
+import br.com.gerador.dto.MatriculaFuncionarioAtualizarDto;
 import br.com.gerador.dto.MatriculaFuncionarioDto;
-import br.com.gerador.dto.MatriculaFuncionarioUtualizarDto;
 import br.com.gerador.service.MatriculaFuncionarioService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class MatriculaFuncionarioResource {
 
     @PutMapping("/{id}")
     public ResponseEntity<MatriculaFuncionarioDto> atualizarMatricula(@PathVariable Long id,
-                                                                      @RequestBody MatriculaFuncionarioUtualizarDto funcionarioAtualizarDto) {
+                                                                      @RequestBody MatriculaFuncionarioAtualizarDto funcionarioAtualizarDto) {
 
         MatriculaFuncionarioDto atualizarMatricula = funcionarioService.atualizarMatricula(id, funcionarioAtualizarDto);
         return ResponseEntity.ok(atualizarMatricula);
