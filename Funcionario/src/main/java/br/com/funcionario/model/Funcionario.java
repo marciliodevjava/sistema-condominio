@@ -29,7 +29,7 @@ public class Funcionario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "uuid_identificador", length = 36)
-    private UUID uuidIdentificador;
+    private String uuidIdentificador;
     @Column(name = "numero_funcionario", length = 20)
     private Integer numeroFuncionario;
     @Column(name = "nome", length = 255, nullable = false)
