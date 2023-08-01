@@ -2,9 +2,14 @@ package br.com.gerador.resource;
 
 import br.com.gerador.dto.MatriculaFuncionarioDto;
 import br.com.gerador.service.MatriculaFuncionarioService;
+import jakarta.validation.constraints.NotNull;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/gerador")
@@ -14,13 +19,15 @@ public class MatriculaFuncionarioResource {
     private MatriculaFuncionarioService funcionarioService;
 
     @PostMapping("/{id}")
-    public ResponseEntity<MatriculaFuncionarioDto> gerarMatricula(@PathVariable Long id){
+    public ResponseEntity<MatriculaFuncionarioDto> gerarMatricula(@PathVariable @NotNull Long id, UriComponentsBuilder uri){
         MatriculaFuncionarioDto matriculaFuncionario = funcionarioService.criarMatriculaFuncionarioService(id);
-        return ResponseEntity.ok(matriculaFuncionario);
+        URI retorno = uri.path("/gerador/{id}").buildAndExpand(matriculaFuncionario.getId()).toUri();
+        return ResponseEntity.created(retorno).body(matriculaFuncionario);
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     public ResponseEntity<MatriculaFuncionarioDto> getMatricula(@PathVariable Long id){
-        return null;
+        MatriculaFuncionarioDto matriculaFuncionario = funcionarioService.buscarFuncionarioPorId(id);
+        return ResponseEntity.ok(matriculaFuncionario);
     }
 }
