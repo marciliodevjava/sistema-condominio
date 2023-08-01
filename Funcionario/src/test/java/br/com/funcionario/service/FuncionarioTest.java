@@ -2,6 +2,7 @@ package br.com.funcionario.service;
 
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.dto.FuncionarioRetornoDto;
+import br.com.funcionario.model.enuns.EstadoCivilEnum;
 import org.apache.http.util.Asserts;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.util.Assert;
 public class FuncionarioTest {
 
     private final String NOME_FUNCIONARIO = "Kauê Sebastião Kevin Costaa";
-    private final String CPF_FUNCIONARIO = "608.297.521-96";
+    private final String CPF_FUNCIONARIO = "60829752196";
     private final String RG_FUNCIONARIO = "41.998.033-7";
     private final String EMAIL_FUNCIONARIO = "kaue.sebastiao.costa@foxtech.com.br";
     private final String DDD_FUNCIONARIO = "61";
@@ -39,6 +40,7 @@ public class FuncionarioTest {
         funcionario.setEmail(EMAIL_FUNCIONARIO);
         funcionario.setDdd(DDD_FUNCIONARIO);
         funcionario.setTelefone(TELEFONE_FUNCIONARIO);
+        funcionario.setEstadoCivil(EstadoCivilEnum.SOLTEIRO);
 
         return  funcionario;
     }
