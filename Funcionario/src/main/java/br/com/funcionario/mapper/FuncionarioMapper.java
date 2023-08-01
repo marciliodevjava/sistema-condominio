@@ -22,14 +22,16 @@ public class FuncionarioMapper {
         Funcionario funcionario = new Funcionario();
         if (Objects.nonNull(dto.getNome())){
             funcionario.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
-            funcionario.setNome(dto.getNome());
-            funcionario.setCpf(dto.getCpf());
-            funcionario.setRg(dto.getRg());
-            funcionario.setEmail(dto.getEmail());
-            funcionario.setDdd(dto.getDdd());
-            funcionario.setTelefone(dto.getTelefone());
+            funcionario.setNome(formatadorDeDados.formatadorNome(dto.getNome()));
+            funcionario.setCpf(formatadorDeDados.formatadorCpf(dto.getCpf()));
+            funcionario.setRg(formatadorDeDados.formatadorRg(dto.getRg()));
+            funcionario.setEmail(formatadorDeDados.formatadorEmail(dto.getEmail()));
+            funcionario.setDdd(formatadorDeDados.formatadorNome(dto.getDdd()));
+            funcionario.setTelefone(formatadorDeDados.formatadorTelefone(dto.getTelefone()));
             funcionario.setSituacao(EstadoEnum.ATIVO);
             funcionario.setEstadoCivil(dto.getEstadoCivil());
+
+            return funcionario;
         }
         return null;
     }
