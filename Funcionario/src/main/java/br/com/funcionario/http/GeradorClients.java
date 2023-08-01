@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface GeradorClients {
 
     @RequestMapping(method = RequestMethod.POST, value = "/gerador/{id}")
-    NumeroDto gerarFuncionario(@PathVariable  Long idFuncionario);
+    NumeroDto gerarFuncionario(@PathVariable  Long id);
 }
