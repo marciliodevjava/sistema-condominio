@@ -3,12 +3,12 @@ package br.com.funcionario.service;
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.dto.FuncionarioRetornoDto;
 import br.com.funcionario.model.enuns.EstadoCivilEnum;
-import org.apache.http.util.Asserts;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
+
+import java.text.ParseException;
 
 @SpringBootTest
 public class FuncionarioTest {
@@ -24,7 +24,7 @@ public class FuncionarioTest {
     private FuncionarioService funcionarioService;
 
     @Test
-    void criarFuncionarioRest() {
+    void criarFuncionarioRest() throws ParseException {
         FuncionarioRetornoDto funcionarioRetornoDto = new FuncionarioRetornoDto();
         FuncionarioDto funcionarioDto = this.criarFuncionarioDto();
         funcionarioRetornoDto = funcionarioService.salvarFuncionario(funcionarioDto);
