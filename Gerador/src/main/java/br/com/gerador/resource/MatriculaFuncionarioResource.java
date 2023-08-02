@@ -29,6 +29,14 @@ public class MatriculaFuncionarioResource {
         logger.logInfo("Iniciando o processamento de dados: gerarMatricula", String.valueOf(id));
         MatriculaFuncionarioDto matriculaFuncionario = funcionarioService.criarMatriculaFuncionarioService(id);
         URI retorno = uri.path("/gerador/{id}").buildAndExpand(matriculaFuncionario.getId()).toUri();
+
+        if(Objects.nonNull(matriculaFuncionario)){
+            logger.logInfo("Finalizando o processamento de geração de matricula do funcionário.");
+        } else {
+            logger.logInfo("Aconteceu um ERRO o processamento de geração de matricula do funcionário.");
+            return ResponseEntity.ok(matriculaFuncionario);
+        }
+
         return ResponseEntity.created(retorno).body(matriculaFuncionario);
     }
 
