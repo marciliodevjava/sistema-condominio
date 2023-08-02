@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.util.Optional;
+
 @Service
 public class FuncionarioService {
 
@@ -25,7 +28,7 @@ public class FuncionarioService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public FuncionarioRetornoDto salvarFuncionario(FuncionarioDto dto) {
+    public FuncionarioRetornoDto salvarFuncionario(FuncionarioDto dto) throws ParseException {
         Funcionario funcionario = funcionarioMapper.mapear(dto);
         funcionario = funcionarioRepository.save(funcionario);
         funcionario.setNumeroFuncionario(gerarNumeroFuncionario(funcionario.getId()));
@@ -38,5 +41,11 @@ public class FuncionarioService {
         NumeroDto numero = geradorClients.gerarFuncionario(id);
 
         return Integer.parseInt(String.valueOf(numero.getNumeroFuncionario()));
+    }
+
+    public FuncionarioRetornoDto buscarFuncionarioId(Long id) {
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
+
+        return objectMapper.convertValue(funcionario, FuncionarioRetornoDto.class);
     }
 }
