@@ -22,6 +22,10 @@ public class LoggerUltis {
         logger.info("{} {}", mensagem, StructuredArguments.value("identificador", identificador));
     }
 
+    public void logInfo(String mensagem, Object object) {
+        logger.info("{} {}", mensagem, StructuredArguments.value("object", object));
+    }
+
     public void logInfo(String mensagem, String identificador, String localizador) {
         logger.info("{} {} {}", mensagem, StructuredArguments.value("identificador", identificador), StructuredArguments.value("localizador", localizador));
     }
