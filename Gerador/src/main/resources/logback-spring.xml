@@ -1,0 +1,24 @@
+<configuration>
+
+    <!-- Configuração do appender para o console -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Configuração do appender para o arquivo -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/my-api.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Definição do nível de log para a raiz (root) -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>
