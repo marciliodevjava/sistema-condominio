@@ -39,4 +39,9 @@ public class MatriculaFuncionario implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "ativo", length = 7)
     private EnumAtivo ativo;
+
+    @Override
+    public String toString() {
+        return "- IdentificadorUuid: " + uuidIdentificador;
+    }
 }
