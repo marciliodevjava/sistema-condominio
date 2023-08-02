@@ -21,6 +21,8 @@ public class FuncionarioDto{
         String cpf;
         @NotNull(message = "Campo rg inválido.")
         String rg;
+        @NotNull(message = "Campo dataNascimento inválido.")
+        String dataNascimento;
         @NotNull(message = "Campo e-mail inválido.")
         @Email
         String email;
@@ -28,9 +30,7 @@ public class FuncionarioDto{
         String ddd;
         @NotNull(message = "Campo telefone inválido.")
         String telefone;
-        @NotBlank(message = "Campo situacao inválido.")
-        EstadoEnum situacao;
-        @NotBlank(message = "Campo estadoCivil inválio.")
+        @NotNull(message = "Campo estadoCivil inválio.")
         EstadoCivilEnum estadoCivil;
         List<DependentesDto> dependentes;
         EnderecoDto endereco;
