@@ -16,8 +16,11 @@ public class GeradorUuid {
 
     @Autowired
     private UuidRepository uuidRepository;
+    @Autowired
+    private LoggerUltis logger;
 
     public String getIdentificadorUuid() {
+        logger.logInfo("Iniciando a geracação do Identificador UUID.");
         UUID identificador;
         Uuid uuid;
         String uuidGerado;
@@ -37,7 +40,7 @@ public class GeradorUuid {
         salvar.setProjeto(EnumProjeto.GERADOR);
 
         salvar = uuidRepository.save(salvar);
-
+        logger.logInfo("Finalizando a geracação do Identificador UUID.");
         return uuidGerado.toString();
     }
 }
