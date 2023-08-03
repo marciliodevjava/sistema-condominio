@@ -19,6 +19,7 @@ public class FuncionarioTest {
     private final String EMAIL_FUNCIONARIO = "kaue.sebastiao.costa@foxtech.com.br";
     private final String DDD_FUNCIONARIO = "61";
     private final String TELEFONE_FUNCIONARIO = "986235689";
+    private final String DATA_FUNCIONARIO = "2023-08-03";
 
     @Autowired
     private FuncionarioService funcionarioService;
@@ -41,6 +42,7 @@ public class FuncionarioTest {
         funcionario.setDdd(DDD_FUNCIONARIO);
         funcionario.setTelefone(TELEFONE_FUNCIONARIO);
         funcionario.setEstadoCivil(EstadoCivilEnum.SOLTEIRO);
+        funcionario.setDataNascimento(DATA_FUNCIONARIO);
 
         return  funcionario;
     }
