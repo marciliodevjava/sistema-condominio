@@ -2,7 +2,9 @@ package br.com.governancia.resource;
 
 import br.com.governancia.dto.DadosAutenticacaoDto;
 import br.com.governancia.dto.DadosTokenJWT;
+import br.com.governancia.dto.UsuarioAlteradoDto;
 import br.com.governancia.dto.UsuarioDto;
+import br.com.governancia.infra.exception.UsuarioNaoExisteException;
 import br.com.governancia.infra.security.TokenService;
 import br.com.governancia.service.UsuarioService;
 import br.com.governancia.usuario.Usuario;
@@ -13,12 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/login")
@@ -48,5 +48,22 @@ public class UsuarioResource {
         UsuarioDto retorno = usuarioService.crearUsuario(usuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
+    }
+
+    @PutMapping("/alterar")
+    public ResponseEntity<?> alterar(@RequestBody @Valid UsuarioDto usuario){
+        UsuarioAlteradoDto usuarioAlteradoDto = usuarioService.alterarUsuario(usuario);
+
+        if(Objects.nonNull(usuarioAlteradoDto.getNome())){
+            return ResponseEntity.ok(usuarioAlteradoDto);
+        }
+
+        try{
+            throw new UsuarioNaoExisteException();
+        } catch (UsuarioNaoExisteException ex){
+            System.out.println("Solicitação negada!");
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
