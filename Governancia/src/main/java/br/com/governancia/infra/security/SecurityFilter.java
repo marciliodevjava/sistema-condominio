@@ -1,5 +1,6 @@
 package br.com.governancia.infra.security;
 
+import br.com.governancia.infra.exception.exception.TokenExpiroRenvovarTokenException;
 import br.com.governancia.repository.UsuarioRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -28,6 +29,9 @@ public class SecurityFilter extends OncePerRequestFilter {
         String tokenJWT = recuperarToken(request);
         if(tokenJWT != null){
             String subject = tokenService.getSubject(tokenJWT);
+            if(subject.equals(null)){
+                throw new TokenExpiroRenvovarTokenException();
+            }
             UserDetails usuario = usuarioRepository.findByLogin(subject);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
