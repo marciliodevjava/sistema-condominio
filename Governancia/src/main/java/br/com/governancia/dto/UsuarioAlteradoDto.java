@@ -1,6 +1,5 @@
 package br.com.governancia.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 @Getter
