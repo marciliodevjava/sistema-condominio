@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class UsuarioDto {
     private String nome;
+    private String nomeAtualizado;
     private String login;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String senha;
