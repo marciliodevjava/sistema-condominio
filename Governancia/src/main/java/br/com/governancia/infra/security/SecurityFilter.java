@@ -29,9 +29,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         String tokenJWT = recuperarToken(request);
         if(tokenJWT != null){
             String subject = tokenService.getSubject(tokenJWT);
-            if(subject.equals(null)){
-                throw new TokenExpiroRenvovarTokenException();
-            }
             UserDetails usuario = usuarioRepository.findByLogin(subject);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
