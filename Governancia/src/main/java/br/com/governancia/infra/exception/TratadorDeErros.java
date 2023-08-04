@@ -1,6 +1,10 @@
 package br.com.governancia.infra.exception;
 
 import br.com.governancia.infra.exception.enuns.MensagemEnum;
+import br.com.governancia.infra.exception.exception.TokenExpiroRenvovarTokenException;
+import br.com.governancia.infra.exception.exception.UsuarioNaoExisteException;
+import br.com.governancia.infra.exception.exception.UsuarioNaoIdExisteException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.ForbiddenException;
@@ -45,6 +49,19 @@ public class TratadorDeErros {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UsuarioNaoIdExisteException.class)
+    public ResponseEntity<ErroResponse> tratarUsuarioIdNot(UsuarioNaoIdExisteException ex) {
+
+        ErroResponse errorResponse = new ErroResponse();
+
+        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        errorResponse.setMensagem(Collections.singletonList(MensagemEnum.ERROR_ENTITY_NOT_FOUND.getMensagem()));
+        errorResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        errorResponse.setEndpoint(request.getRequestURI());
+        errorResponse.setProjeto(projetoNome);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<ErroResponse> tratarErro404(NoSuchElementException ex) {
@@ -103,7 +120,7 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ErroResponse> tratarErroBadCredentials() {
+    public ResponseEntity<ErroResponse> tratarErroBadCredentials(BadCredentialsException ex) {
         ErroResponse errorResponse = new ErroResponse();
 
         errorResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -116,7 +133,7 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ErroResponse> tratarErroAuthentication() {
+    public ResponseEntity<ErroResponse> tratarErroAuthentication(AuthenticationException ex) {
         ErroResponse errorResponse = new ErroResponse();
 
         errorResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -129,7 +146,7 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErroResponse> tratarErroAcessoNegado() {
+    public ResponseEntity<ErroResponse> tratarErroAcessoNegado(AccessDeniedException ex) {
         ErroResponse errorResponse = new ErroResponse();
 
         errorResponse.setStatus(HttpStatus.FORBIDDEN.value());
@@ -154,17 +171,43 @@ public class TratadorDeErros {
         return new ResponseEntity<>(errorResponse, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErroResponse> tratarErroRuntime(RuntimeException ex) {
+    @ExceptionHandler(TokenExpiroRenvovarTokenException.class)
+    public ResponseEntity<ErroResponse> tratarErroToken(TokenExpiroRenvovarTokenException ex) {
         ErroResponse errorResponse = new ErroResponse();
 
-        errorResponse.setStatus(HttpStatus.SERVICE_UNAVAILABLE.value());
-        errorResponse.setMensagem(Collections.singletonList("Erro: " + ex.getLocalizedMessage()));
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setMensagem(Collections.singletonList("Erro: " + MensagemEnum.ERROR_TOKEN.getMensagem()));
         errorResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         errorResponse.setEndpoint(request.getRequestURI());
         errorResponse.setProjeto(projetoNome);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.SERVICE_UNAVAILABLE);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<ErroResponse> tratarToken(JWTVerificationException ex) {
+        ErroResponse errorResponse = new ErroResponse();
+
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setMensagem(Collections.singletonList("Erro: " + MensagemEnum.ERROR_TOKEN.getMensagem()));
+        errorResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        errorResponse.setEndpoint(request.getRequestURI());
+        errorResponse.setProjeto(projetoNome);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UsuarioNaoExisteException.class)
+    public ResponseEntity<ErroResponse> tratarErroAlterarUsuario(UsuarioNaoExisteException ex) {
+        ErroResponse errorResponse = new ErroResponse();
+
+        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        errorResponse.setMensagem(Collections.singletonList("Erro: " + MensagemEnum.ERRO_REQUISICAO_USUARIO_NAO_EXISTE.getMensagem()));
+        errorResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        errorResponse.setEndpoint(request.getRequestURI());
+        errorResponse.setProjeto(projetoNome);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ForbiddenException.class)
