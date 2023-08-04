@@ -1,4 +1,4 @@
-package br.com.governancia.infra.exception;
+package br.com.governancia.infra.exception.exception;
 
 public class UsuarioNaoExisteException extends RuntimeException {
     public UsuarioNaoExisteException() {
