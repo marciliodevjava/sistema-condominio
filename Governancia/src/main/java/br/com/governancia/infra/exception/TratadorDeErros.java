@@ -5,6 +5,7 @@ import br.com.governancia.infra.exception.exception.TokenExpiroRenvovarTokenExce
 import br.com.governancia.infra.exception.exception.UsuarioNaoExisteException;
 import br.com.governancia.infra.exception.exception.UsuarioNaoIdExisteException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.ForbiddenException;
@@ -169,6 +170,19 @@ public class TratadorDeErros {
         errorResponse.setProjeto(projetoNome);
 
         return new ResponseEntity<>(errorResponse, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(SignatureVerificationException.class)
+    public ResponseEntity<ErroResponse> tratarErroTokenSignature(SignatureVerificationException ex) {
+        ErroResponse errorResponse = new ErroResponse();
+
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setMensagem(Collections.singletonList("Erro: " + MensagemEnum.ERROR_TOKEN.getMensagem()));
+        errorResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        errorResponse.setEndpoint(request.getRequestURI());
+        errorResponse.setProjeto(projetoNome);
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(TokenExpiroRenvovarTokenException.class)
