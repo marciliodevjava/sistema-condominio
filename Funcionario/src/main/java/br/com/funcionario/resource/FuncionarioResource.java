@@ -1,11 +1,15 @@
 package br.com.funcionario.resource;
 
+import br.com.funcionario.dto.FuncionarioDeletadoDto;
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.dto.FuncionarioRetornoDto;
 import br.com.funcionario.service.FuncionarioService;
 import jakarta.validation.Valid;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,7 +32,8 @@ public class FuncionarioResource {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<FuncionarioDto>> listaFuncionario() {
+    public ResponseEntity<Page<FuncionarioRetornoDto>> listaFuncionario(@PageableDefault(size = 10, page = 0, sort = "id")Pageable paginacao) {
+        FuncionarioRetornoDto
         return null;
     }
 
@@ -45,8 +50,10 @@ public class FuncionarioResource {
     }
 
     @DeleteMapping
-    public ResponseEntity<FuncionarioDto> deletarFuncionario(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<FuncionarioDeletadoDto> deletarFuncionario(@PathVariable Long id) {
+        FuncionarioDeletadoDto funcionarioRetornoDto = funcionarioService.deletarUsuario(id);
+
+        return ResponseEntity.ok(funcionarioRetornoDto);
     }
 
 }
