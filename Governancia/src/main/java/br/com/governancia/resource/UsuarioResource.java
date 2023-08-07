@@ -6,6 +6,7 @@ import br.com.governancia.infra.security.TokenService;
 import br.com.governancia.service.UsuarioService;
 import br.com.governancia.usuario.Usuario;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -80,4 +81,12 @@ public class UsuarioResource {
 
         return ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletarUsuario(@PathVariable @NotNull Long id){
+        UsuarioDeletadoDto deletadoDto = usuarioService.deletarUsuario(id);
+
+        return ResponseEntity.ok(deletadoDto);
+    }
+
 }
