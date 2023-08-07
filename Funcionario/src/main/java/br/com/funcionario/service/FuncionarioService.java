@@ -1,5 +1,6 @@
 package br.com.funcionario.service;
 
+import br.com.funcionario.dto.FuncionarioDeletadoDto;
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.dto.FuncionarioRetornoDto;
 import br.com.funcionario.dto.NumeroDto;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,15 @@ public class FuncionarioService {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
 
         return objectMapper.convertValue(funcionario, FuncionarioRetornoDto.class);
+    }
+
+    public FuncionarioDeletadoDto deletarUsuario(Long id) {
+        Optional<Funcionario> funcionarioRetornoDto = funcionarioRepository.findById(id);
+        if (Objects.nonNull(funcionarioRetornoDto)){
+            funcionarioRepository.deleteById(funcionarioRetornoDto.get().getId());
+
+            return new FuncionarioDeletadoDto(id, "Funcionario Deletado com Sucesso!");
+        }
+        return new FuncionarioDeletadoDto(id, "Funcionario não deltado!");
     }
 }
