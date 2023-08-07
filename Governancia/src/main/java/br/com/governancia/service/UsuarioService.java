@@ -1,9 +1,6 @@
 package br.com.governancia.service;
 
-import br.com.governancia.dto.UsuarioAlteradoDto;
-import br.com.governancia.dto.UsuarioDto;
-import br.com.governancia.dto.UsuarioIdDto;
-import br.com.governancia.dto.UsuarioListaDto;
+import br.com.governancia.dto.*;
 import br.com.governancia.infra.exception.exception.UsuarioNaoExisteException;
 import br.com.governancia.infra.exception.exception.UsuarioNaoIdExisteException;
 import br.com.governancia.repository.UsuarioRepository;
@@ -118,5 +115,15 @@ public class UsuarioService {
         }
 
         return objectMapper.convertValue(usuario, UsuarioIdDto.class);
+    }
+
+    public UsuarioDeletadoDto deletarUsuario(Long id) {
+        Optional<Usuario> usuario = usuarioRepository.findById(id);
+        if (Objects.nonNull(usuario)){
+            usuarioRepository.deleteById(usuario.get().getId());
+            return new UsuarioDeletadoDto(id, "Usuário deletado com sucesso!");
+        }
+
+        return new UsuarioDeletadoDto(id, "Usuario não deletado.");
     }
 }
