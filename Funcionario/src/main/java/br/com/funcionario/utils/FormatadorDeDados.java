@@ -41,11 +41,19 @@ public class FormatadorDeDados {
         return telefone.trim();
     }
 
-    public Date formatadorData(String dataNascimento) throws ParseException {
+    public Date formatadorDataDate(String dataNascimento) throws ParseException {
         String dataFormatar = "yyyy-MM-dd";
         SimpleDateFormat formatarData = new SimpleDateFormat(dataFormatar);
         Date data = formatarData.parse(dataNascimento);
 
         return data;
+    }
+
+    public String formatadorDataDate(Date dataNascimento) throws ParseException {
+        String dataFormatar = "yyyy-MM-dd";
+        SimpleDateFormat formatarData = new SimpleDateFormat(dataFormatar);
+        String dataFormatada = formatarData.format(dataNascimento);
+
+        return dataFormatada;
     }
 }
