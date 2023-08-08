@@ -3,6 +3,8 @@ package br.com.funcionario.service;
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.dto.FuncionarioRetornoDto;
 import br.com.funcionario.model.enuns.EstadoCivilEnum;
+import br.com.funcionario.utils.FormatadorDeDados;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +25,31 @@ public class FuncionarioTest {
 
     @Autowired
     private FuncionarioService funcionarioService;
+    @Autowired
+    private FormatadorDeDados formatadorDeDados;
 
     @Test
     void criarFuncionarioRest() throws ParseException {
-        FuncionarioRetornoDto funcionarioRetornoDto = new FuncionarioRetornoDto();
-        FuncionarioDto funcionarioDto = this.criarFuncionarioDto();
-        funcionarioRetornoDto = funcionarioService.salvarFuncionario(funcionarioDto);
+            FuncionarioRetornoDto funcionarioRetornoDto = new FuncionarioRetornoDto();
+            FuncionarioDto funcionarioDto = this.criarFuncionarioDto();
+            funcionarioRetornoDto = funcionarioService.salvarFuncionario(funcionarioDto);
 
-        Assertions.assertEquals(funcionarioRetornoDto.getCpf(), CPF_FUNCIONARIO);
+            Assertions.assertEquals(funcionarioRetornoDto.getCpf(), funcionarioDto.getCpf());
     }
 
-    private FuncionarioDto criarFuncionarioDto() {
+    private FuncionarioDto criarFuncionarioDto() throws ParseException {
+
+        Faker faker = new Faker();
         FuncionarioDto funcionario = new FuncionarioDto();
-        funcionario.setNome(NOME_FUNCIONARIO);
-        funcionario.setCpf(CPF_FUNCIONARIO);
-        funcionario.setRg(RG_FUNCIONARIO);
-        funcionario.setEmail(EMAIL_FUNCIONARIO);
-        funcionario.setDdd(DDD_FUNCIONARIO);
-        funcionario.setTelefone(TELEFONE_FUNCIONARIO);
+
+        funcionario.setNome(faker.name().fullName());
+        funcionario.setCpf(formatadorDeDados.formatadorCpf(faker.idNumber().valid()));
+        funcionario.setRg(faker.idNumber().ssnValid());
+        funcionario.setEmail(faker.internet().emailAddress());
+        funcionario.setDdd(String.valueOf(faker.number().numberBetween(11, 99)));
+        funcionario.setTelefone(faker.number().digits(9));
         funcionario.setEstadoCivil(EstadoCivilEnum.SOLTEIRO);
-        funcionario.setDataNascimento(DATA_FUNCIONARIO);
+        funcionario.setDataNascimento(formatadorDeDados.formatadorDataDate(faker.date().birthday(18,65)));
 
         return  funcionario;
     }
