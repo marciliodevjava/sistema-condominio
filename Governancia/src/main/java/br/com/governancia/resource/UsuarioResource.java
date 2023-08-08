@@ -55,21 +55,18 @@ public class UsuarioResource {
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioIdDto> buscarUsuarios(@PathVariable Long id) {
         UsuarioIdDto usuario = usuarioService.buscarUsuarioId(id);
-
         return ResponseEntity.ok(usuario);
     }
 
     @GetMapping("/todos")
     public ResponseEntity<Page<UsuarioListaDto>> listarUsuarios(@PageableDefault(size = 10, page = 0, sort = "nome") Pageable paginacao) {
         Page<UsuarioListaDto> listasPessoas = usuarioService.obterTodos(paginacao);
-
         return ResponseEntity.ok(listasPessoas);
     }
 
     @PutMapping("/alterar")
     public ResponseEntity<?> alterar(@RequestBody @Valid UsuarioDto usuario) {
         UsuarioAlteradoDto usuarioAlteradoDto = usuarioService.alterarUsuario(usuario);
-
         if (Objects.nonNull(usuarioAlteradoDto.getNome())) {
             return ResponseEntity.ok(usuarioAlteradoDto);
         }
@@ -78,7 +75,6 @@ public class UsuarioResource {
         } catch (UsuarioNaoExisteException ex) {
             System.out.println("Solicitação negada!");
         }
-
         return ResponseEntity.notFound().build();
     }
 
