@@ -1,4 +1,4 @@
 package br.com.funcionario.dto;
 
-public record DependentesDto() {
+public class DependentesDto {
 }
