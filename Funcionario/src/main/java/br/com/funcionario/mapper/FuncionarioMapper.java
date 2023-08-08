@@ -24,7 +24,7 @@ public class FuncionarioMapper {
             funcionario.setNome(formatadorDeDados.formatadorNome(dto.getNome()));
             funcionario.setCpf(formatadorDeDados.formatadorCpf(dto.getCpf()));
             funcionario.setRg(formatadorDeDados.formatadorRg(dto.getRg()));
-            funcionario.setDataNascimento(formatadorDeDados.formatadorData(dto.getDataNascimento()));
+            funcionario.setDataNascimento(formatadorDeDados.formatadorDataDate(dto.getDataNascimento()));
             funcionario.setEmail(formatadorDeDados.formatadorEmail(dto.getEmail()));
             funcionario.setDdd(formatadorDeDados.formatadorNome(dto.getDdd()));
             funcionario.setTelefone(formatadorDeDados.formatadorTelefone(dto.getTelefone()));
