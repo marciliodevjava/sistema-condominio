@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.br.CPF;
 public class DependentesDto {
     @NotNull(message = "Campo grauParentescoEnum inválido.")
     private GrauParentescoEnum grauParentescoEnum;
+    private String uuidIdentificador;
     @NotNull(message = "Campo nome inválido.")
     private String nome;
     @NotNull(message = "Campo dataNascimento inválido.")
