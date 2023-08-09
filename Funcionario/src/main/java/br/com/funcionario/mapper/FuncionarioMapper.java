@@ -17,6 +17,11 @@ public class FuncionarioMapper {
     private FormatadorDeDados formatadorDeDados;
     @Autowired
     private GeradorUuid geradorUuid;
+    @Autowired
+    private DependenteMapper dependenteMapper;
+    @Autowired
+    private EnderecoMapper enderecoMapper;
+
     public Funcionario mapear(FuncionarioDto dto) throws ParseException {
         Funcionario funcionario = new Funcionario();
         if (Objects.nonNull(dto.getNome())){
@@ -30,6 +35,27 @@ public class FuncionarioMapper {
             funcionario.setTelefone(formatadorDeDados.formatadorTelefone(dto.getTelefone()));
             funcionario.setSituacao(EstadoEnum.ATIVO);
             funcionario.setEstadoCivil(dto.getEstadoCivil());
+
+            return funcionario;
+        }
+        return null;
+    }
+
+    public Funcionario mapearCompleto(FuncionarioDto dto) throws ParseException {
+        Funcionario funcionario = new Funcionario();
+        if(Objects.nonNull(dto.getNome())){
+            funcionario.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
+            funcionario.setNome(formatadorDeDados.formatadorNome(dto.getNome()));
+            funcionario.setDataNascimento(formatadorDeDados.formatadorDataDate(dto.getDataNascimento()));
+            funcionario.setCpf(formatadorDeDados.formatadorCpf(dto.getCpf()));
+            funcionario.setRg(formatadorDeDados.formatadorRg(dto.getRg()));
+            funcionario.setEmail(formatadorDeDados.formatadorEmail(dto.getEmail()));
+            funcionario.setDdd(dto.getDdd());
+            funcionario.setTelefone(formatadorDeDados.formatadorTelefone(dto.getTelefone()));
+            funcionario.setSituacao(EstadoEnum.ATIVO);
+            funcionario.setEstadoCivil(dto.getEstadoCivil());
+            funcionario.setDependentes(dependenteMapper.montarDependentes(dto.getDependentes()));
+            funcionario.setEndereco(enderecoMapper.montarEndereco(dto.getEndereco()));
 
             return funcionario;
         }
