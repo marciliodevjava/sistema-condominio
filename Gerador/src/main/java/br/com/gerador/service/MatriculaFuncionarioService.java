@@ -26,7 +26,7 @@ public class MatriculaFuncionarioService {
 
     public MatriculaFuncionarioDto criarMatriculaFuncionarioService(Long id) {
         logger.logInfo("Iniciando método de criação de matricula do funcionario.");
-        MatriculaFuncionario funcionario = new MatriculaFuncionario();
+        MatriculaFuncionario funcionario;
 
         funcionario = matriculaFuncionarioMapper.gerarFuncionario(id);
         funcionario = matriculaFuncionarioRepository.save(funcionario);
