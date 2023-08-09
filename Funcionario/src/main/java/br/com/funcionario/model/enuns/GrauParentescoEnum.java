@@ -12,7 +12,9 @@ public enum GrauParentescoEnum {
     BISNETO(9),
     BISNETA(10),
     ENTIADO(11),
-    ENTIADA(12);
+    ENTIADA(12),
+    MARIDO(13),
+    ESPOSA(14);
 
     private final int valor;
 
