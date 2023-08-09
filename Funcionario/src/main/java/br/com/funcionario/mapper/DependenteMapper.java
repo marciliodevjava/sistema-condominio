@@ -1,5 +1,6 @@
 package br.com.funcionario.mapper;
 
+import br.com.funcionario.dto.AtualizarDependentesDto;
 import br.com.funcionario.dto.DependentesDto;
 import br.com.funcionario.model.Dependentes;
 import br.com.funcionario.utils.FormatadorDeDados;
@@ -47,5 +48,8 @@ public class DependenteMapper {
         }
 
         return null;
+    }
+
+    public List<Dependentes> mapearDependenteAtualizar(List<Dependentes> dependentesList, List<AtualizarDependentesDto> dependentes) {
     }
 }
