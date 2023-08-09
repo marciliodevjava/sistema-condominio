@@ -7,7 +7,6 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_dependentes")
@@ -23,7 +22,7 @@ public class Dependentes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "uuid_identificador", length = 36)
-    private UUID uuidIdentificador;
+    private String uuidIdentificador;
     @Enumerated(EnumType.STRING)
     @Column(name = "grau_parentesco", length = 13)
     private GrauParentescoEnum grauParentesco;
