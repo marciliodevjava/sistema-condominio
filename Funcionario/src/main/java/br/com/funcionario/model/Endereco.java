@@ -12,7 +12,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 public class Endereco implements Serializable {
     @Serial
     private static final long serialVersionUID = 2L;
@@ -38,4 +37,14 @@ public class Endereco implements Serializable {
     @OneToOne
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }
