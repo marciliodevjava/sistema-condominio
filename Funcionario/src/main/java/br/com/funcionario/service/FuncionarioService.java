@@ -6,6 +6,8 @@ import br.com.funcionario.dto.FuncionarioRetornoDto;
 import br.com.funcionario.dto.NumeroDto;
 import br.com.funcionario.http.GeradorClients;
 import br.com.funcionario.mapper.FuncionarioMapper;
+import br.com.funcionario.model.Dependentes;
+import br.com.funcionario.model.Endereco;
 import br.com.funcionario.model.Funcionario;
 import br.com.funcionario.repository.FuncionarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,8 +46,15 @@ public class FuncionarioService {
     }
 
     public FuncionarioRetornoDto salvarFuncionarioCompleto(FuncionarioDto dto) throws ParseException {
-        Funcionario funcionario = funcionarioMapper.mapear(dto);
-        return null;
+        Funcionario funcionario = funcionarioMapper.mapearCompleto(dto);
+        List<Dependentes> dependentesList = funcionario.getDependentes();
+        Endereco endereco = funcionario.getEndereco();
+
+        /**
+         * CONTINUAÇÃO DO MÉTODO
+         */
+
+        return objectMapper.convertValue(funcionario, FuncionarioRetornoDto.class);
     }
 
     private Integer gerarNumeroFuncionario(Long id) {
