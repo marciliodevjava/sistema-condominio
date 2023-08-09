@@ -31,8 +31,8 @@ public class FuncionarioRetornoDto {
     private String telefone;
     private EstadoEnum situacao;
     private EstadoCivilEnum estadoCivil;
-    private List<Dependentes> dependentes = new ArrayList<Dependentes>();
-    private Endereco endereco;
+    private List<DependentesDto> dependentes = new ArrayList<DependentesDto>();
+    private EnderecoDto endereco;
 
 }
 
