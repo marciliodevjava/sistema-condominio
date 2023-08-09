@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_enderecos")
@@ -21,7 +20,7 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "uuid_identificador", length = 36)
-    private UUID uuidIdentificador;
+    private String uuidIdentificador;
     @Column(name = "cep", length = 8)
     private String cep;
     @Column(name = "logradouro", length = 255)
