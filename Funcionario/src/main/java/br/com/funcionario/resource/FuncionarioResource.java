@@ -1,5 +1,6 @@
 package br.com.funcionario.resource;
 
+import br.com.funcionario.dto.AtualizarFuncionarioDto;
 import br.com.funcionario.dto.FuncionarioDeletadoDto;
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.dto.FuncionarioRetornoDto;
@@ -51,7 +52,8 @@ public class FuncionarioResource {
     }
 
     @PutMapping("/atuaizar-funcionario/{id}")
-    public ResponseEntity<FuncionarioRetornoDto> atualizarFuncionario(@PathVariable @NonNull Long id, @RequestBody FuncionarioDto dto) {
+    public ResponseEntity<FuncionarioRetornoDto> atualizarFuncionario(@PathVariable @NonNull Long id, @RequestBody AtualizarFuncionarioDto dto) throws ParseException {
+        FuncionarioRetornoDto funcionario = funcionarioService.atualizarFuncionario(id, dto);
         return null;
     }
 
