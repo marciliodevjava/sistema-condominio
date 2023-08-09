@@ -1,5 +1,6 @@
 package br.com.funcionario.mapper;
 
+import br.com.funcionario.dto.AtualizarFuncionarioDto;
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.model.Funcionario;
 import br.com.funcionario.model.enuns.EstadoEnum;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class FuncionarioMapper {
@@ -24,7 +26,7 @@ public class FuncionarioMapper {
 
     public Funcionario mapear(FuncionarioDto dto) throws ParseException {
         Funcionario funcionario = new Funcionario();
-        if (Objects.nonNull(dto.getNome())){
+        if (Objects.nonNull(dto.getNome())) {
             funcionario.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
             funcionario.setNome(formatadorDeDados.formatadorNome(dto.getNome()));
             funcionario.setCpf(formatadorDeDados.formatadorCpf(dto.getCpf()));
@@ -43,7 +45,7 @@ public class FuncionarioMapper {
 
     public Funcionario mapearCompleto(FuncionarioDto dto) throws ParseException {
         Funcionario funcionario = new Funcionario();
-        if(Objects.nonNull(dto.getNome())){
+        if (Objects.nonNull(dto.getNome())) {
             funcionario.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
             funcionario.setNome(formatadorDeDados.formatadorNome(dto.getNome()));
             funcionario.setDataNascimento(formatadorDeDados.formatadorDataDate(dto.getDataNascimento()));
@@ -60,5 +62,20 @@ public class FuncionarioMapper {
             return funcionario;
         }
         return null;
+    }
+
+    public Optional<Funcionario> mapearFuncionarioAtualizar(Optional<Funcionario> funcionario, AtualizarFuncionarioDto dto) throws ParseException {
+        Funcionario retorno = funcionario.get();
+
+        retorno.setNome(dto.getNome() != null ? formatadorDeDados.formatadorNome(dto.getNome()) : funcionario.get().getNome());
+        retorno.setCpf(dto.getCpf() != null ? formatadorDeDados.formatadorCpf(dto.getCpf()) : funcionario.get().getCpf());
+        retorno.setRg(dto.getRg() != null ? formatadorDeDados.formatadorRg(dto.getRg()) : funcionario.get().getRg());
+        retorno.setDataNascimento(dto.getDataNascimento() != null ? formatadorDeDados.formatadorDataDate(dto.getDataNascimento()) : funcionario.get().getDataNascimento());
+        retorno.setEmail(dto.getEmail() != null ? formatadorDeDados.formatadorEmail(dto.getEmail()) : funcionario.get().getEmail());
+        retorno.setDdd(dto.getDdd() != null ? dto.getDdd() : funcionario.get().getDdd());
+        retorno.setTelefone(dto.getTelefone() != null ? formatadorDeDados.formatadorTelefone(dto.getTelefone()) : funcionario.get().getTelefone());
+        retorno.setEstadoCivil(dto.getEstadoCivil() != null ? dto.getEstadoCivil() : funcionario.get().getEstadoCivil());
+
+        return Optional.of(retorno);
     }
 }
