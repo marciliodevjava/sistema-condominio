@@ -13,24 +13,24 @@ import java.util.List;
 @Setter
 public class FuncionarioDto{
         @NotNull(message = "Campo nome inválido.")
-        String nome;
+        private String nome;
         @NotNull(message = "Campo cpf inválido.")
         @CPF
-        String cpf;
+        private String cpf;
         @NotNull(message = "Campo rg inválido.")
-        String rg;
+        private String rg;
         @NotNull(message = "Campo dataNascimento inválido.")
-        String dataNascimento;
+        private String dataNascimento;
         @NotNull(message = "Campo e-mail inválido.")
         @Email
-        String email;
+        private String email;
         @NotNull(message = "Campo ddd inválido.")
-        String ddd;
+        private String ddd;
         @NotNull(message = "Campo telefone inválido.")
-        String telefone;
+        private String telefone;
         @NotNull(message = "Campo estadoCivil inválio.")
-        EstadoCivilEnum estadoCivil;
-        List<DependentesDto> dependentes;
-        EnderecoDto endereco;
+        private EstadoCivilEnum estadoCivil;
+        private List<DependentesDto> dependentes;
+        private EnderecoDto endereco;
 
 }
