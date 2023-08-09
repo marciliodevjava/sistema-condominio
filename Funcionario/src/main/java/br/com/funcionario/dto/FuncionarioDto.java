@@ -1,9 +1,7 @@
 package br.com.funcionario.dto;
 
 import br.com.funcionario.model.enuns.EstadoCivilEnum;
-import br.com.funcionario.model.enuns.EstadoEnum;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
