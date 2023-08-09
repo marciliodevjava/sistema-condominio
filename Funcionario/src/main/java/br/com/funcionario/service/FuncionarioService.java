@@ -202,5 +202,7 @@ public class FuncionarioService {
         funcionario = funcionarioMapper.mapearFuncionarioAtualizar(funcionario, dto);
         List<Dependentes> dependentesList = dependentesRepository.findByFuncionario(funcionario.get().getId());
         dependentesList = dependenteMapper.mapearDependenteAtualizar(dependentesList, dto.getDependentes());
+
+        return null;
     }
 }
