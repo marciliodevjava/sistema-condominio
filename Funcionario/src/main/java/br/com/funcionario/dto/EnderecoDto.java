@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EnderecoDto {
+    private String uuidIdentificador;
     @NotNull(message = "Campo cep inválido.")
     private String cep;
     @NotNull(message = "Campo logradouro inválido.")
