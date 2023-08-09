@@ -1,15 +1,17 @@
 package br.com.funcionario.service;
 
-import br.com.funcionario.dto.FuncionarioDeletadoDto;
-import br.com.funcionario.dto.FuncionarioDto;
-import br.com.funcionario.dto.FuncionarioRetornoDto;
-import br.com.funcionario.dto.NumeroDto;
+import br.com.funcionario.dto.*;
 import br.com.funcionario.http.GeradorClients;
+import br.com.funcionario.mapper.DependenteMapper;
+import br.com.funcionario.mapper.EnderecoMapper;
 import br.com.funcionario.mapper.FuncionarioMapper;
 import br.com.funcionario.model.Dependentes;
 import br.com.funcionario.model.Endereco;
 import br.com.funcionario.model.Funcionario;
+import br.com.funcionario.repository.DependentesRepository;
+import br.com.funcionario.repository.EnderecoRepository;
 import br.com.funcionario.repository.FuncionarioRepository;
+import br.com.funcionario.utils.FormatadorDeDados;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,14 +31,22 @@ public class FuncionarioService {
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
-
+    @Autowired
+    private DependentesRepository dependentesRepository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
     @Autowired
     private FuncionarioMapper funcionarioMapper;
-
+    @Autowired
+    private DependenteMapper dependenteMapper;
+    @Autowired
+    private EnderecoMapper enderecoMapper;
     @Autowired
     private GeradorClients geradorClients;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private FormatadorDeDados formatadorDeDados;
 
     public FuncionarioRetornoDto salvarFuncionario(FuncionarioDto dto) throws ParseException {
         Funcionario funcionario = funcionarioMapper.mapear(dto);
@@ -50,11 +61,22 @@ public class FuncionarioService {
         List<Dependentes> dependentesList = funcionario.getDependentes();
         Endereco endereco = funcionario.getEndereco();
 
-        /**
-         * CONTINUAÇÃO DO MÉTODO
-         */
+        funcionario = this.salvarFuncionarioRepositoru(funcionario);
+        dependentesList = this.salvarDependenteRepository(funcionario, dependentesList);
+        endereco = this.salvarEnderecoFuncionarioRepository(funcionario, endereco);
 
-        return objectMapper.convertValue(funcionario, FuncionarioRetornoDto.class);
+        FuncionarioRetornoDto dtoFuncionario = this.mapFuncionarioRetornoDto(funcionario);
+
+        return dtoFuncionario;
+    }
+
+    private Endereco salvarEnderecoFuncionarioRepository(Funcionario funcionario, Endereco endereco) {
+        if(Objects.nonNull(endereco)){
+            endereco.setFuncionario(funcionario);
+            endereco = enderecoRepository.save(endereco);
+            return endereco;
+        }
+        return null;
     }
 
     private Integer gerarNumeroFuncionario(Long id) {
@@ -72,7 +94,7 @@ public class FuncionarioService {
 
     public FuncionarioDeletadoDto deletarUsuario(Long id) {
         Optional<Funcionario> funcionarioRetornoDto = funcionarioRepository.findById(id);
-        if (Objects.nonNull(funcionarioRetornoDto)){
+        if (Objects.nonNull(funcionarioRetornoDto)) {
             funcionarioRepository.deleteById(funcionarioRetornoDto.get().getId());
 
             return new FuncionarioDeletadoDto(id, "Funcionario Deletado com Sucesso!");
@@ -104,7 +126,81 @@ public class FuncionarioService {
         dto.setTelefone(funcionario.getTelefone());
         dto.setSituacao(funcionario.getSituacao());
         dto.setEstadoCivil(funcionario.getEstadoCivil());
+        dto.setDependentes(this.mapDependenteDto(funcionario.getDependentes()));
+        dto.setEndereco(this.mapEnderecoDto(funcionario.getEndereco()));
 
         return dto;
+    }
+
+    private EnderecoDto mapEnderecoDto(Endereco endereco) {
+        EnderecoDto dto = new EnderecoDto();
+        if (Objects.nonNull(endereco)){
+            dto.setCep(endereco.getCep());
+            dto.setUuidIdentificador(endereco.getUuidIdentificador());
+            dto.setLogradouro(endereco.getLogradouro());
+            dto.setNumero(endereco.getNumero());
+            dto.setBairro(endereco.getBairro());
+            dto.setCidade(endereco.getCidade());
+            dto.setUf(endereco.getUf());
+            dto.setPais(endereco.getPais());
+
+            return dto;
+        }
+        return null;
+    }
+
+    private List<Dependentes> salvarDependenteRepository(Funcionario funcionario, List<Dependentes> dependentesList) {
+        if(Objects.nonNull(dependentesList)){
+            dependentesList.forEach( list -> {
+                list.setFuncionario(funcionario);
+            });
+            dependentesList = dependentesRepository.saveAll(dependentesList);
+            return dependentesList;
+        }
+        return null;
+    }
+
+    private Funcionario salvarFuncionarioRepositoru(Funcionario funcionario) {
+        if(Objects.nonNull(funcionario)){
+            funcionario = funcionarioRepository.save(funcionario);
+            if (funcionario != null){
+                funcionario.setNumeroFuncionario(gerarNumeroFuncionario(funcionario.getId()));
+                funcionarioRepository.save(funcionario);
+            }
+            return funcionario;
+        }
+        return null;
+    }
+
+    private List<DependentesDto> mapDependenteDto(List<Dependentes> dependentes) {
+        List<DependentesDto> dto = new ArrayList<>();
+        if (Objects.nonNull(dependentes)){
+            DependentesDto dependenteList = new DependentesDto();
+            dependentes.forEach( dep -> {
+                dependenteList.setUuidIdentificador(dep.getUuidIdentificador());
+                dependenteList.setNome(dep.getNome());
+                dependenteList.setCpf(dep.getCpf());
+                dependenteList.setRg(dep.getRg());
+                dependenteList.setDdd(dep.getDdd());
+                dependenteList.setTelefone(dep.getTelefone());
+                try {
+                    dependenteList.setDataNascimento(formatadorDeDados.formatadorDataDate(dep.getDataNascimento()));
+                } catch (ParseException e) {
+                    throw new RuntimeException("Não ha data de nascimento");
+                }
+                dependenteList.setGrauParentescoEnum(dep.getGrauParentesco());
+
+                dto.add(dependenteList);
+            });
+            return dto;
+        }
+        return null;
+    }
+
+    public FuncionarioRetornoDto atualizarFuncionario(Long id, AtualizarFuncionarioDto dto) throws ParseException {
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
+        funcionario = funcionarioMapper.mapearFuncionarioAtualizar(funcionario, dto);
+        List<Dependentes> dependentesList = dependentesRepository.findByFuncionario(funcionario.get().getId());
+        dependentesList = dependenteMapper.mapearDependenteAtualizar(dependentesList, dto.getDependentes());
     }
 }
