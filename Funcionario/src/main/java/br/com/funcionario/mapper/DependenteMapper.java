@@ -23,11 +23,11 @@ public class DependenteMapper {
     public List<Dependentes> montarDependentes(List<DependentesDto> dependentesDto) {
         List<Dependentes> dependeteList = new ArrayList<>();
 
-        if (Objects.nonNull(dependentesDto)){
+        if (Objects.nonNull(dependentesDto)) {
 
             Dependentes dependentesRetorno = new Dependentes();
 
-            dependentesDto.forEach( dto -> {
+            dependentesDto.forEach(dto -> {
                 dependentesRetorno.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
                 dependentesRetorno.setGrauParentesco(dto.getGrauParentescoEnum());
                 dependentesRetorno.setNome(formatadorDeDados.formatadorNome(dto.getNome()));
@@ -51,5 +51,15 @@ public class DependenteMapper {
     }
 
     public List<Dependentes> mapearDependenteAtualizar(List<Dependentes> dependentesList, List<AtualizarDependentesDto> dependentes) {
+        List<Dependentes> list = new ArrayList<>(dependentesList);
+        list.forEach(a -> {
+            list.forEach(b -> {
+                if(b.getCpf() == a.getCpf()){
+                    a.setNome(b.getNome());
+                }
+            });
+        });
+
+        return null;
     }
 }
