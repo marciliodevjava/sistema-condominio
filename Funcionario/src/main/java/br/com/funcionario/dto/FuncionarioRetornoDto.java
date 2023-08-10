@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -32,7 +33,7 @@ public class FuncionarioRetornoDto {
     private EstadoEnum situacao;
     private EstadoCivilEnum estadoCivil;
     private List<DependentesDto> dependentes = new ArrayList<DependentesDto>();
-    private EnderecoDto endereco;
+    private Object endereco;
 
 }
 
