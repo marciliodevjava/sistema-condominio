@@ -20,10 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -210,15 +207,26 @@ public class FuncionarioService {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
         funcionario = funcionarioMapper.mapearFuncionarioAtualizar(funcionario, dto);
         List<Dependentes> dependentesList = dependentesRepository.findByFuncionario(funcionario.get());
-        dependentesList = dependenteMapper.mapearDependenteAtualizar(dependentesList, dto.getDependentes());
+        if(Objects.nonNull(dependentesList)){
+            dependentesList = dependenteMapper.mapearDependenteAtualizar(dependentesList, dto.getDependentes());
+        }
         Optional<Endereco> endereco = enderecoRepository.findByFuncionario(funcionario.get());
-        endereco = enderecoMapper.mapearDependenteAtualizar(endereco, dto.getEndereco());
+        if (Objects.nonNull(endereco)){
+            endereco = enderecoMapper.mapearDependenteAtualizar(endereco, dto.getEndereco());
+        }
 
         funcionario = this.salvarFuncionarioUpdateRepositoru(funcionario);
         dependentesList = this.salvarDependenteUpdateRepository(dependentesList);
         endereco = this.salvarEnderecoFuncionarioUpdateRepository(endereco);
 
-        return null;
+        FuncionarioRetornoDto funcionarioRetornoDto = objectMapper.convertValue(funcionario, FuncionarioRetornoDto.class);
+        List<DependentesDto> dependentesDtos = Collections.singletonList(objectMapper.convertValue(dependentesList, DependentesDto.class));
+        EnderecoDto enderecoDto = objectMapper.convertValue(endereco, EnderecoDto.class);
+
+        funcionarioRetornoDto.setDependentes(dependentesDtos);
+        funcionarioRetornoDto.setEndereco(enderecoDto);
+
+        return funcionarioRetornoDto;
     }
 
     private Optional<Funcionario> salvarFuncionarioUpdateRepositoru(Optional<Funcionario> funcionario) {
