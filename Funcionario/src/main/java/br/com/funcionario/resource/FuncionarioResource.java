@@ -57,7 +57,7 @@ public class FuncionarioResource {
         return ResponseEntity.ok(funcionario);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<FuncionarioDeletadoDto> deletarFuncionario(@PathVariable Long id) {
         FuncionarioDeletadoDto funcionarioRetornoDto = funcionarioService.deletarUsuario(id);
 
