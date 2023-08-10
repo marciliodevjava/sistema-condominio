@@ -70,6 +70,18 @@ public class FuncionarioService {
         return dtoFuncionario;
     }
 
+    private List<Dependentes> salvarDependenteRepository(Funcionario funcionario, List<Dependentes> dependentesList) {
+        if (Objects.nonNull(dependentesList)) {
+            dependentesList.forEach(dep -> {
+                dep.setFuncionario(funcionario);
+            });
+
+            dependentesList = dependentesRepository.saveAll(dependentesList);
+            return dependentesList;
+        }
+        return null;
+    }
+
     private Endereco salvarEnderecoFuncionarioRepository(Funcionario funcionario, Endereco endereco) {
         if(Objects.nonNull(endereco)){
             endereco.setFuncionario(funcionario);
@@ -149,11 +161,8 @@ public class FuncionarioService {
         return null;
     }
 
-    private List<Dependentes> salvarDependenteRepository(Funcionario funcionario, List<Dependentes> dependentesList) {
+    private List<Dependentes> salvarDependenteUpdateRepository(List<Dependentes> dependentesList) {
         if(Objects.nonNull(dependentesList)){
-            dependentesList.forEach( list -> {
-                list.setFuncionario(funcionario);
-            });
             dependentesList = dependentesRepository.saveAll(dependentesList);
             return dependentesList;
         }
@@ -205,6 +214,30 @@ public class FuncionarioService {
         Optional<Endereco> endereco = enderecoRepository.findByFuncionario(funcionario.get());
         endereco = enderecoMapper.mapearDependenteAtualizar(endereco, dto.getEndereco());
 
+        funcionario = this.salvarFuncionarioUpdateRepositoru(funcionario);
+        dependentesList = this.salvarDependenteUpdateRepository(dependentesList);
+        endereco = this.salvarEnderecoFuncionarioUpdateRepository(endereco);
+
         return null;
     }
+
+    private Optional<Funcionario> salvarFuncionarioUpdateRepositoru(Optional<Funcionario> funcionario) {
+            if(Objects.nonNull(funcionario)){
+                Funcionario fun = funcionario.get();
+                funcionario = Optional.of(funcionarioRepository.save(fun));
+                if (funcionario != null){
+                    funcionarioRepository.save(fun);
+                }
+                return funcionario;
+            }
+            return null;
+        }
+    private Optional<Endereco> salvarEnderecoFuncionarioUpdateRepository(Optional<Endereco> endereco) {
+            if(Objects.nonNull(endereco)){
+                Endereco end = endereco.get();
+                endereco = Optional.of(enderecoRepository.save(end));
+                return endereco;
+            }
+            return null;
+        }
 }
