@@ -83,7 +83,7 @@ public class FuncionarioService {
     }
 
     private Endereco salvarEnderecoFuncionarioRepository(Funcionario funcionario, Endereco endereco) {
-        if(Objects.nonNull(endereco)){
+        if (Objects.nonNull(endereco)) {
             endereco.setFuncionario(funcionario);
             endereco = enderecoRepository.save(endereco);
             return endereco;
@@ -146,7 +146,7 @@ public class FuncionarioService {
 
     private EnderecoDto mapEnderecoDto(Endereco endereco) {
         EnderecoDto dto = new EnderecoDto();
-        if (Objects.nonNull(endereco)){
+        if (Objects.nonNull(endereco)) {
             dto.setCep(endereco.getCep());
             dto.setUuidIdentificador(endereco.getUuidIdentificador());
             dto.setLogradouro(endereco.getLogradouro());
@@ -162,7 +162,7 @@ public class FuncionarioService {
     }
 
     private List<Dependentes> salvarDependenteUpdateRepository(List<Dependentes> dependentesList) {
-        if(Objects.nonNull(dependentesList)){
+        if (Objects.nonNull(dependentesList)) {
             dependentesList = dependentesRepository.saveAll(dependentesList);
             return dependentesList;
         }
@@ -170,9 +170,9 @@ public class FuncionarioService {
     }
 
     private Funcionario salvarFuncionarioRepositoru(Funcionario funcionario) {
-        if(Objects.nonNull(funcionario)){
+        if (Objects.nonNull(funcionario)) {
             funcionario = funcionarioRepository.save(funcionario);
-            if (funcionario != null){
+            if (funcionario != null) {
                 funcionario.setNumeroFuncionario(gerarNumeroFuncionario(funcionario.getId()));
                 funcionarioRepository.save(funcionario);
             }
@@ -183,9 +183,9 @@ public class FuncionarioService {
 
     private List<DependentesDto> mapDependenteDto(List<Dependentes> dependentes) {
         List<DependentesDto> dto = new ArrayList<>();
-        if (Objects.nonNull(dependentes)){
+        if (Objects.nonNull(dependentes)) {
             DependentesDto dependenteList = new DependentesDto();
-            dependentes.forEach( dep -> {
+            dependentes.forEach(dep -> {
                 dependenteList.setUuidIdentificador(dep.getUuidIdentificador());
                 dependenteList.setNome(dep.getNome());
                 dependenteList.setCpf(dep.getCpf());
@@ -222,22 +222,23 @@ public class FuncionarioService {
     }
 
     private Optional<Funcionario> salvarFuncionarioUpdateRepositoru(Optional<Funcionario> funcionario) {
-            if(Objects.nonNull(funcionario)){
-                Funcionario fun = funcionario.get();
-                funcionario = Optional.of(funcionarioRepository.save(fun));
-                if (funcionario != null){
-                    funcionarioRepository.save(fun);
-                }
-                return funcionario;
+        if (Objects.nonNull(funcionario)) {
+            Funcionario fun = funcionario.get();
+            funcionario = Optional.of(funcionarioRepository.save(fun));
+            if (funcionario != null) {
+                funcionarioRepository.save(fun);
             }
-            return null;
+            return funcionario;
         }
+        return null;
+    }
+
     private Optional<Endereco> salvarEnderecoFuncionarioUpdateRepository(Optional<Endereco> endereco) {
-            if(Objects.nonNull(endereco)){
-                Endereco end = endereco.get();
-                endereco = Optional.of(enderecoRepository.save(end));
-                return endereco;
-            }
-            return null;
+        if (Objects.nonNull(endereco)) {
+            Endereco end = endereco.get();
+            endereco = Optional.of(enderecoRepository.save(end));
+            return endereco;
         }
+        return null;
+    }
 }
