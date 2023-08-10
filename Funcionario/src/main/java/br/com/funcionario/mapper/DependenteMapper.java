@@ -3,15 +3,14 @@ package br.com.funcionario.mapper;
 import br.com.funcionario.dto.AtualizarDependentesDto;
 import br.com.funcionario.dto.DependentesDto;
 import br.com.funcionario.model.Dependentes;
+import br.com.funcionario.repository.DependentesRepository;
 import br.com.funcionario.utils.FormatadorDeDados;
 import br.com.funcionario.utils.GeradorUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Component
@@ -21,6 +20,8 @@ public class DependenteMapper {
     private FormatadorDeDados formatadorDeDados;
     @Autowired
     private GeradorUuid geradorUuid;
+    @Autowired
+    private DependentesRepository dependentesRepository;
 
     public List<Dependentes> montarDependentes(List<DependentesDto> dependentesDto) {
         List<Dependentes> dependeteList = new ArrayList<>();
@@ -50,13 +51,11 @@ public class DependenteMapper {
 
     public List<Dependentes> mapearDependenteAtualizar(List<Dependentes> dependentesList, List<AtualizarDependentesDto> dependentes) {
         List<Dependentes> list = new ArrayList<>(dependentesList);
-        List<Dependentes> add = new ArrayList<>();
-        AtomicReference<Boolean> dados = new AtomicReference<>(false);
 
         if (Objects.nonNull(dependentes)) {
             list.forEach(a -> {
                 dependentes.forEach(b -> {
-                    if (formatadorDeDados.formatadorCpf(b.getCpf()).equals(a.getCpf())) {
+                    if (a.getUuidIdentificador().equals(b.getUuidIdentificador())) {
                         a.setNome(formatadorDeDados.formatadorNome(b.getNome()));
                         try {
                             a.setDataNascimento(formatadorDeDados.formatadorDataString(String.valueOf(b.getDataNascimento())));
@@ -66,30 +65,9 @@ public class DependenteMapper {
                         a.setCpf(formatadorDeDados.formatadorCpf(b.getCpf()));
                         a.setRg(formatadorDeDados.formatadorRg(b.getRg()));
                         a.setGrauParentesco(b.getGrauParentescoEnum());
-                    } else {
-                        Dependentes dep = new Dependentes();
-                        dep.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
-                        dep.setNome(formatadorDeDados.formatadorNome(b.getNome()));
-                        try {
-                            dep.setDataNascimento(formatadorDeDados.formatadorDataString(b.getDataNascimento()));
-                        } catch (ParseException e) {
-                            throw new RuntimeException(DATA_INVALIDA);
-                        }
-                        dep.setGrauParentesco(b.getGrauParentescoEnum());
-                        dep.setCpf(formatadorDeDados.formatadorCpf(b.getCpf()));
-                        dep.setRg(formatadorDeDados.formatadorRg(b.getRg()));
-                        dep.setDdd(b.getDdd());
-                        dep.setTelefone(formatadorDeDados.formatadorTelefone(b.getTelefone()));
-                        dep.setFuncionario(a.getFuncionario());
-
-                        dados.set(true);
-                        add.add(dep);
                     }
                 });
             });
-            if(dados.get()){
-                list.addAll(add);
-            }
             return list;
         }
         return null;
