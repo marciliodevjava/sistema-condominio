@@ -7,6 +7,7 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_dependentes")
@@ -14,7 +15,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 public class Dependentes implements Serializable {
     @Serial
     private static final long serialVersionUID = 3L;
@@ -41,4 +41,17 @@ public class Dependentes implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dependentes that = (Dependentes) o;
+        return Objects.equals(cpf, that.cpf);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cpf);
+    }
 }
