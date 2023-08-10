@@ -32,7 +32,7 @@ public class FuncionarioResource {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Page<FuncionarioRetornoDto>> listaFuncionario(@PageableDefault(size = 10, page = 0, sort = "id")Pageable paginacao) {
+    public ResponseEntity<Page<FuncionarioRetornoDto>> listaFuncionario(@PageableDefault(size = 10, page = 0, sort = "id") Pageable paginacao) {
         Page<FuncionarioRetornoDto> retornoDtos = funcionarioService.obterTodos(paginacao);
         return ResponseEntity.ok(retornoDtos);
     }
@@ -54,7 +54,7 @@ public class FuncionarioResource {
     @PutMapping("/atuaizar-funcionario/{id}")
     public ResponseEntity<FuncionarioRetornoDto> atualizarFuncionario(@PathVariable @NonNull Long id, @RequestBody AtualizarFuncionarioDto dto) throws ParseException {
         FuncionarioRetornoDto funcionario = funcionarioService.atualizarFuncionario(id, dto);
-        return null;
+        return ResponseEntity.ok(funcionario);
     }
 
     @DeleteMapping
