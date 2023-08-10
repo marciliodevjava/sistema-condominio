@@ -1,5 +1,6 @@
 package br.com.funcionario.mapper;
 
+import br.com.funcionario.dto.AtualizarEnderecoDto;
 import br.com.funcionario.dto.EnderecoDto;
 import br.com.funcionario.model.Endereco;
 import br.com.funcionario.utils.FormatadorDeDados;
@@ -38,7 +39,7 @@ public class EnderecoMapper {
         return null;
     }
 
-    public Optional<Endereco> mapearDependenteAtualizar(Optional<Endereco> endereco, EnderecoDto dto) {
+    public Optional<Endereco> mapearDependenteAtualizar(Optional<Endereco> endereco, AtualizarEnderecoDto dto) {
         Endereco end = endereco.get();
 
         if (Objects.nonNull(dto)) {
