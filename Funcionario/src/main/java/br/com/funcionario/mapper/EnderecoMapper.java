@@ -40,6 +40,7 @@ public class EnderecoMapper {
 
     public Optional<Endereco> mapearDependenteAtualizar(Optional<Endereco> endereco, EnderecoDto dto) {
         Endereco end = endereco.get();
+
         if (Objects.nonNull(dto)) {
             end.setCep(dto.getCep() != null ? dto.getCep() : end.getCep());
             end.setLogradouro(dto.getLogradouro() != null ? dto.getLogradouro() : end.getLogradouro());
@@ -47,7 +48,6 @@ public class EnderecoMapper {
             end.setBairro(dto.getBairro() != null ? dto.getBairro() : end.getBairro());
             end.setUf(dto.getUf() != null ? dto.getUf() : end.getUf());
             end.setPais(dto.getPais() != null ? dto.getPais() : end.getPais());
-
             return endereco;
         }
         return null;
