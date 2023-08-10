@@ -1,7 +1,7 @@
 CREATE TABLE tb_enderecos
 (
     id                 bigint(20)   not null AUTO_INCREMENT,
-    uuid_identificador varchar(100)  not null,
+    uuid_identificador varchar(36)  not null,
     cep                varchar(8)   not null,
     logradouro         varchar(255) not null,
     numero             varchar(10)  not null,
