@@ -24,9 +24,7 @@ public class DependenteMapper {
         List<Dependentes> dependeteList = new ArrayList<>();
 
         if (Objects.nonNull(dependentesDto)) {
-
             Dependentes dependentesRetorno = new Dependentes();
-
             dependentesDto.forEach(dto -> {
                 dependentesRetorno.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
                 dependentesRetorno.setGrauParentesco(dto.getGrauParentescoEnum());
@@ -43,10 +41,8 @@ public class DependenteMapper {
 
                 dependeteList.add(dependentesRetorno);
             });
-
             return dependeteList;
         }
-
         return null;
     }
 
