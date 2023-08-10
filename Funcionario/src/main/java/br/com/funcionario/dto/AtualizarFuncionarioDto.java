@@ -22,7 +22,7 @@ public class AtualizarFuncionarioDto {
     private String telefone;
     private EstadoCivilEnum estadoCivil;
     private List<AtualizarDependentesDto> dependentes;
-    private EnderecoDto endereco;
+    private AtualizarEnderecoDto endereco;
 
 }
 
