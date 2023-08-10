@@ -2,6 +2,7 @@ package br.com.funcionario.service;
 
 import br.com.funcionario.dto.*;
 import br.com.funcionario.http.GeradorClients;
+import br.com.funcionario.infra.exception.exception.ErroDeletarFuncionarioException;
 import br.com.funcionario.mapper.DependenteMapper;
 import br.com.funcionario.mapper.EnderecoMapper;
 import br.com.funcionario.mapper.FuncionarioMapper;
@@ -108,12 +109,12 @@ public class FuncionarioService {
 
     public FuncionarioDeletadoDto deletarUsuario(Long id) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
-        if (Objects.nonNull(funcionario)) {
+        if (!funcionario.isEmpty()) {
             funcionarioQuery.deletaFuncionario(id);
 
-            return new FuncionarioDeletadoDto(id, "Funcionario Deletado com Sucesso!");
+            return new FuncionarioDeletadoDto(id, "Funcionario não existe!");
         }
-        return new FuncionarioDeletadoDto(id, "Funcionario não deltado!");
+        throw new ErroDeletarFuncionarioException("Não existe esse funcionario na base de dados.");
     }
 
     public Page<FuncionarioRetornoDto> obterTodos(Pageable paginacao) {
