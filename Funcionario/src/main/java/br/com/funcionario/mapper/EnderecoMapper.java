@@ -43,13 +43,15 @@ public class EnderecoMapper {
         Endereco end = endereco.get();
 
         if (Objects.nonNull(dto)) {
-            end.setCep(dto.getCep() != null ? formatadorDeDados.formatadorCepEndereco(dto.getCep()) : end.getCep());
-            end.setLogradouro(dto.getLogradouro() != null ? formatadorDeDados.formatadorLogradouroEndereco(dto.getLogradouro()) : end.getLogradouro());
-            end.setNumero(dto.getNumero() != null ? formatadorDeDados.formatadorNumeroEndereco(dto.getNumero()) : end.getNumero());
-            end.setBairro(dto.getBairro() != null ? formatadorDeDados.formatadorBairroEndereco(dto.getBairro()) : end.getBairro());
-            end.setUf(dto.getUf() != null ? formatadorDeDados.formatadorUfEndereco(dto.getUf()) : end.getUf());
-            end.setPais(dto.getPais() != null ? formatadorDeDados.formatadorPaisEndereco(dto.getPais()) : end.getPais());
-            return endereco;
+            if (endereco.get().getUuidIdentificador().equals(dto.getUuidIdentificador())) {
+                end.setCep(dto.getCep() != null ? formatadorDeDados.formatadorCepEndereco(dto.getCep()) : end.getCep());
+                end.setLogradouro(dto.getLogradouro() != null ? formatadorDeDados.formatadorLogradouroEndereco(dto.getLogradouro()) : end.getLogradouro());
+                end.setNumero(dto.getNumero() != null ? formatadorDeDados.formatadorNumeroEndereco(dto.getNumero()) : end.getNumero());
+                end.setBairro(dto.getBairro() != null ? formatadorDeDados.formatadorBairroEndereco(dto.getBairro()) : end.getBairro());
+                end.setUf(dto.getUf() != null ? formatadorDeDados.formatadorUfEndereco(dto.getUf()) : end.getUf());
+                end.setPais(dto.getPais() != null ? formatadorDeDados.formatadorPaisEndereco(dto.getPais()) : end.getPais());
+                return endereco;
+            }
         }
         return null;
     }
