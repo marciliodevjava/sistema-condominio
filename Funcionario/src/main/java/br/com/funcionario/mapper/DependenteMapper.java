@@ -52,14 +52,20 @@ public class DependenteMapper {
 
     public List<Dependentes> mapearDependenteAtualizar(List<Dependentes> dependentesList, List<AtualizarDependentesDto> dependentes) {
         List<Dependentes> list = new ArrayList<>(dependentesList);
-        list.forEach(a -> {
-            list.forEach(b -> {
-                if(b.getCpf() == a.getCpf()){
-                    a.setNome(b.getNome());
-                }
+        if (Objects.nonNull(dependentes)) {
+            list.forEach(a -> {
+                list.forEach(b -> {
+                    if (b.getCpf() == a.getCpf()) {
+                        a.setNome(b.getNome());
+                        a.setDataNascimento(b.getDataNascimento());
+                        a.setCpf(b.getCpf());
+                        a.setRg(b.getRg());
+                        a.setGrauParentesco(b.getGrauParentesco());
+                    }
+                });
             });
-        });
-
+            return list;
+        }
         return null;
     }
 }
