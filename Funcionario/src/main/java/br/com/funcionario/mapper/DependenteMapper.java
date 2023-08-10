@@ -75,6 +75,7 @@ public class DependenteMapper {
                         } catch (ParseException e) {
                             throw new RuntimeException(DATA_INVALIDA);
                         }
+                        dep.setGrauParentesco(b.getGrauParentescoEnum());
                         dep.setCpf(formatadorDeDados.formatadorCpf(b.getCpf()));
                         dep.setRg(formatadorDeDados.formatadorRg(b.getRg()));
                         dep.setDdd(b.getDdd());
