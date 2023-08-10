@@ -8,6 +8,7 @@ import br.com.funcionario.mapper.FuncionarioMapper;
 import br.com.funcionario.model.Dependentes;
 import br.com.funcionario.model.Endereco;
 import br.com.funcionario.model.Funcionario;
+import br.com.funcionario.query.FuncionarioQuery;
 import br.com.funcionario.repository.DependentesRepository;
 import br.com.funcionario.repository.EnderecoRepository;
 import br.com.funcionario.repository.FuncionarioRepository;
@@ -44,6 +45,8 @@ public class FuncionarioService {
     private ObjectMapper objectMapper;
     @Autowired
     private FormatadorDeDados formatadorDeDados;
+    @Autowired
+    private FuncionarioQuery funcionarioQuery;
 
     public FuncionarioRetornoDto salvarFuncionario(FuncionarioDto dto) throws ParseException {
         Funcionario funcionario = funcionarioMapper.mapear(dto);
@@ -104,9 +107,9 @@ public class FuncionarioService {
     }
 
     public FuncionarioDeletadoDto deletarUsuario(Long id) {
-        Optional<Funcionario> funcionarioRetornoDto = funcionarioRepository.findById(id);
-        if (Objects.nonNull(funcionarioRetornoDto)) {
-            funcionarioRepository.deleteById(funcionarioRetornoDto.get().getId());
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
+        if (Objects.nonNull(funcionario)) {
+            funcionarioQuery.deletaFuncionario(id);
 
             return new FuncionarioDeletadoDto(id, "Funcionario Deletado com Sucesso!");
         }
