@@ -13,25 +13,28 @@ public class FuncionarioQuery {
     private EntityManager entityManager;
 
     @Transactional
-    public void deletaFuncionario(Long id){
-        // Primeiro, exclua os dependentes
-        Query deletaDependentes = entityManager.createNativeQuery("DELETE FROM condominio.tb_dependentes WHERE id_funcionario = ?");
-        deletaDependentes.setParameter(1, id);
-        deletaDependentes.executeUpdate();
+    public void deletaFuncionario(Long id) {
+        if (id != null && id > 0 && id instanceof Long) {
 
-        // Em seguida, exclua os endereços
-        Query deletaEndereco = entityManager.createNativeQuery("DELETE FROM condominio.tb_enderecos WHERE id_funcionario = ?");
-        deletaEndereco.setParameter(1, id);
-        deletaEndereco.executeUpdate();
+            // Primeiro, exclua os dependentes
+            Query deletaDependentes = entityManager.createNativeQuery("DELETE FROM condominio.tb_dependentes WHERE id_funcionario = ?");
+            deletaDependentes.setParameter(1, id);
+            deletaDependentes.executeUpdate();
 
-        // Depois, exclua as matrículas dos funcionários
-        Query deletaMatriculaFuncionario = entityManager.createNativeQuery("DELETE FROM condominio.tb_matricula_funcionarios WHERE id_funcionario = ?");
-        deletaMatriculaFuncionario.setParameter(1, id);
-        deletaMatriculaFuncionario.executeUpdate();
+            // Em seguida, exclua os endereços
+            Query deletaEndereco = entityManager.createNativeQuery("DELETE FROM condominio.tb_enderecos WHERE id_funcionario = ?");
+            deletaEndereco.setParameter(1, id);
+            deletaEndereco.executeUpdate();
 
-        // Por fim, exclua o próprio funcionário
-        Query deletaFuncionario = entityManager.createNativeQuery("DELETE FROM condominio.tb_funcionarios WHERE id = ?");
-        deletaFuncionario.setParameter(1, id);
-        deletaFuncionario.executeUpdate();
+            // Depois, exclua as matrículas dos funcionários
+            Query deletaMatriculaFuncionario = entityManager.createNativeQuery("DELETE FROM condominio.tb_matricula_funcionarios WHERE id_funcionario = ?");
+            deletaMatriculaFuncionario.setParameter(1, id);
+            deletaMatriculaFuncionario.executeUpdate();
+
+            // Por fim, exclua o próprio funcionário
+            Query deletaFuncionario = entityManager.createNativeQuery("DELETE FROM condominio.tb_funcionarios WHERE id = ?");
+            deletaFuncionario.setParameter(1, id);
+            deletaFuncionario.executeUpdate();
+        }
     }
 }
