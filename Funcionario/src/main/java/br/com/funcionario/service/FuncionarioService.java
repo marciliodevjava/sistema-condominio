@@ -200,8 +200,10 @@ public class FuncionarioService {
     public FuncionarioRetornoDto atualizarFuncionario(Long id, AtualizarFuncionarioDto dto) throws ParseException {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
         funcionario = funcionarioMapper.mapearFuncionarioAtualizar(funcionario, dto);
-        List<Dependentes> dependentesList = dependentesRepository.findByFuncionario(funcionario.get().getId());
+        List<Dependentes> dependentesList = dependentesRepository.findByFuncionario(funcionario.get());
         dependentesList = dependenteMapper.mapearDependenteAtualizar(dependentesList, dto.getDependentes());
+        Optional<Endereco> endereco = enderecoRepository.findByFuncionario(funcionario.get());
+        endereco = enderecoMapper.mapearDependenteAtualizar(endereco, dto.getEndereco());
 
         return null;
     }
