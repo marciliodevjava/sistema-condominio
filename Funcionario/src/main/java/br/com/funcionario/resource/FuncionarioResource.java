@@ -60,7 +60,6 @@ public class FuncionarioResource {
     @DeleteMapping("/{id}")
     public ResponseEntity<FuncionarioDeletadoDto> deletarFuncionario(@PathVariable Long id) {
         FuncionarioDeletadoDto funcionarioRetornoDto = funcionarioService.deletarUsuario(id);
-
         return ResponseEntity.ok(funcionarioRetornoDto);
     }
 
