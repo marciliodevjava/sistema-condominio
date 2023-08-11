@@ -25,7 +25,7 @@ public class TratadorDeErros {
     private HttpServletRequest request;
 
     @ExceptionHandler(ErroDeletarFuncionarioException.class)
-    public ResponseEntity<ErroResponse> errorDeletarFuncionarioCmpleto(ErroDeletarFuncionarioException ex){
+    public ResponseEntity<ErroResponse> errorDeletarFuncionarioCmpleto(ErroDeletarFuncionarioException ex) {
         ErroResponse erroResponse = new ErroResponse();
 
         erroResponse.setStatus(HttpStatus.OK.value());
@@ -38,7 +38,7 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(ListDependenteNotFouldException.class)
-    public ResponseEntity<ErroResponse> listDependeteNotFound(ListDependenteNotFouldException ex){
+    public ResponseEntity<ErroResponse> listDependeteNotFound(ListDependenteNotFouldException ex) {
         ErroResponse erroResponse = new ErroResponse();
 
         erroResponse.setStatus(HttpStatus.OK.value());
@@ -51,7 +51,7 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(AtualizarDependenteNotFouldException.class)
-    public ResponseEntity<ErroResponse> naoFoiPossivelAtualizarDependente(AtualizarDependenteNotFouldException ex){
+    public ResponseEntity<ErroResponse> naoFoiPossivelAtualizarDependente(AtualizarDependenteNotFouldException ex) {
         ErroResponse erroResponse = new ErroResponse();
 
         erroResponse.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
