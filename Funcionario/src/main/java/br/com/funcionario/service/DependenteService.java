@@ -1,9 +1,11 @@
 package br.com.funcionario.service;
 
 import br.com.funcionario.dto.AtualizarDependentesDto;
+import br.com.funcionario.dto.DependenteDeletadoDto;
 import br.com.funcionario.dto.DependentesAtualizarDto;
 import br.com.funcionario.dto.DependentesDto;
 import br.com.funcionario.infra.exception.exception.AtualizarDependenteNotFouldException;
+import br.com.funcionario.infra.exception.exception.DependenteInformaoNaoExiste;
 import br.com.funcionario.infra.exception.exception.FuncionarioNaoExisteException;
 import br.com.funcionario.infra.exception.exception.ListDependenteNotFouldException;
 import br.com.funcionario.model.Dependentes;
@@ -95,7 +97,7 @@ public class DependenteService {
 
     public AtualizarDependentesDto salvaDependente(Long id, DependentesDto dto) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
-        if(funcionario.isEmpty()){
+        if (funcionario.isEmpty()) {
             throw new FuncionarioNaoExisteException();
         }
         Dependentes dependentes = dependentesRepository.save(this.atualizarDependente(funcionario, dto));
@@ -104,7 +106,7 @@ public class DependenteService {
 
     private Dependentes atualizarDependente(Optional<Funcionario> funcionario, DependentesDto dto) {
         Dependentes dependentes = new Dependentes();
-        if (Objects.nonNull(dto)){
+        if (Objects.nonNull(dto)) {
             dependentes.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
             dependentes.setGrauParentesco(dto.getGrauParentescoEnum());
             dependentes.setNome(formatadorDeDados.formatadorNome(dto.getNome()));
@@ -122,5 +124,15 @@ public class DependenteService {
             return dependentes;
         }
         return null;
+    }
+
+    public DependenteDeletadoDto deletarDependte(String uuid) {
+        Dependentes dependentes = dependentesRepository.findByUuidIdentificador(uuid);
+        if (dependentes != null){
+            dependentesRepository.delete(dependentes);
+            return new DependenteDeletadoDto(dependentes.getId(), "Dependente deletado com Sucesso!");
+        }
+
+        throw new DependenteInformaoNaoExiste();
     }
 }
