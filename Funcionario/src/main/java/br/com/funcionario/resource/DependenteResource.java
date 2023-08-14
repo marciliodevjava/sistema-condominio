@@ -1,6 +1,7 @@
 package br.com.funcionario.resource;
 
 import br.com.funcionario.dto.AtualizarDependentesDto;
+import br.com.funcionario.dto.DependenteDeletadoDto;
 import br.com.funcionario.dto.DependentesAtualizarDto;
 import br.com.funcionario.dto.DependentesDto;
 import br.com.funcionario.service.DependenteService;
@@ -33,9 +34,15 @@ public class DependenteResource {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<AtualizarDependentesDto> cadastrarDependente(@PathVariable @NonNull Long id, @RequestBody @Valid DependentesDto dto, UriComponentsBuilder uriBuild){
+    public ResponseEntity<AtualizarDependentesDto> cadastrarDependente(@PathVariable @NonNull Long id, @RequestBody @Valid DependentesDto dto, UriComponentsBuilder uriBuild) {
         AtualizarDependentesDto retorno = dependenteService.salvaDependente(id, dto);
         URI uri = uriBuild.path("/dependente/{id}").buildAndExpand(retorno.getUuidIdentificador()).toUri();
         return ResponseEntity.created(uri).body(retorno);
+    }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<DependenteDeletadoDto> deletarDependente(@PathVariable @NonNull String uuid){
+        DependenteDeletadoDto dependente = dependenteService.deletarDependte(uuid);
+        return ResponseEntity.ok(dependente);
     }
 }
