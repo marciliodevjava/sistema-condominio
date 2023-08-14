@@ -3,6 +3,7 @@ package br.com.funcionario.infra.exception;
 import br.com.funcionario.infra.exception.enuns.MensagemEnum;
 import br.com.funcionario.infra.exception.exception.AtualizarDependenteNotFouldException;
 import br.com.funcionario.infra.exception.exception.ErroDeletarFuncionarioException;
+import br.com.funcionario.infra.exception.exception.FuncionarioNaoExisteException;
 import br.com.funcionario.infra.exception.exception.ListDependenteNotFouldException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -61,5 +62,18 @@ public class TratadorDeErros {
         erroResponse.setProjeto(projetoNome);
 
         return new ResponseEntity<>(erroResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(FuncionarioNaoExisteException.class)
+    public ResponseEntity<ErroResponse> funcionarioNaoExiste(FuncionarioNaoExisteException ex){
+        ErroResponse erroResponse = new ErroResponse();
+
+        erroResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        erroResponse.setMensagem(Collections.singletonList(MensagemEnum.ERRO_FUNCIONARIO_NAO_EXISTE.getMensagem()));
+        erroResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        erroResponse.setEndpoint(request.getRequestURI());
+        erroResponse.setProjeto(projetoNome);
+
+        return new ResponseEntity<>(erroResponse, HttpStatus.NOT_FOUND);
     }
 }
