@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class DependenteMapper {
@@ -64,7 +63,7 @@ public class DependenteMapper {
                         }
                         a.setCpf(formatadorDeDados.formatadorCpf(b.getCpf()));
                         a.setRg(formatadorDeDados.formatadorRg(b.getRg()));
-                        a.setGrauParentesco(b.getGrauParentescoEnum());
+                        a.setGrauParentesco(b.getGrauParentesco());
                     }
                 });
             });
