@@ -27,6 +27,12 @@ public class DependenteResource {
         return ResponseEntity.ok(dependentesDto);
     }
 
+    @GetMapping("/{uuid}")
+    public ResponseEntity<AtualizarDependentesDto> getDependente(@PathVariable @NonNull String uuid){
+        AtualizarDependentesDto dependente = dependenteService.getDependente(uuid);
+        return ResponseEntity.ok(dependente);
+    }
+
     @PutMapping("/{uuid}")
     public ResponseEntity<AtualizarDependentesDto> atualizarDependente(@PathVariable @NonNull String uuid, @RequestBody @Valid DependentesAtualizarDto dependentesDto) {
         AtualizarDependentesDto dto = dependenteService.atualizarDepdente(uuid, dependentesDto);
