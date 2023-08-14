@@ -135,4 +135,13 @@ public class DependenteService {
 
         throw new DependenteInformaoNaoExiste();
     }
+
+    public AtualizarDependentesDto getDependente(String uuid) {
+        Dependentes dependentes = dependentesRepository.findByUuidIdentificador(uuid);
+        if(dependentes == null){
+            throw new DependenteInformaoNaoExiste();
+        }
+
+        return objectMapper.convertValue(dependentes, AtualizarDependentesDto.class);
+    }
 }
