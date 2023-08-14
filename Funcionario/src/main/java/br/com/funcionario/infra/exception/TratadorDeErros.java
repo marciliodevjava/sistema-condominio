@@ -99,4 +99,17 @@ public class TratadorDeErros {
 
         return new ResponseEntity<>(erroResponse, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(EnderecoNaoFoiSalvoException.class)
+    public ResponseEntity<ErroResponse> enderecoNaoSalvo(EnderecoNaoFoiSalvoException ex){
+        ErroResponse erroResponse = new ErroResponse();
+
+        erroResponse.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+        erroResponse.setMensagem(Collections.singletonList(MensagemEnum.ERRO_ENDERECO_NAO_SALVO.getMensagem()));
+        erroResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        erroResponse.setEndpoint(request.getRequestURI());
+        erroResponse.setProjeto(projetoNome);
+
+        return new ResponseEntity<>(erroResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
 }
