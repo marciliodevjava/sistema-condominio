@@ -31,6 +31,6 @@ public class FuncionarioDto{
         @NotNull(message = "Campo estadoCivil inválio.")
         private EstadoCivilEnum estadoCivil;
         private List<DependentesDto> dependentes;
-        private EnderecoDto endereco;
+        private List<EnderecoDto> endereco;
 
 }
