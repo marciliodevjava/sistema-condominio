@@ -6,6 +6,7 @@ public enum MensagemEnum {
     ERRO_DELETAR_FUNCIONARIO_COMPLETO("Não existe esse funcionario."),
     ERRO_DEPENDENTE_NAO_EXISTE("Dependente não existe."),
     ERRO_ENDERECO_NAO_EXISTE("Endereco não existe."),
+    ERRO_ENDERECO_NAO_SALVO("Endereco informado não foi salvo."),
     ERRO_FUNCIONARIO_NAO_EXISTE("Funcionario não existe.");
     private final String mensagem;
 
