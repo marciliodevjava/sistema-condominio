@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,7 +34,7 @@ public class EnderecoService {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
 
         if (funcionario.isPresent()) {
-            Optional<Endereco> endereco = enderecoRepository.findByFuncionario(funcionario.get());
+            List<Endereco> endereco = enderecoRepository.findByListFuncionario(funcionario.get().getId());
 
             return objectMapper.convertValue(endereco, EnderecoRetornoDto.class);
         }
@@ -51,9 +52,9 @@ public class EnderecoService {
 
     public EnderecoRetornoDto cadastrarEndereco(Long id, EnderecoDto enderecoDto) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
-        if (funcionario != null){
+        if (funcionario.isPresent()) {
             Endereco endereco = enderecoMapper.mapearDependenteSalvar(funcionario.get(), enderecoDto);
-            endereco =enderecoRepository.save(endereco);
+            endereco = enderecoRepository.save(endereco);
 
             return objectMapper.convertValue(endereco, EnderecoRetornoDto.class);
         }
