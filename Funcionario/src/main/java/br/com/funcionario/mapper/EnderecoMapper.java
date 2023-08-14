@@ -9,6 +9,8 @@ import br.com.funcionario.utils.GeradorUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -19,40 +21,49 @@ public class EnderecoMapper {
     @Autowired
     private GeradorUuid geradorUuid;
 
-    public Endereco montarEndereco(EnderecoDto enderecoDto) {
-
+    public List<Endereco> montarEndereco(List<EnderecoDto> enderecoDto) {
+        List<Endereco> list = new ArrayList<>();
         Endereco endereco = new Endereco();
 
         if (Objects.nonNull(enderecoDto)) {
+            enderecoDto.forEach(end -> {
+                endereco.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
+                endereco.setCep(formatadorDeDados.formatadorCepEndereco(end.getCep()));
+                endereco.setLogradouro(formatadorDeDados.formatadorLogradouroEndereco(end.getLogradouro()));
+                endereco.setNumero(formatadorDeDados.formatadorNumeroEndereco(end.getNumero()));
+                endereco.setBairro(formatadorDeDados.formatadorBairroEndereco(end.getBairro()));
+                endereco.setCidade(formatadorDeDados.formatadorCidadeEndereco(end.getCidade()));
+                endereco.setUf(formatadorDeDados.formatadorUfEndereco(end.getUf()));
+                endereco.setPais(formatadorDeDados.formatadorPaisEndereco(end.getPais()));
 
-            endereco.setUuidIdentificador(geradorUuid.getIdentificadorUuid());
-            endereco.setCep(formatadorDeDados.formatadorCepEndereco(enderecoDto.getCep()));
-            endereco.setLogradouro(formatadorDeDados.formatadorLogradouroEndereco(enderecoDto.getLogradouro()));
-            endereco.setNumero(formatadorDeDados.formatadorNumeroEndereco(enderecoDto.getNumero()));
-            endereco.setBairro(formatadorDeDados.formatadorBairroEndereco(enderecoDto.getBairro()));
-            endereco.setCidade(formatadorDeDados.formatadorCidadeEndereco(enderecoDto.getCidade()));
-            endereco.setUf(formatadorDeDados.formatadorUfEndereco(enderecoDto.getUf()));
-            endereco.setPais(formatadorDeDados.formatadorPaisEndereco(enderecoDto.getPais()));
+                list.add(endereco);
+            });
 
-            return endereco;
+            return list;
         }
 
         return null;
     }
 
-    public Optional<Endereco> mapearDependenteAtualizar(Optional<Endereco> endereco, AtualizarEnderecoDto dto) {
-        Endereco end = endereco.get();
+    public List<Endereco> mapearDependenteAtualizar(List<Endereco> endereco, List<AtualizarEnderecoDto> dto) {
+        List<Endereco> list = new ArrayList<>(endereco);
 
-        if (Objects.nonNull(dto)) {
-            if (endereco.get().getUuidIdentificador().equals(dto.getUuidIdentificador())) {
-                end.setCep(dto.getCep() != null ? formatadorDeDados.formatadorCepEndereco(dto.getCep()) : end.getCep());
-                end.setLogradouro(dto.getLogradouro() != null ? formatadorDeDados.formatadorLogradouroEndereco(dto.getLogradouro()) : end.getLogradouro());
-                end.setNumero(dto.getNumero() != null ? formatadorDeDados.formatadorNumeroEndereco(dto.getNumero()) : end.getNumero());
-                end.setBairro(dto.getBairro() != null ? formatadorDeDados.formatadorBairroEndereco(dto.getBairro()) : end.getBairro());
-                end.setUf(dto.getUf() != null ? formatadorDeDados.formatadorUfEndereco(dto.getUf()) : end.getUf());
-                end.setPais(dto.getPais() != null ? formatadorDeDados.formatadorPaisEndereco(dto.getPais()) : end.getPais());
-                return endereco;
-            }
+        if(Objects.nonNull(dto)){
+            list.forEach( end1 -> {
+                dto.forEach( end2 -> {
+                    if(end1.getUuidIdentificador().equals(end2.getUuidIdentificador())){
+                        end1.setUuidIdentificador(end2.getUuidIdentificador());
+                        end1.setLogradouro(formatadorDeDados.formatadorLogradouroEndereco(end2.getLogradouro()));
+                        end1.setCep(formatadorDeDados.formatadorCepEndereco(end2.getCep()));
+                        end1.setNumero(formatadorDeDados.formatadorNumeroEndereco(end2.getNumero()));
+                        end1.setCidade(formatadorDeDados.formatadorCidadeEndereco(end2.getCidade()));
+                        end1.setBairro(formatadorDeDados.formatadorBairroEndereco(end2.getBairro()));
+                        end1.setUf(formatadorDeDados.formatadorUfEndereco(end2.getUf()));
+                        end1.setPais(formatadorDeDados.formatadorPaisEndereco(end2.getPais()));
+                    }
+                });
+            });
+            return list;
         }
         return null;
     }
