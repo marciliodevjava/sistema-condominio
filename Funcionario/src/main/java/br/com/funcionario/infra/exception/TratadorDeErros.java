@@ -79,7 +79,20 @@ public class TratadorDeErros {
         ErroResponse erroResponse = new ErroResponse();
 
         erroResponse.setStatus(HttpStatus.NOT_FOUND.value());
-        erroResponse.setMensagem(Collections.singletonList(MensagemEnum.ERRO_DEPENDE_NAO_EXISTE.getMensagem()));
+        erroResponse.setMensagem(Collections.singletonList(MensagemEnum.ERRO_DEPENDENTE_NAO_EXISTE.getMensagem()));
+        erroResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        erroResponse.setEndpoint(request.getRequestURI());
+        erroResponse.setProjeto(projetoNome);
+
+        return new ResponseEntity<>(erroResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EnderecoNaoExisteException.class)
+    public ResponseEntity<ErroResponse> enderecoNaoExiste(EnderecoNaoExisteException ex){
+        ErroResponse erroResponse = new ErroResponse();
+
+        erroResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        erroResponse.setMensagem(Collections.singletonList(MensagemEnum.ERRO_ENDERECO_NAO_EXISTE.getMensagem()));
         erroResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         erroResponse.setEndpoint(request.getRequestURI());
         erroResponse.setProjeto(projetoNome);
