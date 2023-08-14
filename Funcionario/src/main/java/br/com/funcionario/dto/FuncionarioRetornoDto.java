@@ -32,7 +32,7 @@ public class FuncionarioRetornoDto {
     private EstadoEnum situacao;
     private EstadoCivilEnum estadoCivil;
     private List<DependentesDto> dependentes = new ArrayList<DependentesDto>();
-    private Object endereco;
+    private List<?> endereco = new ArrayList<>();
 
 }
 
