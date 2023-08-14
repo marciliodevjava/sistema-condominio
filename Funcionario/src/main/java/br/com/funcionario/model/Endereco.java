@@ -34,7 +34,7 @@ public class Endereco implements Serializable {
     private String uf;
     @Column(name = "pais", length = 161)
     private String pais;
-    @OneToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
