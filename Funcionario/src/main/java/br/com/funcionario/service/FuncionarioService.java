@@ -112,7 +112,7 @@ public class FuncionarioService {
         if (!funcionario.isEmpty()) {
             funcionarioQuery.deletaFuncionario(id);
 
-            return new FuncionarioDeletadoDto(id, "Funcionario não existe!");
+            return new FuncionarioDeletadoDto(id, "Funcionario deletado com SUCESSO!");
         }
         throw new ErroDeletarFuncionarioException("Não existe esse funcionario na base de dados.");
     }
