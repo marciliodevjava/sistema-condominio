@@ -60,7 +60,7 @@ public class FuncionarioService {
     public FuncionarioRetornoDto salvarFuncionarioCompleto(FuncionarioDto dto) throws ParseException {
         Funcionario funcionario = funcionarioMapper.mapearCompleto(dto);
         List<Dependentes> dependentesList = funcionario.getDependentes();
-        Endereco endereco = funcionario.getEndereco();
+        List<Endereco> endereco = funcionario.getEndereco();
 
         funcionario = this.salvarFuncionarioRepositoru(funcionario);
         dependentesList = this.salvarDependenteRepository(funcionario, dependentesList);
@@ -83,10 +83,12 @@ public class FuncionarioService {
         return null;
     }
 
-    private Endereco salvarEnderecoFuncionarioRepository(Funcionario funcionario, Endereco endereco) {
+    private List<Endereco> salvarEnderecoFuncionarioRepository(Funcionario funcionario, List<Endereco> endereco) {
         if (Objects.nonNull(endereco)) {
-            endereco.setFuncionario(funcionario);
-            endereco = enderecoRepository.save(endereco);
+            endereco.forEach(end -> {
+                end.setFuncionario(funcionario);
+            });
+            endereco = enderecoRepository.saveAll(endereco);
             return endereco;
         }
         return null;
@@ -102,9 +104,34 @@ public class FuncionarioService {
     public FuncionarioRetornoDto buscarFuncionarioId(Long id) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
         List<Dependentes> dependentes = dependentesRepository.findByFuncionario(funcionario.get());
-        Optional<Endereco> endereco = enderecoRepository.findByFuncionario(funcionario.get());
+        List<Endereco> endereco = enderecoRepository.findByListFuncionario(funcionario.get().getId());
 
-        return objectMapper.convertValue(funcionario, FuncionarioRetornoDto.class);
+        FuncionarioRetornoDto funDto = objectMapper.convertValue(funcionario, FuncionarioRetornoDto.class);
+        funDto.setDependentes(dependentes.stream().map(this::mapDependente).collect(Collectors.toList()));
+        funDto.setEndereco(endereco.stream().map(this::mapEnderecoUpdateDto).collect(Collectors.toList()));
+
+        return funDto;
+    }
+
+    private DependentesDto mapDependente(Dependentes dependentes) {
+        DependentesDto dto = new DependentesDto();
+        if (Objects.nonNull(dependentes)) {
+            dto.setGrauParentescoEnum(dependentes.getGrauParentesco());
+            dto.setUuidIdentificador(dependentes.getUuidIdentificador());
+            dto.setNome(dependentes.getNome());
+            dto.setCpf(dependentes.getCpf());
+            dto.setRg(dependentes.getRg());
+            try {
+                dto.setDataNascimento(formatadorDeDados.formatadorDataDate(dependentes.getDataNascimento()));
+            } catch (ParseException e) {
+                throw new RuntimeException("S/D");
+            }
+            dto.setDdd(dependentes.getDdd());
+            dto.setTelefone(dependentes.getTelefone());
+
+            return dto;
+        }
+        return null;
     }
 
     public FuncionarioDeletadoDto deletarUsuario(Long id) {
@@ -147,19 +174,24 @@ public class FuncionarioService {
         return dto;
     }
 
-    private EnderecoDto mapEnderecoDto(Endereco endereco) {
+    private List<EnderecoDto> mapEnderecoDto(List<Endereco> endereco) {
+        List<EnderecoDto> list = new ArrayList<>();
         EnderecoDto dto = new EnderecoDto();
         if (Objects.nonNull(endereco)) {
-            dto.setCep(endereco.getCep());
-            dto.setUuidIdentificador(endereco.getUuidIdentificador());
-            dto.setLogradouro(endereco.getLogradouro());
-            dto.setNumero(endereco.getNumero());
-            dto.setBairro(endereco.getBairro());
-            dto.setCidade(endereco.getCidade());
-            dto.setUf(endereco.getUf());
-            dto.setPais(endereco.getPais());
+            endereco.forEach(end -> {
+                dto.setCep(end.getCep());
+                dto.setUuidIdentificador(end.getUuidIdentificador());
+                dto.setLogradouro(end.getLogradouro());
+                dto.setNumero(end.getNumero());
+                dto.setBairro(end.getBairro());
+                dto.setCidade(end.getCidade());
+                dto.setUf(end.getUf());
+                dto.setPais(end.getPais());
 
-            return dto;
+                list.add(dto);
+            });
+
+            return list;
         }
         return null;
     }
@@ -213,11 +245,11 @@ public class FuncionarioService {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
         funcionario = funcionarioMapper.mapearFuncionarioAtualizar(funcionario, dto);
         List<Dependentes> dependentesList = dependentesRepository.findByFuncionario(funcionario.get());
-        if(Objects.nonNull(dependentesList)){
+        if (Objects.nonNull(dependentesList)) {
             dependentesList = dependenteMapper.mapearDependenteAtualizar(dependentesList, dto.getDependentes());
         }
-        Optional<Endereco> endereco = enderecoRepository.findByFuncionario(funcionario.get());
-        if (Objects.nonNull(endereco)){
+        List<Endereco> endereco = enderecoRepository.findByFuncionario(funcionario.get());
+        if (Objects.nonNull(endereco)) {
             endereco = enderecoMapper.mapearDependenteAtualizar(endereco, dto.getEndereco());
         }
 
@@ -229,7 +261,7 @@ public class FuncionarioService {
         List<DependentesDto> dependentesDtos = dependentesList.stream()
                 .map(this::mapDependenteRetornoDto)
                 .collect(Collectors.toList());
-        EnderecoUpdateDto enderecoDto = this.mapEnderecoUpdateDto(endereco);
+        List<EnderecoUpdateDto> enderecoDto = endereco.stream().map(this::mapEnderecoUpdateDto).collect(Collectors.toList());
 
         funcionarioRetornoDto.setDependentes(dependentesDtos);
         funcionarioRetornoDto.setEndereco(enderecoDto);
@@ -237,10 +269,10 @@ public class FuncionarioService {
         return funcionarioRetornoDto;
     }
 
-    private EnderecoUpdateDto mapEnderecoUpdateDto(Optional<Endereco> end) {
+    private EnderecoUpdateDto mapEnderecoUpdateDto(Endereco end) {
         EnderecoUpdateDto dto = new EnderecoUpdateDto();
-        Endereco endereco = end.get();
-        if(Objects.nonNull(endereco)){
+        Endereco endereco = end;
+        if (Objects.nonNull(endereco)) {
             dto.setUuidIdentificador(endereco.getUuidIdentificador());
             dto.setCep(endereco.getCep());
             dto.setLogradouro(endereco.getLogradouro());
@@ -255,9 +287,9 @@ public class FuncionarioService {
         return null;
     }
 
-    private DependentesDto mapDependenteRetornoDto(Dependentes dependentes)  {
+    private DependentesDto mapDependenteRetornoDto(Dependentes dependentes) {
         DependentesDto dto = new DependentesDto();
-        if(Objects.nonNull(dependentes)){
+        if (Objects.nonNull(dependentes)) {
             dto.setGrauParentescoEnum(dependentes.getGrauParentesco());
             dto.setUuidIdentificador(dependentes.getUuidIdentificador());
             dto.setNome(dependentes.getNome());
@@ -286,10 +318,9 @@ public class FuncionarioService {
         return null;
     }
 
-    private Optional<Endereco> salvarEnderecoFuncionarioUpdateRepository(Optional<Endereco> endereco) {
+    private List<Endereco> salvarEnderecoFuncionarioUpdateRepository(List<Endereco> endereco) {
         if (Objects.nonNull(endereco)) {
-            Endereco end = endereco.get();
-            endereco = Optional.of(enderecoRepository.save(end));
+            endereco = enderecoRepository.saveAll(endereco);
             return endereco;
         }
         return null;
