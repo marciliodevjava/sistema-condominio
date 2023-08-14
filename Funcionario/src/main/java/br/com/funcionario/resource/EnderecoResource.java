@@ -24,7 +24,7 @@ public class EnderecoResource {
         return ResponseEntity.ok(enderecoRetornoDto);
     }
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/buscar/{uuid}")
     public ResponseEntity<EnderecoRetornoDto> getEndereco(@PathVariable @NonNull String uuid) {
         EnderecoRetornoDto dto = enderecoService.getEnderecoUuid(uuid);
         return ResponseEntity.ok(dto);
@@ -32,9 +32,9 @@ public class EnderecoResource {
 
 
     @PostMapping("/{id}")
-    public ResponseEntity<EnderecoRetornoDto> cadastrarEndereco(@PathVariable @Valid Long id, EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<EnderecoRetornoDto> cadastrarEndereco(@PathVariable @Valid Long id, @RequestBody @Valid EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
         EnderecoRetornoDto dto = enderecoService.cadastrarEndereco(id, enderecoDto);
-        URI uri = uriComponentsBuilder.path("/endereco/{uuid}").buildAndExpand(dto.getUuidIdentificador()).toUri();
+        URI uri = uriComponentsBuilder.path("/endereco/buscar/{uuid}").buildAndExpand(dto.getUuidIdentificador()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 }
