@@ -1,14 +1,16 @@
 package br.com.funcionario.resource;
 
+import br.com.funcionario.dto.EnderecoDto;
 import br.com.funcionario.dto.EnderecoRetornoDto;
 import br.com.funcionario.service.EnderecoService;
+import jakarta.validation.Valid;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/endereco")
@@ -20,5 +22,19 @@ public class EnderecoResource {
     public ResponseEntity<EnderecoRetornoDto> getEndereco(@PathVariable @NonNull Long id) {
         EnderecoRetornoDto enderecoRetornoDto = enderecoService.getEndereco(id);
         return ResponseEntity.ok(enderecoRetornoDto);
+    }
+
+    @GetMapping("/{uuid}")
+    public ResponseEntity<EnderecoRetornoDto> getEndereco(@PathVariable @NonNull String uuid) {
+        EnderecoRetornoDto dto = enderecoService.getEnderecoUuid(uuid);
+        return ResponseEntity.ok(dto);
+    }
+
+
+    @PostMapping("/{id}")
+    public ResponseEntity<EnderecoRetornoDto> cadastrarEndereco(@PathVariable @Valid Long id, EnderecoDto enderecoDto, UriComponentsBuilder uriComponentsBuilder) {
+        EnderecoRetornoDto dto = enderecoService.cadastrarEndereco(id, enderecoDto);
+        URI uri = uriComponentsBuilder.path("/endereco/{uuid}").buildAndExpand(dto.getUuidIdentificador()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 }
