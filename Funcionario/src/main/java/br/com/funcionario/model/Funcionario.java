@@ -58,6 +58,6 @@ public class Funcionario implements Serializable {
     private List<Dependentes> dependentes = new ArrayList<Dependentes>();
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "funcionario", fetch = FetchType.LAZY)
-    private Endereco endereco;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionario", fetch = FetchType.LAZY)
+    private List<Endereco> endereco = new ArrayList<>();
 }
