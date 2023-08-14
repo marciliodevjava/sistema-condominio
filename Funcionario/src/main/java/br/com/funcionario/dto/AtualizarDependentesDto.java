@@ -1,14 +1,16 @@
 package br.com.funcionario.dto;
 
 import br.com.funcionario.model.enuns.GrauParentescoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AtualizarDependentesDto {
-    private GrauParentescoEnum grauParentescoEnum;
+    private GrauParentescoEnum grauParentesco;
     private String uuidIdentificador;
     private String nome;
     private String dataNascimento;
