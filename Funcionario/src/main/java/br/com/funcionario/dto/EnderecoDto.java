@@ -20,5 +20,6 @@ public class EnderecoDto {
     private String cidade;
     @NotNull(message = "Campo uf inválido.")
     private String uf;
+    @NotNull(message = "Campo pais inválido.")
     private String pais;
 }
