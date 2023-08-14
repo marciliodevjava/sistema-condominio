@@ -27,8 +27,8 @@ public class DependenteResource {
         return ResponseEntity.ok(dependentesDto);
     }
 
-    @GetMapping("/{uuid}")
-    public ResponseEntity<AtualizarDependentesDto> getDependente(@PathVariable @NonNull String uuid){
+    @GetMapping("/buscar/{uuid}")
+    public ResponseEntity<AtualizarDependentesDto> getDependente(@PathVariable @NonNull String uuid) {
         AtualizarDependentesDto dependente = dependenteService.getDependente(uuid);
         return ResponseEntity.ok(dependente);
     }
@@ -47,7 +47,7 @@ public class DependenteResource {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<DependenteDeletadoDto> deletarDependente(@PathVariable @NonNull String uuid){
+    public ResponseEntity<DependenteDeletadoDto> deletarDependente(@PathVariable @NonNull String uuid) {
         DependenteDeletadoDto dependente = dependenteService.deletarDependte(uuid);
         return ResponseEntity.ok(dependente);
     }
