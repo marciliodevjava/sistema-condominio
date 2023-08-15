@@ -1,6 +1,7 @@
 package br.com.funcionario.dto;
 
 import br.com.funcionario.model.enuns.GrauParentescoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DependentesDto {
     @NotNull(message = "Campo grauParentescoEnum inválido.")
     private GrauParentescoEnum grauParentescoEnum;
