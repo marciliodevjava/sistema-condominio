@@ -1,7 +1,7 @@
 package br.com.funcionario.resource;
 
 import br.com.funcionario.dto.AtualizarFuncionarioDto;
-import br.com.funcionario.dto.FuncionarioDeletadoDto;
+import br.com.funcionario.dto.EntidadeDeletadaDto;
 import br.com.funcionario.dto.FuncionarioDto;
 import br.com.funcionario.dto.FuncionarioRetornoDto;
 import br.com.funcionario.service.FuncionarioService;
@@ -58,8 +58,8 @@ public class FuncionarioResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<FuncionarioDeletadoDto> deletarFuncionario(@PathVariable Long id) {
-        FuncionarioDeletadoDto funcionarioRetornoDto = funcionarioService.deletarUsuario(id);
+    public ResponseEntity<EntidadeDeletadaDto> deletarFuncionario(@PathVariable Long id) {
+        EntidadeDeletadaDto funcionarioRetornoDto = funcionarioService.deletarUsuario(id);
         return ResponseEntity.ok(funcionarioRetornoDto);
     }
 
