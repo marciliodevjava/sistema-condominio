@@ -134,12 +134,12 @@ public class FuncionarioService {
         return null;
     }
 
-    public FuncionarioDeletadoDto deletarUsuario(Long id) {
+    public EntidadeDeletadaDto deletarUsuario(Long id) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
         if (!funcionario.isEmpty()) {
             funcionarioQuery.deletaFuncionario(id);
 
-            return new FuncionarioDeletadoDto(id, "Funcionario deletado com SUCESSO!");
+            return new EntidadeDeletadaDto(id, "Funcionario deletado com SUCESSO!");
         }
         throw new ErroDeletarFuncionarioException("Não existe esse funcionario na base de dados.");
     }
