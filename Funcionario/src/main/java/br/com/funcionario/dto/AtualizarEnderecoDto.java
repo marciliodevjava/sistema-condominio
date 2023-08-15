@@ -1,11 +1,13 @@
 package br.com.funcionario.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AtualizarEnderecoDto {
     private String uuidIdentificador;
     private String cep;
