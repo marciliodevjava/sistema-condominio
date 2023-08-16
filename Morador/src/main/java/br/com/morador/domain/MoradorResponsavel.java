@@ -25,21 +25,30 @@ public class MoradorResponsavel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "uuid_morador", length = 100, nullable = false)
     private String uuidMorador;
+    @Column(name = "nome", length = 150, nullable = false)
     private String nome;
+    @Column(name = "cpf", unique = true, length = 11, nullable = false)
     private String cpf;
+    @Column(name = "rg", length = 10)
     private String rg;
+    @Column(name = "data_nascimento", nullable = false)
     private Date dataNascimento;
-    private String email;
+    @Column(name = "ddd_pais", nullable = false)
+    private String dddPais;
+    @Column(name = "ddd", nullable = false, length = 3)
     private String ddd;
+    @Column(name = "telefone", nullable = false, length = 9)
     private String telefone;
+    @Column(name = "genero", nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "morador", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "morador", fetch = FetchType.LAZY)
     private List<DependentesMorador> dependentes = new ArrayList<>();
-    @OneToOne(optional = false)
+    @OneToOne
     @JoinColumn(name = "id_apartamento")
     private Apartamentos apartamento;
 }
