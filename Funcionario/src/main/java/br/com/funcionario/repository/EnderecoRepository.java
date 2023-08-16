@@ -26,4 +26,5 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
     void deleteByFuncionario(Optional<Funcionario> funcionario);
 
     Optional<Endereco> findByUuidIdentificador(String uuid);
+    void deleteByUuidIdentificador(String uuid);
 }
