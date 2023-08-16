@@ -1,6 +1,6 @@
 package br.com.morador.domain.enuns;
 
-public enum EnunSetorVaga {
+public enum EnumSetorVaga {
     SETOR_A(1),
     SETOR_B(2),
     SETOR_C(3),
@@ -14,7 +14,7 @@ public enum EnunSetorVaga {
 
     private final int valor;
 
-    EnunSetorVaga(int valor){
+    EnumSetorVaga(int valor){
         this.valor=valor;
     }
 
