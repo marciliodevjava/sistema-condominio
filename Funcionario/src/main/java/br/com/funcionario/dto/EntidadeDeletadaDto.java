@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class FuncionarioDeletadoDto {
+public class EntidadeDeletadaDto {
     private Long id;
     private String mensagem;
 }
