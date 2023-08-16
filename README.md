@@ -12,3 +12,15 @@ Backend de um Sistema de Condominio
  - API Funcionario
  
   Responsável pelo cadastro de funcionário.
+
+ - API Governancia
+ 
+  Responsável pelo cadastro dos usuarios e controle de acessos.
+
+ - API Gerador
+ 
+  Responsável pela geração da matricula dos funcionarios, e controle de versionamento de tabelas(Flyway).
+
+ - API Morador
+ 
+  Responsável pela cadastro e controle de moradores.
