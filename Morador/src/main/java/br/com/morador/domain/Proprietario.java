@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Proprietarios implements Serializable {
+public class Proprietario implements Serializable {
     @Serial
     private static final long serialVersionUID= 8L;
     @Id
@@ -31,10 +31,17 @@ public class Proprietarios implements Serializable {
     private String nome;
     @Column(name = "cpf", unique = true, length = 11, nullable = false)
     private String cpf;
+    @Column(name = "rg", length = 10)
     private String rg;
+    @Column(name = "data_nascimento", nullable = false)
     private Date dataNascimento;
+    @Column(name = "ddd_pais", nullable = false)
+    private String dddPais;
+    @Column(name = "ddd", nullable = false, length = 3)
     private String ddd;
+    @Column(name = "telefone", nullable = false, length = 9)
     private String telefone;
+    @Column(name = "genero", nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @Setter(onMethod = @__({@JsonProperty}))
