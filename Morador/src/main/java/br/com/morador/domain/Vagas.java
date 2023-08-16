@@ -1,7 +1,7 @@
 package br.com.morador.domain;
 
+import br.com.morador.domain.enuns.EnumSetorVaga;
 import br.com.morador.domain.enuns.EnumTiposVaga;
-import br.com.morador.domain.enuns.EnunSetorVaga;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +23,7 @@ public class Vagas implements Serializable {
     private Long id;
     private String uuidVagas;
     private String numero;
-    private EnunSetorVaga setor;
+    private EnumSetorVaga setor;
     private EnumTiposVaga tipo;
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_apartamento")
