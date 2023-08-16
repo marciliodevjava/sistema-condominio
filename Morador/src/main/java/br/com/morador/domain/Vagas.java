@@ -21,6 +21,7 @@ public class Vagas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "uuid_vagas", length = 100, nullable = false)
     private String uuidVagas;
     private String numero;
     private EnumSetorVaga setor;
