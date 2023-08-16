@@ -1,5 +1,7 @@
 package br.com.morador.domain;
 
+import br.com.morador.domain.enuns.EnumAndar;
+import br.com.morador.domain.enuns.EnumBloco;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -23,17 +25,23 @@ public class Apartamentos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "uuid_apartamento", length = 100, nullable = false)
     private String uuidApartamento;
+    @Column(name = "numero", length = 5, nullable = false)
     private Integer numero;
-    private String bloco;
-    private String andar;
+    @Column(name = "bloco", length = 7, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EnumBloco bloco;
+    @Column(name = "andar", length = 7, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EnumAndar andar;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_proprietario", nullable = false)
+    private Proprietario proprietario;
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "apartamento", fetch = FetchType.LAZY)
     private MoradorResponsavel morador;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_proprietario")
-    private Proprietarios proprietario;
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apartamento", fetch = FetchType.LAZY)
