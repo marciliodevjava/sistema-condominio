@@ -10591,3 +10591,4 @@ Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http:
 2023-08-16 09:19:31.983 [INFO ] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
 2023-08-16 09:24:31.991 [INFO ] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
 2023-08-16 09:29:32.009 [INFO ] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2023-08-16 09:34:32.011 [INFO ] c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
