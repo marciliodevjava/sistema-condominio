@@ -2,6 +2,7 @@ package br.com.funcionario.service;
 
 import br.com.funcionario.dto.EnderecoDto;
 import br.com.funcionario.dto.EnderecoRetornoDto;
+import br.com.funcionario.dto.EntidadeDeletadaDto;
 import br.com.funcionario.infra.exception.exception.EnderecoNaoExisteException;
 import br.com.funcionario.infra.exception.exception.EnderecoNaoFoiSalvoException;
 import br.com.funcionario.mapper.EnderecoMapper;
@@ -60,5 +61,15 @@ public class EnderecoService {
         }
 
         throw new EnderecoNaoFoiSalvoException();
+    }
+
+    public EntidadeDeletadaDto deletaEndereco(String uuid) {
+        Optional<Endereco> endereco = enderecoRepository.findByUuidIdentificador(uuid);
+        if (endereco.isPresent()){
+            enderecoRepository.deleteByUuidIdentificador(endereco.get().getUuidIdentificador());
+
+            return new EntidadeDeletadaDto(endereco.get().getId(), "Endereço deletado com Sucesso!");
+        }
+        throw new EnderecoNaoExisteException();
     }
 }
