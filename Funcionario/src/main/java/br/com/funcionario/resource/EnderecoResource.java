@@ -2,6 +2,7 @@ package br.com.funcionario.resource;
 
 import br.com.funcionario.dto.EnderecoDto;
 import br.com.funcionario.dto.EnderecoRetornoDto;
+import br.com.funcionario.dto.EntidadeDeletadaDto;
 import br.com.funcionario.service.EnderecoService;
 import jakarta.validation.Valid;
 import lombok.NonNull;
@@ -36,5 +37,11 @@ public class EnderecoResource {
         EnderecoRetornoDto dto = enderecoService.cadastrarEndereco(id, enderecoDto);
         URI uri = uriComponentsBuilder.path("/endereco/buscar/{uuid}").buildAndExpand(dto.getUuidIdentificador()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<EntidadeDeletadaDto> deletaEndereco(@PathVariable @NonNull String uuid){
+        EntidadeDeletadaDto dto = enderecoService.deletaEndereco(uuid);
+        return ResponseEntity.ok(dto);
     }
 }
