@@ -25,6 +25,15 @@ public class DependentesMapper {
             dependentes.forEach(a -> {
                 DependentesMorador dependentesMorador = new DependentesMorador();
                 dependentesMorador.setUuidDependenteMorador(geradorUuid.gerarUuid());
+                dependentesMorador.setNome(formatadorDadosDependentes.formatarNome(a.getNome()));
+                dependentesMorador.setCpf(formatadorDadosDependentes.formatarCpf(a.getCpf()));
+                dependentesMorador.setRg(formatadorDadosDependentes.formatarRg(a.getRg()));
+                dependentesMorador.setDataNascimento(formatadorDadosDependentes.formatarStringParaDate(a.getDataNascimento()));
+                dependentesMorador.setDddPais(formatadorDadosDependentes.formatarDddPais(a.getDddPais()));
+                dependentesMorador.setDdd(formatadorDadosDependentes.formatarDdd(a.getDdd()));
+                dependentesMorador.setTelefone(formatadorDadosDependentes.formatarTelefone(a.getTelefone()));
+                dependentesMorador.setSexo(formatadorDadosDependentes.formatarSexo(a.getSexo()));
+                dependentesMorador.setMorador(moradorResponsavel);
                 listDependentes.add(dependentesMorador);
             });
             return listDependentes;
