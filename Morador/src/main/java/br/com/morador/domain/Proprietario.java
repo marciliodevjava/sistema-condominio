@@ -31,7 +31,7 @@ public class Proprietario implements Serializable {
     private String nome;
     @Column(name = "cpf", unique = true, length = 11, nullable = false)
     private String cpf;
-    @Column(name = "rg", length = 10)
+    @Column(name = "rg", length = 10, nullable = false)
     private String rg;
     @Column(name = "data_nascimento", nullable = false)
     private Date dataNascimento;
