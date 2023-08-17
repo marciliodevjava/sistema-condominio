@@ -8,6 +8,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "tb_uuid")
@@ -26,7 +27,7 @@ public class Uuid implements Serializable {
     @Column(name = "uuid_gerador")
     private String uuidGerado;
     @Column(name = "data")
-    private LocalDate data;
+    private Date data;
     @Column(name = "hora")
     private LocalTime hora;
     @Enumerated(EnumType.STRING)
