@@ -1,15 +1,11 @@
 package br.com.morador.dto;
 
-import br.com.morador.domain.MoradorResponsavel;
 import br.com.morador.domain.enuns.EnumSexo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
-
-import java.util.Date;
 
 @Getter
 @Setter
