@@ -3,6 +3,7 @@ package br.com.morador.mapper;
 import br.com.morador.domain.Apartamentos;
 import br.com.morador.domain.Proprietario;
 import br.com.morador.dto.ApartamentosDto;
+import br.com.morador.utils.FormatadorDadosApartamento;
 import br.com.morador.utils.GeradorUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,8 @@ public class ApartamentosMappper {
     private MoradorResponsavelMapper moradorResponsavelMapper;
     @Autowired
     private VagasMapper vagasMapper;
+    @Autowired
+    private FormatadorDadosApartamento formatadorDadosApartamento;
 
     public List<Apartamentos> mapearApartamento(Proprietario proprietario, List<ApartamentosDto> apartamento) {
         List<Apartamentos> listApatamento = new ArrayList<>();
@@ -27,9 +30,9 @@ public class ApartamentosMappper {
             apartamento.forEach(a -> {
                 apt.setProprietario(proprietario);
                 apt.setUuidApartamento(geradorUuid.gerarUuid());
-                apt.setAndar(a.getAndar());
-                apt.setBloco(a.getBloco());
-                apt.setNumero(a.getNumero());
+                apt.setAndar(formatadorDadosApartamento.andar(a.getAndar()));
+                apt.setBloco(formatadorDadosApartamento.bloco(a.getBloco()));
+                apt.setNumero(formatadorDadosApartamento.numero(a.getNumero()));
                 apt.setMorador(moradorResponsavelMapper.mapearMorador(apt, a.getMorador()));
                 apt.setVagas(vagasMapper.mapearVagas(apt, a.getVagas()));
             });
