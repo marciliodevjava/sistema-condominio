@@ -10,12 +10,13 @@ public enum EnumSetorVaga {
     SETOR_SUB_SOLO_A(7),
     SETOR_SUB_SOLO_B(8),
     SETOR_SUB_SOLO_C(9),
-    SETOR_SUB_SOLO_D(10);
+    SETOR_SUB_SOLO_D(10),
+    SETOR_INDEFINIDO(11);
 
     private final int valor;
 
-    EnumSetorVaga(int valor){
-        this.valor=valor;
+    EnumSetorVaga(int valor) {
+        this.valor = valor;
     }
 
     public int getValor() {
