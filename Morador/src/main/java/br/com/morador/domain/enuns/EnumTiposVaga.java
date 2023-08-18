@@ -2,7 +2,8 @@ package br.com.morador.domain.enuns;
 
 public enum EnumTiposVaga {
     CARRO(1),
-    MOTO(2);
+    MOTO(2),
+    S_CAR(3);
 
     private final int valor;
 
