@@ -20,8 +20,15 @@ public class ProprietarioResource {
     private ProprietarioService proprietarioService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<ProprietarioRetornoDto> salvar(@RequestBody ProprietarioDto dto, UriComponentsBuilder uriBuild){
+    public ResponseEntity<ProprietarioRetornoDto> salvar(@RequestBody ProprietarioDto dto, UriComponentsBuilder uriBuild) {
         ProprietarioRetornoDto retorno = proprietarioService.salvaProprietario(dto);
+        URI uri = uriBuild.path("/buscar/{uuid}").buildAndExpand(retorno.getUuidProprietario()).toUri();
+        return ResponseEntity.created(uri).body(retorno);
+    }
+
+    @PostMapping("/salvar")
+    public ResponseEntity<ProprietarioRetornoDto> salvarCompleto(@RequestBody ProprietarioDto dto, UriComponentsBuilder uriBuild) {
+        ProprietarioRetornoDto retorno = proprietarioService.salvaProprietarioCompleto(dto);
         URI uri = uriBuild.path("/buscar/{uuid}").buildAndExpand(retorno.getUuidProprietario()).toUri();
         return ResponseEntity.created(uri).body(retorno);
     }
