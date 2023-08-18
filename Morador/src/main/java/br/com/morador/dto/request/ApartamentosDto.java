@@ -1,7 +1,9 @@
-package br.com.morador.dto;
+package br.com.morador.dto.request;
 
 import br.com.morador.domain.enuns.EnumAndar;
 import br.com.morador.domain.enuns.EnumBloco;
+import br.com.morador.dto.request.MoradorResponsavelDto;
+import br.com.morador.dto.request.VagasDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
