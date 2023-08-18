@@ -2,7 +2,8 @@ package br.com.morador.mapper;
 
 import br.com.morador.domain.DependentesMorador;
 import br.com.morador.domain.MoradorResponsavel;
-import br.com.morador.dto.DependentesMoradorDto;
+import br.com.morador.dto.request.DependentesMoradorDto;
+import br.com.morador.dto.response.DependentesMoradorRetornoDto;
 import br.com.morador.utils.FormatadorDadosDependentes;
 import br.com.morador.utils.GeradorUuid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,27 @@ public class DependentesMapper {
                 listDependentes.add(dependentesMorador);
             });
             return listDependentes;
+        }
+        return null;
+    }
+
+    public List<DependentesMoradorRetornoDto> mapeiaDependentesRetornoDto(List<DependentesMorador> dependentes) {
+        List<DependentesMoradorRetornoDto> list = new ArrayList<>();
+        if (Objects.nonNull(dependentes)) {
+            dependentes.forEach( dep -> {
+                DependentesMoradorRetornoDto dto = new DependentesMoradorRetornoDto();
+                dto.setUuidDependenteMorador(dep.getUuidDependenteMorador());
+                dto.setNome(dep.getNome());
+                dto.setCpf(dep.getCpf());
+                dto.setRg(dep.getRg());
+                dto.setDataNascimento(formatadorDadosDependentes.formatarDateParaString(dep.getDataNascimento()));
+                dto.setDddPais(dep.getDddPais());
+                dto.setDdd(dep.getDdd());
+                dto.setTelefone(dep.getTelefone());
+                dto.setSexo(dep.getSexo());
+                list.add(dto);
+            });
+            return list;
         }
         return null;
     }
