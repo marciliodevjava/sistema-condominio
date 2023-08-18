@@ -1,4 +1,4 @@
-package br.com.morador.dto;
+package br.com.morador.dto.request;
 
 import br.com.morador.domain.enuns.EnumSexo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
