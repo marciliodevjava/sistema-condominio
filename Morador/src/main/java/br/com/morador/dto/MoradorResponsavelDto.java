@@ -1,19 +1,13 @@
 package br.com.morador.dto;
 
-import br.com.morador.domain.Apartamentos;
-import br.com.morador.domain.DependentesMorador;
 import br.com.morador.domain.enuns.EnumSexo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
