@@ -34,7 +34,8 @@ public enum EnumAndar {
 
     ANDAR_17(17),
 
-    ANDAR_18(18);
+    ANDAR_18(18),
+    ANDAR_IN(19);
 
     private final int valor;
 
