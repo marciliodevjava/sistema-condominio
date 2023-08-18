@@ -72,4 +72,17 @@ public class FormatadorDadosMorador {
         }
         return EnumSexo.NAO_DEFINIDO;
     }
+
+    public String formatadorDateParaString(Date dataNascimento) {
+        String dataFormatar = "yyyy-MM-dd";
+        SimpleDateFormat formatarData = new SimpleDateFormat(dataFormatar);
+        Date data = null;
+        try {
+            data = formatarData.parse(String.valueOf(dataNascimento));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return String.valueOf(data);
+    }
 }
