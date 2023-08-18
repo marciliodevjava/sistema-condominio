@@ -16,15 +16,15 @@ public class FormatadorDadosProprietario {
     }
 
     public String formatarCpf(String cpf) {
-        cpf = cpf.replace(".","");
-        cpf = cpf.replace("-","");
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
         return cpf.trim();
     }
 
     public String formatarRg(String rg) {
-        rg = rg.replace(".","");
-        rg = rg.replace("-","");
-        rg = rg.replace("'\'","");
+        rg = rg.replace(".", "");
+        rg = rg.replace("-", "");
+        rg = rg.replace("'\'", "");
         return rg.trim();
     }
 
@@ -39,5 +39,37 @@ public class FormatadorDadosProprietario {
         }
 
         return data;
+    }
+
+    public String formatarDddPais(String dddPais) {
+        dddPais = dddPais.replace(",", "");
+        dddPais = dddPais.replace(".", "");
+        return dddPais.toUpperCase().trim();
+    }
+
+    public String formatarDdd(String ddd) {
+        if (ddd != null && Integer.valueOf(ddd) <= 3) {
+            return ddd;
+        }
+        return "S/N";
+    }
+
+    public String formatarTelefone(String telefone) {
+        if (telefone != null && telefone instanceof String) {
+            telefone = telefone.replace(".", "");
+            telefone = telefone.replace("-", "").trim();
+            if (Integer.valueOf(telefone) <= 9) {
+                return telefone;
+            }
+            return "S/N";
+        }
+        return "N/I";
+    }
+
+    public EnumSexo formatarSexo(EnumSexo sexo) {
+        if (sexo != null && sexo instanceof EnumSexo) {
+            return sexo;
+        }
+        return EnumSexo.NAO_DEFINIDO;
     }
 }
