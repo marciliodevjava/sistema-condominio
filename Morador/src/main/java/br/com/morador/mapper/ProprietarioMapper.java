@@ -1,20 +1,12 @@
 package br.com.morador.mapper;
 
-import br.com.morador.domain.Apartamentos;
-import br.com.morador.domain.MoradorResponsavel;
 import br.com.morador.domain.Proprietario;
-import br.com.morador.domain.Vagas;
-import br.com.morador.dto.ApartamentosDto;
-import br.com.morador.dto.MoradorResponsavelDto;
 import br.com.morador.dto.ProprietarioDto;
-import br.com.morador.dto.VagasDto;
 import br.com.morador.utils.FormatadorDadosProprietario;
 import br.com.morador.utils.GeradorUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Component
