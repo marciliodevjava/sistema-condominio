@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.Random;
 import java.util.UUID;
 
 @Component
@@ -16,7 +15,7 @@ public class GeradorUuid {
     @Autowired
     private UuidRepository uuidRepository;
 
-    public String gerarUuid(){
+    public String gerarUuid() {
         Uuid uuidClass = new Uuid();
         String gerado;
         UUID uuid;
