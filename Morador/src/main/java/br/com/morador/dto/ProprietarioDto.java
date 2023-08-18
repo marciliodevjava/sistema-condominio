@@ -1,15 +1,12 @@
 package br.com.morador.dto;
 
-import br.com.morador.domain.Apartamentos;
 import br.com.morador.domain.enuns.EnumSexo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
