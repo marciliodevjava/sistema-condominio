@@ -2,7 +2,8 @@ package br.com.morador.mapper;
 
 import br.com.morador.domain.Apartamentos;
 import br.com.morador.domain.Vagas;
-import br.com.morador.dto.VagasDto;
+import br.com.morador.dto.request.VagasDto;
+import br.com.morador.dto.response.VagasRetornoDto;
 import br.com.morador.utils.FormatadorDadosVagas;
 import br.com.morador.utils.GeradorUuid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,18 @@ public class VagasMapper {
                 listVagas.add(vag);
             });
             return listVagas;
+        }
+        return null;
+    }
+
+    public List<VagasRetornoDto> mapeiaVagasRetornoDto(List<Vagas> vagas) {
+        List<VagasRetornoDto> list = new ArrayList<>();
+        if(Objects.nonNull(vagas)){
+            vagas.forEach( v -> {
+                VagasRetornoDto dto = new VagasRetornoDto(v);
+                list.add(dto);
+            });
+            return list;
         }
         return null;
     }
