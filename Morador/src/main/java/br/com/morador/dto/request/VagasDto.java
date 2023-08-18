@@ -1,4 +1,4 @@
-package br.com.morador.dto;
+package br.com.morador.dto.request;
 
 import br.com.morador.domain.enuns.EnumSetorVaga;
 import br.com.morador.domain.enuns.EnumTiposVaga;
