@@ -1,7 +1,8 @@
 package br.com.morador.mapper;
 
 import br.com.morador.domain.Proprietario;
-import br.com.morador.dto.ProprietarioDto;
+import br.com.morador.dto.request.ProprietarioDto;
+import br.com.morador.dto.response.ProprietarioRetornoDto;
 import br.com.morador.utils.FormatadorDadosProprietario;
 import br.com.morador.utils.GeradorUuid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class ProprietarioMapper {
     @Autowired
     private ApartamentosMappper apartamentosMappper;
 
-    public Proprietario mapearProprietaSimples(ProprietarioDto dto) {
+    public Proprietario mapearProprietario(ProprietarioDto dto) {
         Proprietario proprietario = new Proprietario();
         if (Objects.nonNull(dto)) {
             proprietario.setUuidProprietario(geradorUuid.gerarUuid());
@@ -36,4 +37,20 @@ public class ProprietarioMapper {
         return null;
     }
 
+    public ProprietarioRetornoDto mapeiaProprietarioRetornoDto(Proprietario proprietario) {
+        ProprietarioRetornoDto dto = new ProprietarioRetornoDto();
+        if (Objects.nonNull(proprietario)) {
+            dto.setUuidProprietario(proprietario.getUuidProprietario());
+            dto.setNome(proprietario.getNome());
+            dto.setRg(proprietario.getRg());
+            dto.setDataNascimento(formatadorDadosProprietario.formatarDateParaString(proprietario.getDataNascimento()));
+            dto.setDddPais(proprietario.getDddPais());
+            dto.setDdd(proprietario.getDdd());
+            dto.setTelefone(proprietario.getTelefone());
+            dto.setSexo(proprietario.getSexo());
+            dto.setApartamento(apartamentosMappper.mapeiaApartamentoRetornoDto(proprietario.getApartamento()));
+            return dto;
+        }
+        return null;
+    }
 }
