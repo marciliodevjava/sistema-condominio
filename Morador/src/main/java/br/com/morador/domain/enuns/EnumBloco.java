@@ -13,7 +13,8 @@ public enum EnumBloco {
 
     BLOCO_G(6),
 
-    BLOCO_H(7);
+    BLOCO_H(7),
+    BLOC_IN(8);
 
     private final int valor;
 
