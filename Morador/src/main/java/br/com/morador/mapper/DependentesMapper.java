@@ -21,7 +21,7 @@ public class DependentesMapper {
 
     public List<DependentesMorador> mapearDependentes(MoradorResponsavel moradorResponsavel, List<DependentesMoradorDto> dependentes) {
         List<DependentesMorador> listDependentes = new ArrayList<>();
-        if (Objects.nonNull(dependentes)){
+        if (Objects.nonNull(dependentes)) {
             dependentes.forEach(a -> {
                 DependentesMorador dependentesMorador = new DependentesMorador();
                 dependentesMorador.setUuidDependenteMorador(geradorUuid.gerarUuid());
