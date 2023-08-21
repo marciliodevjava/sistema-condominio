@@ -35,9 +35,6 @@ public class Apartamentos implements Serializable {
     @Column(name = "andar", length = 7, nullable = false)
     @Enumerated(EnumType.STRING)
     private EnumAndar andar;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_proprietario", nullable = false)
-    private Proprietario proprietario;
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "apartamento", fetch = FetchType.LAZY)
@@ -46,4 +43,7 @@ public class Apartamentos implements Serializable {
     @Getter(onMethod = @__({@JsonIgnore}))
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apartamento", fetch = FetchType.LAZY)
     private List<Vagas> vagas = new ArrayList<>();
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_proprietario", nullable = false)
+    private Proprietario proprietario;
 }
