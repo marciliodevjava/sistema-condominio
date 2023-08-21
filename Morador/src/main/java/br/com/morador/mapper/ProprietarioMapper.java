@@ -42,6 +42,7 @@ public class ProprietarioMapper {
         if (Objects.nonNull(proprietario)) {
             dto.setUuidProprietario(proprietario.getUuidProprietario());
             dto.setNome(proprietario.getNome());
+            dto.setCpf(proprietario.getCpf());
             dto.setRg(proprietario.getRg());
             dto.setDataNascimento(formatadorDadosProprietario.formatarDateParaString(proprietario.getDataNascimento()));
             dto.setDddPais(proprietario.getDddPais());
