@@ -37,7 +37,7 @@ public class DependentesMorador implements Serializable {
     private String ddd;
     @Column(name = "telefone", length = 9)
     private String telefone;
-    @Column(name = "genero", nullable = false, length = 12)
+    @Column(name = "sexo", nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @ManyToOne(optional = false)
