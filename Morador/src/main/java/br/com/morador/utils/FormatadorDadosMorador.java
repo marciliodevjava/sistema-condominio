@@ -48,7 +48,7 @@ public class FormatadorDadosMorador {
     }
 
     public String formatadorDdd(String ddd) {
-        if (ddd != null && Integer.valueOf(ddd) <= 3) {
+        if (ddd != null && ddd.length() <= 3) {
             return ddd;
         }
         return "S/N";
@@ -58,7 +58,7 @@ public class FormatadorDadosMorador {
         if (telefone != null && telefone instanceof String) {
             telefone = telefone.replace(".", "");
             telefone = telefone.replace("-", "").trim();
-            if (Integer.valueOf(telefone) <= 9) {
+            if (telefone.length() <= 9) {
                 return telefone;
             }
             return "S/N";
@@ -76,13 +76,8 @@ public class FormatadorDadosMorador {
     public String formatadorDateParaString(Date dataNascimento) {
         String dataFormatar = "yyyy-MM-dd";
         SimpleDateFormat formatarData = new SimpleDateFormat(dataFormatar);
-        Date data = null;
-        try {
-            data = formatarData.parse(String.valueOf(dataNascimento));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        String dataFormatada = formatarData.format(dataNascimento);
 
-        return String.valueOf(data);
+        return dataFormatada;
     }
 }
