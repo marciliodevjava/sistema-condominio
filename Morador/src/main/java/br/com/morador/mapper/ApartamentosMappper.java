@@ -36,7 +36,10 @@ public class ApartamentosMappper {
                 apt.setNumero(formatadorDadosApartamento.numero(a.getNumero()));
                 apt.setMorador(moradorResponsavelMapper.mapearMorador(apt, a.getMorador()));
                 apt.setVagas(vagasMapper.mapearVagas(apt, a.getVagas()));
+
+                listApatamento.add(apt);
             });
+            return listApatamento;
         }
         return null;
     }
