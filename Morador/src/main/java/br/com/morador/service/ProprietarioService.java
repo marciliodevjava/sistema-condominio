@@ -25,7 +25,7 @@ public class ProprietarioService {
     public ProprietarioRetornoDto salvaProprietario(ProprietarioDto dto) {
         if (Objects.nonNull(dto)) {
             Proprietario proprietario = proprietarioMapper.mapearProprietario(dto);
-            if (proprietario.equals(true)) {
+            if (proprietario != null) {
                 proprietario = proprietarioManager.salvarProprietario(proprietario);
                 return new ProprietarioRetornoDto(proprietarioMapper.mapeiaProprietarioRetornoDto(proprietario));
             }
@@ -37,8 +37,12 @@ public class ProprietarioService {
         if (Objects.nonNull(dto)) {
             Proprietario proprietario = proprietarioMapper.mapearProprietario(dto);
 
-            proprietario = proprietarioManager.salvarProprietario(proprietario);
-            List<Apartamentos> apartamentos = apartamentosManager.salvarListApartamentos(proprietario.getApartamento());
+            if (proprietario != null){
+                Proprietario pro = new Proprietario(proprietario);
+
+                pro = proprietarioManager.salvarProprietario(pro);
+                List<Apartamentos> apartamentos = apartamentosManager.salvarListApartamentos(proprietario.getApartamento());
+            }
         }
         return null;
     }
