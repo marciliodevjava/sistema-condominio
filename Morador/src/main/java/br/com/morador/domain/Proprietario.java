@@ -21,7 +21,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class Proprietario implements Serializable {
     @Serial
-    private static final long serialVersionUID= 8L;
+    private static final long serialVersionUID = 8L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,11 +41,23 @@ public class Proprietario implements Serializable {
     private String ddd;
     @Column(name = "telefone", nullable = false, length = 9)
     private String telefone;
-    @Column(name = "genero", nullable = false, length = 12)
+    @Column(name = "sexo", nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proprietario", fetch = FetchType.LAZY)
     private List<Apartamentos> apartamento = new ArrayList<>();
+
+    public Proprietario(Proprietario proprietario) {
+        this.uuidProprietario = proprietario.getUuidProprietario();
+        this.nome = proprietario.getNome();
+        this.cpf = proprietario.getCpf();
+        this.rg = proprietario.getRg();
+        this.dataNascimento = proprietario.getDataNascimento();
+        this.dddPais = proprietario.getDddPais();
+        this.ddd = proprietario.getDdd();
+        this.telefone = proprietario.getTelefone();
+        this.sexo = proprietario.getSexo();
+    }
 }
