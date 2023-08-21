@@ -41,7 +41,7 @@ public class MoradorResponsavel implements Serializable {
     private String ddd;
     @Column(name = "telefone", nullable = false, length = 9)
     private String telefone;
-    @Column(name = "genero", nullable = false, length = 12)
+    @Column(name = "sexo", nullable = false, length = 12)
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @Setter(onMethod = @__({@JsonProperty}))
