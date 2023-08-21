@@ -25,13 +25,15 @@ public class GeradorUuid {
             uuidClass = uuidRepository.findByUuidGerado(gerado);
         } while (uuidClass != null);
 
-        uuidClass.setUuidGerado(gerado);
-        uuidClass.setProjeto(EnumProjeto.MORADOR);
-        uuidClass.setData(new Date());
-        uuidClass.setHora(LocalTime.now());
+        Uuid uuidRetorno = new Uuid();
 
-        uuidClass = uuidRepository.save(uuidClass);
+        uuidRetorno.setUuidGerado(gerado);
+        uuidRetorno.setProjeto(EnumProjeto.MORADOR);
+        uuidRetorno.setData(new Date());
+        uuidRetorno.setHora(LocalTime.now());
 
-        return uuidClass.getUuidGerado();
+        uuidRetorno = uuidRepository.save(uuidRetorno);
+
+        return uuidRetorno.getUuidGerado().toString();
     }
 }
