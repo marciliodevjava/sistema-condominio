@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class VagasDto {
-    private String uuidVagas;
     private String numero;
     private EnumSetorVaga setor;
     private EnumTiposVaga tipo;
