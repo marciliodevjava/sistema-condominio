@@ -6,6 +6,7 @@ import br.com.morador.repository.ApartamentosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,9 +16,10 @@ public class ApartamentosManager {
     private ApartamentosRepository apartamentosRepository;
 
     public List<Apartamentos> salvarListApartamentos(List<Apartamentos> apartamento) {
+        List<Apartamentos> listApt = new ArrayList<>(apartamento);
         if (Objects.nonNull(apartamento)) {
-            List<Apartamentos> apartamentos = apartamentosRepository.saveAll(apartamento);
-            return apartamentos;
+            listApt = apartamentosRepository.saveAll(listApt);
+            return listApt;
         }
         throw new ErroSalvarApartamentoException();
     }
