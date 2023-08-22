@@ -1,6 +1,6 @@
 package br.com.morador.mapper;
 
-import br.com.morador.domain.Apartamentos;
+import br.com.morador.domain.Apartamento;
 import br.com.morador.domain.Proprietario;
 import br.com.morador.dto.request.ApartamentosDto;
 import br.com.morador.dto.response.ApartamentosRetornoDto;
@@ -24,10 +24,10 @@ public class ApartamentosMappper {
     @Autowired
     private FormatadorDadosApartamento formatadorDadosApartamento;
 
-    public List<Apartamentos> mapearApartamento(Proprietario proprietario, List<ApartamentosDto> apartamento) {
-        List<Apartamentos> listApatamento = new ArrayList<>();
+    public List<Apartamento> mapearApartamento(Proprietario proprietario, List<ApartamentosDto> apartamento) {
+        List<Apartamento> listApatamento = new ArrayList<>();
         if (Objects.nonNull(apartamento)) {
-            Apartamentos apt = new Apartamentos();
+            Apartamento apt = new Apartamento();
             apartamento.forEach(a -> {
                 apt.setProprietario(proprietario);
                 apt.setUuidApartamento(geradorUuid.gerarUuid());
@@ -44,7 +44,7 @@ public class ApartamentosMappper {
         return null;
     }
 
-    public List<ApartamentosRetornoDto> mapeiaApartamentoRetornoDto(List<Apartamentos> apartamento) {
+    public List<ApartamentosRetornoDto> mapeiaApartamentoRetornoDto(List<Apartamento> apartamento) {
         List<ApartamentosRetornoDto> list = new ArrayList<>();
         if (Objects.nonNull(apartamento)){
             apartamento.forEach( a -> {
