@@ -10,8 +10,8 @@ CREATE TABLE tb_morador_responsavel
     ddd             VARCHAR(3)   not null,
     telefone        VARCHAR(9)   not null,
     sexo            VARCHAR(12)  not null,
-    id_apartamento  BIGINT(20) not null,
+    id_apartamento  BIGINT(20),
 
     PRIMARY KEY (id),
-    FOREIGN KEY (id_apartamento) REFERENCES tb_apartamentos (id)
+    FOREIGN KEY (id_apartamento) REFERENCES tb_apartamento (id)
 );
