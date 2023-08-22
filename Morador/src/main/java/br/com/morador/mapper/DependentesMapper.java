@@ -34,7 +34,7 @@ public class DependentesMapper {
                 dependentesMorador.setDdd(formatadorDadosDependentes.formatarDdd(a.getDdd()));
                 dependentesMorador.setTelefone(formatadorDadosDependentes.formatarTelefone(a.getTelefone()));
                 dependentesMorador.setSexo(formatadorDadosDependentes.formatarSexo(a.getSexo()));
-                dependentesMorador.setMorador(moradorResponsavel);
+                dependentesMorador.setMoradorResponsavel(moradorResponsavel);
                 listDependentes.add(dependentesMorador);
             });
             return listDependentes;
