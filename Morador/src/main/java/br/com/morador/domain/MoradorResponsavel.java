@@ -21,34 +21,35 @@ import java.util.List;
 @EqualsAndHashCode
 public class MoradorResponsavel implements Serializable {
     @Serial
-    private static final long serialVersionUID= 9L;
+    private static final long serialVersionUID = 9L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "uuid_morador", length = 100, nullable = false)
+    @Column(name = "uuid_morador", length = 100)
     private String uuidMorador;
-    @Column(name = "nome", length = 150, nullable = false)
+    @Column(name = "nome", length = 150)
     private String nome;
-    @Column(name = "cpf", unique = true, length = 11, nullable = false)
+    @Column(name = "cpf", unique = true, length = 11)
     private String cpf;
     @Column(name = "rg", length = 10)
     private String rg;
-    @Column(name = "data_nascimento", nullable = false)
+    @Column(name = "data_nascimento")
     private Date dataNascimento;
-    @Column(name = "ddd_pais", nullable = false)
+    @Column(name = "ddd_pais")
     private String dddPais;
-    @Column(name = "ddd", nullable = false, length = 3)
+    @Column(name = "ddd", length = 3)
     private String ddd;
-    @Column(name = "telefone", nullable = false, length = 9)
+    @Column(name = "telefone", length = 9)
     private String telefone;
-    @Column(name = "sexo", nullable = false, length = 12)
+    @Column(name = "sexo", length = 12)
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "morador", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "moradorResponsavel", fetch = FetchType.LAZY)
     private List<DependentesMorador> dependentes = new ArrayList<>();
+
     @OneToOne
     @JoinColumn(name = "id_apartamento")
-    private Apartamentos apartamento;
+    private Apartamento apartamento;
 }
