@@ -1,6 +1,6 @@
 package br.com.morador.mapper;
 
-import br.com.morador.domain.Apartamentos;
+import br.com.morador.domain.Apartamento;
 import br.com.morador.domain.Vagas;
 import br.com.morador.dto.request.VagasDto;
 import br.com.morador.dto.response.VagasRetornoDto;
@@ -20,16 +20,16 @@ public class VagasMapper {
     @Autowired
     private FormatadorDadosVagas formatadorDadosVagas;
 
-    public List<Vagas> mapearVagas(Apartamentos apt, List<VagasDto> vagas) {
+    public List<Vagas> mapearVagas(Apartamento apt, List<VagasDto> vagas) {
         List<Vagas> listVagas = new ArrayList<>();
         if (Objects.nonNull(vagas)) {
             vagas.forEach(a -> {
                 Vagas vag = new Vagas();
-                vag.setApartamento(apt);
                 vag.setUuidVagas(geradorUuid.gerarUuid());
                 vag.setNumero(formatadorDadosVagas.numero(a.getNumero()));
                 vag.setSetor(formatadorDadosVagas.setor(a.getSetor()));
                 vag.setTipo(formatadorDadosVagas.tipo(a.getTipo()));
+                vag.setApartamento(apt);
                 listVagas.add(vag);
             });
             return listVagas;
