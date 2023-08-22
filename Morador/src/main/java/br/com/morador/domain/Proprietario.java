@@ -25,29 +25,29 @@ public class Proprietario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "uuid_proprietario", length = 100, nullable = false)
+    @Column(name = "uuid_proprietario", length = 100)
     private String uuidProprietario;
-    @Column(name = "nome", length = 150, nullable = false)
+    @Column(name = "nome", length = 150)
     private String nome;
-    @Column(name = "cpf", unique = true, length = 11, nullable = false)
+    @Column(name = "cpf", unique = true, length = 11)
     private String cpf;
-    @Column(name = "rg", length = 10, nullable = false)
+    @Column(name = "rg", length = 10)
     private String rg;
-    @Column(name = "data_nascimento", nullable = false)
+    @Column(name = "data_nascimento")
     private Date dataNascimento;
-    @Column(name = "ddd_pais", nullable = false)
+    @Column(name = "ddd_pais")
     private String dddPais;
-    @Column(name = "ddd", nullable = false, length = 3)
+    @Column(name = "ddd", length = 3)
     private String ddd;
-    @Column(name = "telefone", nullable = false, length = 9)
+    @Column(name = "telefone", length = 9)
     private String telefone;
-    @Column(name = "sexo", nullable = false, length = 12)
+    @Column(name = "sexo", length = 12)
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @Setter(onMethod = @__({@JsonProperty}))
     @Getter(onMethod = @__({@JsonIgnore}))
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proprietario", fetch = FetchType.LAZY)
-    private List<Apartamentos> apartamento = new ArrayList<>();
+    @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Apartamento> apartamento = new ArrayList<>();
 
     public Proprietario(Proprietario proprietario) {
         this.uuidProprietario = proprietario.getUuidProprietario();
