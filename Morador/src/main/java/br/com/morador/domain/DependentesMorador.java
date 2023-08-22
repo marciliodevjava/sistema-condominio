@@ -41,6 +41,6 @@ public class DependentesMorador implements Serializable {
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_morador")
-    private MoradorResponsavel morador;
+    @JoinColumn(name = "id_moradorResponsavel")
+    private MoradorResponsavel moradorResponsavel;
 }
