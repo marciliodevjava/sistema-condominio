@@ -1,6 +1,6 @@
 package br.com.morador.mapper;
 
-import br.com.morador.domain.Apartamentos;
+import br.com.morador.domain.Apartamento;
 import br.com.morador.domain.MoradorResponsavel;
 import br.com.morador.dto.request.MoradorResponsavelDto;
 import br.com.morador.dto.response.MoradorResponsavelRetornoDto;
@@ -20,7 +20,7 @@ public class MoradorResponsavelMapper {
     @Autowired
     private DependentesMapper dependentesMapper;
 
-    public MoradorResponsavel mapearMorador(Apartamentos apt, MoradorResponsavelDto morador) {
+    public MoradorResponsavel mapearMorador(Apartamento apt, MoradorResponsavelDto morador) {
         MoradorResponsavel moradorResponsavel = new MoradorResponsavel();
         if (Objects.nonNull(morador)) {
             moradorResponsavel.setUuidMorador(geradorUuid.gerarUuid());
@@ -51,6 +51,7 @@ public class MoradorResponsavelMapper {
             dto.setDdd(dto.getDdd());
             dto.setTelefone(dto.getTelefone());
             dto.setDependentes(dependentesMapper.mapeiaDependentesRetornoDto(morador.getDependentes()));
+            return dto;
         }
         return null;
     }
