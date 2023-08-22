@@ -10,8 +10,8 @@ CREATE TABLE tb_dependentes_morador
     ddd             VARCHAR(3)   not null,
     telefone        VARCHAR(9)   not null,
     sexo            VARCHAR(12)  not null,
-    id_morador      BIGINT(20) not null,
+    id_morador_responsavel      BIGINT(20),
 
     PRIMARY KEY (id),
-    FOREIGN KEY (id_morador) REFERENCES tb_morador_responsavel (id)
+    FOREIGN KEY (id_morador_responsavel) REFERENCES tb_morador_responsavel (id)
 );
