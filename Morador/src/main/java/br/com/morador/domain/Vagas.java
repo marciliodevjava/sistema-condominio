@@ -21,12 +21,13 @@ public class Vagas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "uuid_vagas", length = 100, nullable = false)
+    @Column(name = "uuid_vagas", length = 100)
     private String uuidVagas;
     private String numero;
     private EnumSetorVaga setor;
     private EnumTiposVaga tipo;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_apartamento")
-    private Apartamentos apartamento;
+    private Apartamento apartamento;
 }
