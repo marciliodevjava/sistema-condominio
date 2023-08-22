@@ -1,6 +1,5 @@
 package br.com.morador.service;
 
-import br.com.morador.domain.Apartamentos;
 import br.com.morador.domain.Proprietario;
 import br.com.morador.dto.request.ProprietarioDto;
 import br.com.morador.dto.response.ProprietarioRetornoDto;
@@ -38,10 +37,12 @@ public class ProprietarioService {
             Proprietario proprietario = proprietarioMapper.mapearProprietario(dto);
 
             if (proprietario != null){
-                Proprietario pro = new Proprietario(proprietario);
+                proprietario = proprietarioManager.salvarProprietario(proprietario);
 
-                pro = proprietarioManager.salvarProprietario(pro);
-                List<Apartamentos> apartamentos = apartamentosManager.salvarListApartamentos(proprietario.getApartamento());
+                ProprietarioRetornoDto proprietarioRetornoDto = new ProprietarioRetornoDto();
+                proprietarioRetornoDto = proprietarioMapper.mapeiaProprietarioRetornoDto(proprietario);
+
+                return proprietarioRetornoDto;
             }
         }
         return null;
