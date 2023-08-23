@@ -32,4 +32,5 @@ public class MoradorResponsavelDto {
     @NotNull(message = "sexo invalido")
     private EnumSexo sexo;
     private List<DependentesMoradorDto> dependentes = new ArrayList<>();
+    private List<VagasDto> vagas = new ArrayList<>();
 }
