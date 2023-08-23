@@ -17,7 +17,7 @@ import java.util.Date;
 @EqualsAndHashCode
 public class DependentesMorador implements Serializable {
     @Serial
-    private static final long serialVersionUID= 11L;
+    private static final long serialVersionUID= 105L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
