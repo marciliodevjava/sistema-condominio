@@ -17,17 +17,21 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class Vagas implements Serializable {
     @Serial
-    private static final long serialVersionUID= 12L;
+    private static final long serialVersionUID = 103L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "uuid_vagas", length = 100)
     private String uuidVagas;
     private String numero;
+    @Column(name = "setor", nullable = false, length = 12)
+    @Enumerated(EnumType.STRING)
     private EnumSetorVaga setor;
+    @Column(name = "tipo", nullable = false, length = 12)
+    @Enumerated(EnumType.STRING)
     private EnumTiposVaga tipo;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_apartamento")
-    private Apartamento apartamento;
+    @JoinColumn(name = "id_moradorResponsavel")
+    private MoradorResponsavel moradorResponsavel;
 }
