@@ -19,7 +19,7 @@ import java.util.Date;
 public class Uuid implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 104L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
