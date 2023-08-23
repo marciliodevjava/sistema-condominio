@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ProprietarioService {
@@ -39,12 +40,20 @@ public class ProprietarioService {
             if (proprietario != null){
                 proprietario = proprietarioManager.salvarProprietario(proprietario);
 
-                ProprietarioRetornoDto proprietarioRetornoDto = new ProprietarioRetornoDto();
+                ProprietarioRetornoDto proprietarioRetornoDto;
                 proprietarioRetornoDto = proprietarioMapper.mapeiaProprietarioRetornoDto(proprietario);
 
                 return proprietarioRetornoDto;
             }
         }
         return null;
+    }
+
+    public ProprietarioRetornoDto buscarProponente(String uuid) {
+        Optional<Proprietario> proprietario = proprietarioManager.buscarProprietario(uuid);
+        Proprietario dtoProprietario = proprietario.get();
+        ProprietarioRetornoDto dto = proprietarioMapper.mapeiaProprietarioRetornoDto(dtoProprietario);
+
+        return dto;
     }
 }
