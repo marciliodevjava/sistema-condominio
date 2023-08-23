@@ -21,7 +21,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class MoradorResponsavel implements Serializable {
     @Serial
-    private static final long serialVersionUID = 9L;
+    private static final long serialVersionUID = 102L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,6 +48,10 @@ public class MoradorResponsavel implements Serializable {
     @Getter(onMethod = @__({@JsonIgnore}))
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "moradorResponsavel", fetch = FetchType.LAZY)
     private List<DependentesMorador> dependentes = new ArrayList<>();
+    @Setter(onMethod = @__({@JsonProperty}))
+    @Getter(onMethod = @__({@JsonIgnore}))
+    @OneToMany(mappedBy = "moradorResponsavel", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<Vagas> vagas = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "id_apartamento")
