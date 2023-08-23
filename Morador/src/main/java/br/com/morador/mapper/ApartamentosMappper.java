@@ -35,7 +35,6 @@ public class ApartamentosMappper {
                 apt.setBloco(formatadorDadosApartamento.bloco(a.getBloco()));
                 apt.setNumero(formatadorDadosApartamento.numero(a.getNumero()));
                 apt.setMorador(moradorResponsavelMapper.mapearMorador(apt, a.getMorador()));
-                apt.setVagas(vagasMapper.mapearVagas(apt, a.getVagas()));
 
                 listApatamento.add(apt);
             });
@@ -54,7 +53,6 @@ public class ApartamentosMappper {
                 apt.setBloco(a.getBloco());
                 apt.setAndar(a.getAndar());
                 apt.setMorador(moradorResponsavelMapper.mapeiaMoradorResponsavelRetornoDto(a.getMorador()));
-                apt.setVagas(vagasMapper.mapeiaVagasRetornoDto(a.getVagas()));
                 list.add(apt);
             });
             return list;
