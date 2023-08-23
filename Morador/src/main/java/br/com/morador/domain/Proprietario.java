@@ -21,7 +21,7 @@ import java.util.List;
 @EqualsAndHashCode
 public class Proprietario implements Serializable {
     @Serial
-    private static final long serialVersionUID = 8L;
+    private static final long serialVersionUID = 100L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
