@@ -19,6 +19,8 @@ public class MoradorResponsavelMapper {
     private FormatadorDadosMorador formatadorDadosMorador;
     @Autowired
     private DependentesMapper dependentesMapper;
+    @Autowired
+    private VagasMapper vagasMapper;
 
     public MoradorResponsavel mapearMorador(Apartamento apt, MoradorResponsavelDto morador) {
         MoradorResponsavel moradorResponsavel = new MoradorResponsavel();
@@ -33,6 +35,7 @@ public class MoradorResponsavelMapper {
             moradorResponsavel.setTelefone(formatadorDadosMorador.formatadorTelefone(morador.getTelefone()));
             moradorResponsavel.setSexo(formatadorDadosMorador.formatadorSexo(morador.getSexo()));
             moradorResponsavel.setDependentes(dependentesMapper.mapearDependentes(moradorResponsavel, morador.getDependentes()));
+            moradorResponsavel.setVagas(vagasMapper.mapearVagas(moradorResponsavel, morador.getVagas()));
             moradorResponsavel.setApartamento(apt);
             return moradorResponsavel;
         }
@@ -51,6 +54,7 @@ public class MoradorResponsavelMapper {
             dto.setDdd(dto.getDdd());
             dto.setTelefone(dto.getTelefone());
             dto.setDependentes(dependentesMapper.mapeiaDependentesRetornoDto(morador.getDependentes()));
+            dto.setVagas(vagasMapper.mapeiaVagasRetornoDto(morador.getVagas()));
             return dto;
         }
         return null;
