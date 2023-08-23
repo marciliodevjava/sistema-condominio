@@ -18,5 +18,4 @@ public class ApartamentosRetornoDto {
     private EnumBloco bloco;
     private EnumAndar andar;
     private MoradorResponsavelRetornoDto morador;
-    private List<VagasRetornoDto> vagas = new ArrayList<>();
 }
