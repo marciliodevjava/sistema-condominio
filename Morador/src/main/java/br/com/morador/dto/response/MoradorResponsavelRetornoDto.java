@@ -1,6 +1,5 @@
 package br.com.morador.dto.response;
 
-import br.com.morador.domain.DependentesMorador;
 import br.com.morador.domain.enuns.EnumSexo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
@@ -23,4 +22,5 @@ public class MoradorResponsavelRetornoDto {
     private String telefone;
     private EnumSexo sexo;
     private List<DependentesMoradorRetornoDto> dependentes = new ArrayList<>();
+    private List<VagasRetornoDto> vagas = new ArrayList<>();
 }
