@@ -1,6 +1,7 @@
 package br.com.morador.mapper;
 
 import br.com.morador.domain.Apartamento;
+import br.com.morador.domain.MoradorResponsavel;
 import br.com.morador.domain.Vagas;
 import br.com.morador.dto.request.VagasDto;
 import br.com.morador.dto.response.VagasRetornoDto;
@@ -20,7 +21,7 @@ public class VagasMapper {
     @Autowired
     private FormatadorDadosVagas formatadorDadosVagas;
 
-    public List<Vagas> mapearVagas(Apartamento apt, List<VagasDto> vagas) {
+    public List<Vagas> mapearVagas(MoradorResponsavel morador, List<VagasDto> vagas) {
         List<Vagas> listVagas = new ArrayList<>();
         if (Objects.nonNull(vagas)) {
             vagas.forEach(a -> {
@@ -29,7 +30,7 @@ public class VagasMapper {
                 vag.setNumero(formatadorDadosVagas.numero(a.getNumero()));
                 vag.setSetor(formatadorDadosVagas.setor(a.getSetor()));
                 vag.setTipo(formatadorDadosVagas.tipo(a.getTipo()));
-                vag.setApartamento(apt);
+                vag.setMoradorResponsavel(morador);
                 listVagas.add(vag);
             });
             return listVagas;
@@ -40,11 +41,13 @@ public class VagasMapper {
     public List<VagasRetornoDto> mapeiaVagasRetornoDto(List<Vagas> vagas) {
         List<VagasRetornoDto> list = new ArrayList<>();
         if(Objects.nonNull(vagas)){
-            vagas.forEach( v -> {
-                VagasRetornoDto dto = new VagasRetornoDto(v);
-                list.add(dto);
-            });
-            return list;
+            if(vagas.size() >= 0){
+                vagas.forEach( v -> {
+                    VagasRetornoDto dto = new VagasRetornoDto(v);
+                    list.add(dto);
+                });
+                return list;
+            }
         }
         return null;
     }
