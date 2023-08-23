@@ -20,8 +20,9 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode
 public class Apartamento implements Serializable {
+
     @Serial
-    private static final long serialVersionUID= 10L;
+    private static final long serialVersionUID= 101L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,10 +40,6 @@ public class Apartamento implements Serializable {
     @Getter(onMethod = @__({@JsonIgnore}))
     @OneToOne(mappedBy = "apartamento", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private MoradorResponsavel morador;
-    @Setter(onMethod = @__({@JsonProperty}))
-    @Getter(onMethod = @__({@JsonIgnore}))
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "apartamento", fetch = FetchType.LAZY)
-    private List<Vagas> vagas = new ArrayList<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_proprietario")
