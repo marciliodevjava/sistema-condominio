@@ -1,4 +1,4 @@
-package br.com.morador.dto;
+package br.com.morador.exception;
 
 public class ErroBuscarProprietarioException extends RuntimeException {
     public ErroBuscarProprietarioException() {
