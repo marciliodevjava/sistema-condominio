@@ -1,7 +1,7 @@
 package br.com.morador.manager;
 
 import br.com.morador.domain.Proprietario;
-import br.com.morador.dto.ErroBuscarProprietarioException;
+import br.com.morador.exception.ErroBuscarProprietarioException;
 import br.com.morador.exception.ErroSalvarProprietarioException;
 import br.com.morador.repository.ProprietarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
