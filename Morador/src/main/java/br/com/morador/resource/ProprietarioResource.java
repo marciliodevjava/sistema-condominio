@@ -1,5 +1,6 @@
 package br.com.morador.resource;
 
+import br.com.morador.dto.request.ProprietarioUpdateDto;
 import br.com.morador.dto.request.ProprietarioDto;
 import br.com.morador.dto.response.ProprietarioRetornoDto;
 import br.com.morador.service.ProprietarioService;
@@ -32,8 +33,14 @@ public class ProprietarioResource {
     }
 
     @GetMapping("/buscar/{uuid}")
-    public ResponseEntity<ProprietarioRetornoDto> getProprietário(@PathVariable String uuid){
+    public ResponseEntity<ProprietarioRetornoDto> getProprietário(@PathVariable String uuid) {
         ProprietarioRetornoDto dto = proprietarioService.buscarProponente(uuid);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping("/atualizar/{uuid}")
+    public ResponseEntity<ProprietarioRetornoDto> atualizar(@PathVariable String uuid, @RequestBody ProprietarioUpdateDto proprietarioDto) {
+        ProprietarioRetornoDto dto = proprietarioService.atualizarProprietario(uuid, proprietarioDto);
         return ResponseEntity.ok(dto);
     }
 }
