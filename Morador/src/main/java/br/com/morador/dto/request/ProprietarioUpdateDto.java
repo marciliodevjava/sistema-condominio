@@ -1,6 +1,7 @@
 package br.com.morador.dto.request;
 
 import br.com.morador.domain.enuns.EnumSexo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProprietarioUpdateDto {
     @NotNull(message = "nome invalido")
     private String nome;
@@ -27,6 +29,5 @@ public class ProprietarioUpdateDto {
     private String telefone;
     @NotNull(message = "nome invalido")
     private EnumSexo sexo;
-    @NotNull(message = "apartamento invalido")
     private List<ApartamentosUpdateDto> apartamento = new ArrayList<>();
 }
