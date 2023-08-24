@@ -15,19 +15,19 @@ import java.util.List;
 public class ProprietarioDto {
     @NotNull(message = "nome invalido")
     private String nome;
-    @NotNull(message = "nome invalido")
+    @NotNull(message = "cpf invalido")
     private String cpf;
-    @NotNull(message = "nome invalido")
+    @NotNull(message = "rg invalido")
     private String rg;
-    @NotNull(message = "nome invalido")
+    @NotNull(message = "dataNascimento invalido")
     private String dataNascimento;
-    @NotNull(message = "nome invalido")
+    @NotNull(message = "dddPais invalido")
     private String dddPais;
-    @NotNull(message = "nome invalido")
+    @NotNull(message = "ddd invalido")
     private String ddd;
-    @NotNull(message = "nome invalido")
+    @NotNull(message = "telefone invalido")
     private String telefone;
-    @NotNull(message = "nome invalido")
+    @NotNull(message = "sexo invalido")
     private EnumSexo sexo;
     @NotNull(message = "apartamento invalido")
     private List<ApartamentosDto> apartamento = new ArrayList<>();
