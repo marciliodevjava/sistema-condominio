@@ -4,6 +4,7 @@ import br.com.morador.domain.Apartamento;
 import br.com.morador.domain.MoradorResponsavel;
 import br.com.morador.domain.Vagas;
 import br.com.morador.dto.request.VagasDto;
+import br.com.morador.dto.request.VagasUpdateDto;
 import br.com.morador.dto.response.VagasRetornoDto;
 import br.com.morador.utils.FormatadorDadosVagas;
 import br.com.morador.utils.GeradorUuid;
@@ -40,9 +41,9 @@ public class VagasMapper {
 
     public List<VagasRetornoDto> mapeiaVagasRetornoDto(List<Vagas> vagas) {
         List<VagasRetornoDto> list = new ArrayList<>();
-        if(Objects.nonNull(vagas)){
-            if(vagas.size() >= 0){
-                vagas.forEach( v -> {
+        if (Objects.nonNull(vagas)) {
+            if (vagas.size() >= 0) {
+                vagas.forEach(v -> {
                     VagasRetornoDto dto = new VagasRetornoDto(v);
                     list.add(dto);
                 });
@@ -50,5 +51,22 @@ public class VagasMapper {
             }
         }
         return null;
+    }
+
+    public List<Vagas> mapearVagasUpdate(MoradorResponsavel morador, List<Vagas> vagas, List<VagasUpdateDto> dto) {
+        if (Objects.nonNull(vagas) && Objects.nonNull(dto)) {
+            vagas.forEach(vap -> {
+                dto.forEach(up -> {
+                    if (vap.getUuidVagas().equals(up.getUuidVagas())) {
+                        vap.setNumero(!up.getNumero().equals(null) && !up.getNumero().isEmpty() ? formatadorDadosVagas.numero(up.getNumero()) : vap.getNumero());
+                        vap.setSetor(!up.getSetor().equals(null) && !up.getSetor().toString().isEmpty() ? formatadorDadosVagas.setor(up.getSetor()) : vap.getSetor());
+                        vap.setTipo(!up.getTipo().equals(null) && !up.getTipo().toString().isEmpty() ? formatadorDadosVagas.tipo(up.getTipo()) : vap.getTipo());
+                        vap.setMoradorResponsavel(morador);
+                    }
+                });
+            });
+            return vagas;
+        }
+        return vagas;
     }
 }
