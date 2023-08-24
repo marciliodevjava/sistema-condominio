@@ -3,6 +3,7 @@ package br.com.morador.mapper;
 import br.com.morador.domain.DependentesMorador;
 import br.com.morador.domain.MoradorResponsavel;
 import br.com.morador.dto.request.DependentesMoradorDto;
+import br.com.morador.dto.request.DependentesMoradorUpdateDto;
 import br.com.morador.dto.response.DependentesMoradorRetornoDto;
 import br.com.morador.utils.FormatadorDadosDependentes;
 import br.com.morador.utils.GeradorUuid;
@@ -45,7 +46,7 @@ public class DependentesMapper {
     public List<DependentesMoradorRetornoDto> mapeiaDependentesRetornoDto(List<DependentesMorador> dependentes) {
         List<DependentesMoradorRetornoDto> list = new ArrayList<>();
         if (Objects.nonNull(dependentes)) {
-            dependentes.forEach( dep -> {
+            dependentes.forEach(dep -> {
                 DependentesMoradorRetornoDto dto = new DependentesMoradorRetornoDto();
                 dto.setUuidDependenteMorador(dep.getUuidDependenteMorador());
                 dto.setNome(dep.getNome());
@@ -61,5 +62,27 @@ public class DependentesMapper {
             return list;
         }
         return null;
+    }
+
+    public List<DependentesMorador> mapearDependentesUpdate(MoradorResponsavel morador, List<DependentesMorador> dependentes, List<DependentesMoradorUpdateDto> dto) {
+        if (Objects.nonNull(dependentes) && Objects.nonNull(dto)) {
+            dependentes.forEach(dep -> {
+                dto.forEach(up -> {
+                    if (dep.getUuidDependenteMorador().equals(up.getUuidDependenteMorador())) {
+                        dep.setNome(!up.getNome().equals(null) && !up.getNome().isEmpty() ? formatadorDadosDependentes.formatarNome(up.getNome()) : dep.getNome());
+                        dep.setCpf(!up.getCpf().equals(null) && !up.getCpf().isEmpty() ? formatadorDadosDependentes.formatarCpf(up.getCpf()) : dep.getCpf());
+                        dep.setRg(!up.getRg().equals(null) && !up.getRg().isEmpty() ? formatadorDadosDependentes.formatarRg(up.getRg()) : dep.getRg());
+                        dep.setDataNascimento(!up.getDataNascimento().equals(null) && !up.getDataNascimento().isEmpty() ? formatadorDadosDependentes.formatarStringParaDate(up.getDataNascimento()) : dep.getDataNascimento());
+                        dep.setDddPais(!up.getDddPais().equals(null) && !up.getDddPais().isEmpty() ? formatadorDadosDependentes.formatarDddPais(up.getDddPais()) : dep.getDddPais());
+                        dep.setDdd(!up.getDdd().equals(null) && !up.getDdd().isEmpty() ? formatadorDadosDependentes.formatarDdd(up.getDdd()) : dep.getDdd());
+                        dep.setTelefone(!up.getTelefone().equals(null) && !up.getTelefone().isEmpty() ? formatadorDadosDependentes.formatarTelefone(up.getTelefone()) : dep.getTelefone());
+                        dep.setSexo(!up.getSexo().equals(null) && !up.getSexo().toString().isEmpty() ? formatadorDadosDependentes.formatarSexo(up.getSexo()) : dep.getSexo());
+                        dep.setMoradorResponsavel(morador);
+                    }
+                });
+            });
+            return dependentes;
+        }
+        return dependentes;
     }
 }
