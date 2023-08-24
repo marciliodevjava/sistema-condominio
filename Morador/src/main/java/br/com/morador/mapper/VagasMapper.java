@@ -1,6 +1,5 @@
 package br.com.morador.mapper;
 
-import br.com.morador.domain.Apartamento;
 import br.com.morador.domain.MoradorResponsavel;
 import br.com.morador.domain.Vagas;
 import br.com.morador.dto.request.VagasDto;
