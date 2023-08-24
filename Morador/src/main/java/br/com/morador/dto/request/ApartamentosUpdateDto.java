@@ -2,12 +2,13 @@ package br.com.morador.dto.request;
 
 import br.com.morador.domain.enuns.EnumAndar;
 import br.com.morador.domain.enuns.EnumBloco;
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ApartamentosUpdateDto {
     private String uuidApartamento;
     private Integer numero;
