@@ -3,6 +3,7 @@ package br.com.morador.mapper;
 import br.com.morador.domain.Apartamento;
 import br.com.morador.domain.Proprietario;
 import br.com.morador.dto.request.ApartamentosDto;
+import br.com.morador.dto.request.ApartamentosUpdateDto;
 import br.com.morador.dto.response.ApartamentosRetornoDto;
 import br.com.morador.utils.FormatadorDadosApartamento;
 import br.com.morador.utils.GeradorUuid;
@@ -45,8 +46,8 @@ public class ApartamentosMappper {
 
     public List<ApartamentosRetornoDto> mapeiaApartamentoRetornoDto(List<Apartamento> apartamento) {
         List<ApartamentosRetornoDto> list = new ArrayList<>();
-        if (Objects.nonNull(apartamento)){
-            apartamento.forEach( a -> {
+        if (Objects.nonNull(apartamento)) {
+            apartamento.forEach(a -> {
                 ApartamentosRetornoDto apt = new ApartamentosRetornoDto();
                 apt.setUuidApartamento(a.getUuidApartamento());
                 apt.setNumero(a.getNumero());
@@ -58,5 +59,23 @@ public class ApartamentosMappper {
             return list;
         }
         return null;
+    }
+
+    public List<Apartamento> mepearUpdateApartamento(Proprietario proprietario, List<Apartamento> apartamento, List<ApartamentosUpdateDto> apartamentoDto) {
+        if (Objects.nonNull(apartamento) && Objects.nonNull(apartamentoDto)) {
+            apartamento.forEach(pro -> {
+                apartamentoDto.forEach(apt -> {
+                    if (pro.getUuidApartamento().equals(apt.getUuidApartamento())) {
+                        pro.setNumero(!apt.equals(null) && !apt.toString().isEmpty() ? formatadorDadosApartamento.numero(apt.getNumero()) : pro.getNumero());
+                        pro.setAndar(!apt.getAndar().equals(null) && !apt.getAndar().toString().isEmpty() ? formatadorDadosApartamento.andar(apt.getAndar()) : pro.getAndar());
+                        pro.setBloco(!apt.getBloco().equals(null) && !apt.getBloco().toString().isEmpty() ? formatadorDadosApartamento.bloco(apt.getBloco()) : pro.getBloco());
+                        pro.setMorador(!apt.getMorador().equals(null) ? moradorResponsavelMapper.mapearMoradorUpdate(pro, pro.getMorador(), apt.getMorador()) : pro.getMorador());
+                        pro.setProprietario(proprietario);
+                    }
+                });
+            });
+            return apartamento;
+        }
+        return apartamento;
     }
 }
