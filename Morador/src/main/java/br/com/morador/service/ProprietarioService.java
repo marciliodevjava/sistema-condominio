@@ -2,7 +2,9 @@ package br.com.morador.service;
 
 import br.com.morador.domain.Proprietario;
 import br.com.morador.dto.request.ProprietarioDto;
+import br.com.morador.dto.request.ProprietarioUpdateDto;
 import br.com.morador.dto.response.ProprietarioRetornoDto;
+import br.com.morador.exception.ErroUuidInvalidoException;
 import br.com.morador.manager.ApartamentosManager;
 import br.com.morador.manager.ProprietarioManager;
 import br.com.morador.mapper.ProprietarioMapper;
@@ -55,5 +57,15 @@ public class ProprietarioService {
         ProprietarioRetornoDto dto = proprietarioMapper.mapeiaProprietarioRetornoDto(dtoProprietario);
 
         return dto;
+    }
+
+    public ProprietarioRetornoDto atualizarProprietario(String uuid, ProprietarioUpdateDto proprietarioDto) {
+        Proprietario pro = new Proprietario();
+        if (Objects.nonNull(uuid)){
+            Optional<Proprietario> proprietario = proprietarioManager.buscarProprietario(uuid);
+            pro = proprietarioMapper.atualizarProprietario(proprietario, proprietarioDto);
+            return null;
+        }
+        throw new ErroUuidInvalidoException();
     }
 }
