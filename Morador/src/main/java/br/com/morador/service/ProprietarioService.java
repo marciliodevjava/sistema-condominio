@@ -64,7 +64,10 @@ public class ProprietarioService {
         if (Objects.nonNull(uuid)){
             Optional<Proprietario> proprietario = proprietarioManager.buscarProprietario(uuid);
             pro = proprietarioMapper.atualizarProprietario(proprietario, proprietarioDto);
-            return null;
+            pro = proprietarioManager.salvarProprietario(pro);
+            ProprietarioRetornoDto dto = new ProprietarioRetornoDto();
+            dto = proprietarioMapper.mapeiaProprietarioRetornoDto(pro);
+            return dto;
         }
         throw new ErroUuidInvalidoException();
     }
