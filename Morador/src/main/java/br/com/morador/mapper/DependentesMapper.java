@@ -85,4 +85,39 @@ public class DependentesMapper {
         }
         return dependentes;
     }
+
+    public DependentesMorador mapearDependentesList(MoradorResponsavel morador, DependentesMoradorDto dependentesMoradorDto) {
+        DependentesMorador dependentes = new DependentesMorador();
+        if (Objects.nonNull(dependentesMoradorDto)){
+            dependentes.setUuidDependenteMorador(geradorUuid.gerarUuid());
+            dependentes.setNome(formatadorDadosDependentes.formatarNome(dependentesMoradorDto.getNome()));
+            dependentes.setCpf(formatadorDadosDependentes.formatarCpf(dependentes.getCpf()));
+            dependentes.setRg(formatadorDadosDependentes.formatarRg(dependentesMoradorDto.getRg()));
+            dependentes.setDataNascimento(formatadorDadosDependentes.formatarStringParaDate(dependentesMoradorDto.getDataNascimento()));
+            dependentes.setDddPais(formatadorDadosDependentes.formatarDddPais(dependentesMoradorDto.getDddPais()));
+            dependentes.setDdd(formatadorDadosDependentes.formatarDdd(dependentesMoradorDto.getDdd()));
+            dependentes.setTelefone(formatadorDadosDependentes.formatarTelefone(dependentesMoradorDto.getTelefone()));
+            dependentes.setSexo(formatadorDadosDependentes.formatarSexo(dependentesMoradorDto.getSexo()));
+            dependentes.setMoradorResponsavel(morador);
+            return dependentes;
+        }
+        return null;
+    }
+
+    public DependentesMoradorRetornoDto mapeiaDependentesRetornoDto(DependentesMorador dependentesMorador) {
+        DependentesMoradorRetornoDto dto = new DependentesMoradorRetornoDto();
+        if (Objects.nonNull(dependentesMorador)){
+            dto.setUuidDependenteMorador(dependentesMorador.getUuidDependenteMorador());
+            dto.setNome(dependentesMorador.getNome());
+            dto.setCpf(dependentesMorador.getCpf());
+            dto.setRg(dependentesMorador.getRg());
+            dto.setDataNascimento(formatadorDadosDependentes.formatarDateParaString(dependentesMorador.getDataNascimento()));
+            dto.setDddPais(dependentesMorador.getDddPais());
+            dto.setDdd(dependentesMorador.getDdd());
+            dto.setTelefone(dependentesMorador.getTelefone());
+            dto.setSexo(dependentesMorador.getSexo());
+            return dto;
+        }
+        return null;
+    }
 }
