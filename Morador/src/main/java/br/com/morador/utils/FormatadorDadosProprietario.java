@@ -80,4 +80,18 @@ public class FormatadorDadosProprietario {
 
         return dataFormatada;
     }
+
+    public Date formatarDateParaDate(Date dataNascimento) {
+        String dataFormatar = "yyyy-MM-dd";
+        SimpleDateFormat formatarData = new SimpleDateFormat(dataFormatar);
+        String dataFormatada = formatarData.format(dataNascimento);
+        Date data = null;
+        try {
+            data = formatarData.parse(dataFormatada);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
 }
