@@ -19,4 +19,11 @@ public interface VagasRepository extends JpaRepository<Vagas, Long> {
             SELECT * FROM dbo.condominio.tb_vagas WHERE id = ?1 ORDER BY id DESC
             """, nativeQuery = true)
     Optional<Vagas> buscarVagas(@PathVariable Long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = """ 
+            DELETE FROM condominio.tb_vagas WHERE id = ?1
+             """, nativeQuery = true)
+    void deleteVagas(@PathVariable Long id);
 }
