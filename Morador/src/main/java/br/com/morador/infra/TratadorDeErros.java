@@ -1,6 +1,7 @@
 package br.com.morador.infra;
 
 import br.com.morador.exception.ErroBuscarProprietarioException;
+import br.com.morador.exception.ErroDeletarProprietarioException;
 import br.com.morador.exception.ErroSalvarApartamentoException;
 import br.com.morador.exception.ErroSalvarProprietarioException;
 import br.com.morador.infra.enuns.MensagemEnum;
@@ -27,7 +28,7 @@ public class TratadorDeErros {
     public ResponseEntity<ErroResponse> erroSalvarProprietario(ErroSalvarProprietarioException ex) {
         ErroResponse erro = new ErroResponse();
 
-        erro.setStatus(HttpStatus.PROCESSING.value());
+        erro.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
         erro.setMensagem(Collections.singletonList(MensagemEnum.ERRO_SALVAR_PROPRIETARIO_SIMPLES.getMensagem()));
         erro.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         erro.setEndpoint(request.getRequestURI());
@@ -40,7 +41,7 @@ public class TratadorDeErros {
     public ResponseEntity<ErroResponse> erroBuscarProprietario(ErroBuscarProprietarioException ex) {
         ErroResponse erro = new ErroResponse();
 
-        erro.setStatus(HttpStatus.PROCESSING.value());
+        erro.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
         erro.setMensagem(Collections.singletonList(MensagemEnum.ERRO_BUSCAR_PROPRIETARIO.getMensagem()));
         erro.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-HH-dd HH:mm:ss")));
         erro.setEndpoint(request.getRequestURI());
@@ -53,12 +54,25 @@ public class TratadorDeErros {
     public ResponseEntity<ErroResponse> erroSalvarApartamento(ErroSalvarApartamentoException ex) {
         ErroResponse erro = new ErroResponse();
 
-        erro.setStatus(HttpStatus.PROCESSING.value());
+        erro.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
         erro.setMensagem(Collections.singletonList(MensagemEnum.ERRO_SALVAR_APARTAMENTO.getMensagem()));
         erro.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         erro.setEndpoint(request.getRequestURI());
         erro.setProjeto(projeto);
 
         return new ResponseEntity<>(erro, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(ErroDeletarProprietarioException.class)
+    public ResponseEntity<ErroResponse> erroDeletarProprietario(ErroDeletarProprietarioException ex) {
+        ErroResponse erro = new ErroResponse();
+
+        erro.setStatus(HttpStatus.BAD_REQUEST.value());
+        erro.setMensagem(Collections.singletonList(MensagemEnum.ERRO_DELETAR_PROPRIETARIO.getMensagem()));
+        erro.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        erro.setEndpoint(request.getRequestURI());
+        erro.setProjeto(projeto);
+
+        return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
     }
 }
