@@ -1,5 +1,6 @@
 package br.com.morador.infra;
 
+import br.com.morador.dto.ErroSalvarDependenteException;
 import br.com.morador.exception.ErroBuscarProprietarioException;
 import br.com.morador.exception.ErroDeletarProprietarioException;
 import br.com.morador.exception.ErroSalvarApartamentoException;
@@ -61,6 +62,19 @@ public class TratadorDeErros {
         erro.setProjeto(projeto);
 
         return new ResponseEntity<>(erro, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @ExceptionHandler(ErroSalvarDependenteException.class)
+    public ResponseEntity<ErroResponse> erroSalvarDependente(ErroSalvarDependenteException ex){
+        ErroResponse response = new ErroResponse();
+
+        response.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
+        response.setMensagem(Collections.singletonList(MensagemEnum.ERRO_SALVAR_DEPENDENTE.getMensagem()));
+        response.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        response.setEndpoint(request.getRequestURI());
+        response.setProjeto(projeto);
+
+        return new ResponseEntity<>(response, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(ErroDeletarProprietarioException.class)
