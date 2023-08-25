@@ -8,7 +8,6 @@ import br.com.morador.dto.response.ProprietarioRetornoDto;
 import br.com.morador.exception.ErroBuscarProprietarioException;
 import br.com.morador.exception.ErroDeletarProprietarioException;
 import br.com.morador.exception.ErroUuidInvalidoException;
-import br.com.morador.manager.ApartamentosManager;
 import br.com.morador.manager.ProprietarioManager;
 import br.com.morador.mapper.ProprietarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,6 @@ public class ProprietarioService {
     private ProprietarioMapper proprietarioMapper;
     @Autowired
     private ProprietarioManager proprietarioManager;
-    @Autowired
-    private ApartamentosManager apartamentosManager;
 
     public ProprietarioRetornoDto salvaProprietario(ProprietarioDto dto) {
         if (Objects.nonNull(dto)) {
