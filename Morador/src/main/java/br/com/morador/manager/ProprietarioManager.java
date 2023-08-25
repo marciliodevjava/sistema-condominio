@@ -6,7 +6,6 @@ import br.com.morador.exception.ErroBuscarProprietarioException;
 import br.com.morador.exception.ErroSalvarProprietarioException;
 import br.com.morador.query.ProprietarioQuery;
 import br.com.morador.repository.ProprietarioRepository;
-import br.com.morador.utils.FormatadorDadosProprietario;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,6 @@ public class ProprietarioManager {
     private ProprietarioQuery proprietarioQuery;
     @Autowired
     private HttpServletRequest request;
-    @Autowired
-    private FormatadorDadosProprietario formatadorDadosProprietario;
 
     public Proprietario salvarProprietario(Proprietario proprietario) {
         if (Objects.nonNull(proprietario)) {
