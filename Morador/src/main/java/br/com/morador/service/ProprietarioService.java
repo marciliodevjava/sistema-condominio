@@ -1,9 +1,12 @@
 package br.com.morador.service;
 
 import br.com.morador.domain.Proprietario;
+import br.com.morador.dto.ProprietarioDeletadoDto;
 import br.com.morador.dto.request.ProprietarioDto;
 import br.com.morador.dto.request.ProprietarioUpdateDto;
 import br.com.morador.dto.response.ProprietarioRetornoDto;
+import br.com.morador.exception.ErroBuscarProprietarioException;
+import br.com.morador.exception.ErroDeletarProprietarioException;
 import br.com.morador.exception.ErroUuidInvalidoException;
 import br.com.morador.manager.ApartamentosManager;
 import br.com.morador.manager.ProprietarioManager;
@@ -38,7 +41,7 @@ public class ProprietarioService {
         if (Objects.nonNull(dto)) {
             Proprietario proprietario = proprietarioMapper.mapearProprietario(dto);
 
-            if (proprietario != null){
+            if (proprietario != null) {
                 proprietario = proprietarioManager.salvarProprietario(proprietario);
 
                 ProprietarioRetornoDto proprietarioRetornoDto;
@@ -52,6 +55,9 @@ public class ProprietarioService {
 
     public ProprietarioRetornoDto buscarProponente(String uuid) {
         Optional<Proprietario> proprietario = proprietarioManager.buscarProprietario(uuid);
+        if (proprietario.isEmpty()){
+            throw new ErroBuscarProprietarioException();
+        }
         Proprietario dtoProprietario = proprietario.get();
         ProprietarioRetornoDto dto = proprietarioMapper.mapeiaProprietarioRetornoDto(dtoProprietario);
 
@@ -60,7 +66,7 @@ public class ProprietarioService {
 
     public ProprietarioRetornoDto atualizarProprietario(String uuid, ProprietarioUpdateDto proprietarioDto) {
         Proprietario pro = new Proprietario();
-        if (Objects.nonNull(uuid)){
+        if (Objects.nonNull(uuid)) {
             Optional<Proprietario> proprietario = proprietarioManager.buscarProprietario(uuid);
             pro = proprietarioMapper.atualizarProprietario(proprietario, proprietarioDto);
             pro = proprietarioManager.salvarProprietario(pro);
@@ -69,5 +75,17 @@ public class ProprietarioService {
             return dto;
         }
         throw new ErroUuidInvalidoException();
+    }
+
+    public ProprietarioDeletadoDto deletar(String uuid) {
+        Optional<Proprietario> proprietario = proprietarioManager.buscarProprietario(uuid);
+        if (proprietario.isEmpty()){
+            throw new ErroDeletarProprietarioException();
+        }
+        if (Objects.nonNull(proprietario)){
+            ProprietarioDeletadoDto pro = proprietarioManager.deletaProprietario(proprietario);
+            return pro;
+        }
+        return null;
     }
 }
