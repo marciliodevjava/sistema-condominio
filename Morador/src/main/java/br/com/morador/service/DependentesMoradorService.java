@@ -2,6 +2,7 @@ package br.com.morador.service;
 
 import br.com.morador.domain.DependentesMorador;
 import br.com.morador.domain.MoradorResponsavel;
+import br.com.morador.dto.DependenteDeletadoDto;
 import br.com.morador.dto.ErroSalvarDependenteException;
 import br.com.morador.dto.request.DependentesMoradorDto;
 import br.com.morador.dto.response.DependentesMoradorRetornoDto;
@@ -11,6 +12,7 @@ import br.com.morador.repository.MoradorResponsavelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -31,6 +33,14 @@ public class DependentesMoradorService {
         if (dependentesMorador != null){
             dependentesMorador = dependentesManager.salvar(dependentesMorador);
             return dependentesMapper.mapeiaDependentesRetornoDto(dependentesMorador);
+        }
+        return null;
+    }
+
+    public DependenteDeletadoDto deletar(String uuid) {
+        Optional<DependentesMorador> dependente = dependentesManager.buscar(uuid);
+        if (Objects.nonNull(dependente)){
+
         }
         return null;
     }
