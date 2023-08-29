@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class DependentesManager {
@@ -22,6 +23,14 @@ public class DependentesManager {
         if (Objects.nonNull(dependentesMorador)){
             dependentesMorador = dependentesMoradorRepository.save(dependentesMorador);
             return dependentesMorador;
+        }
+        return null;
+    }
+
+    public Optional<DependentesMorador> buscar(String uuid) {
+        if (uuid != null){
+            DependentesMorador dependentesMorador = dependentesMoradorRepository.buscarUiid(uuid);
+            return Optional.ofNullable(dependentesMorador);
         }
         return null;
     }
