@@ -1,5 +1,6 @@
 package br.com.morador.resource;
 
+import br.com.morador.dto.DependenteDeletadoDto;
 import br.com.morador.dto.request.DependentesMoradorDto;
 import br.com.morador.dto.response.DependentesMoradorRetornoDto;
 import br.com.morador.service.DependentesMoradorService;
@@ -26,5 +27,11 @@ public class DependenteMoradorResource {
         DependentesMoradorRetornoDto dto = dependentesMoradorService.salvarDependente(uuid, dependentesMoradorDto);
         URI uri = builder.path("/buscar/{uuid}").buildAndExpand(dto.getUuidDependenteMorador()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @DeleteMapping("/uuid")
+    public ResponseEntity<DependenteDeletadoDto> deletar(@PathVariable @NotNull String uuid){
+        DependenteDeletadoDto dto = dependentesMoradorService.deletar(uuid);
+        return ResponseEntity.ok(dto);
     }
 }
