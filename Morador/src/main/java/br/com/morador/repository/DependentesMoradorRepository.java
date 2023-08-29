@@ -16,4 +16,11 @@ public interface DependentesMoradorRepository extends JpaRepository<DependentesM
             DELETE FROM condominio.tb_dependentes_morador WHERE id = ?1
             """, nativeQuery = true)
     void deletarDependente(@PathVariable Long id);
+
+    @Modifying
+    @Transactional
+    @Query(value = """
+            SELECT * FROM condominio.tb_dependentes_morador WHERE id = ?1
+            """, nativeQuery = true)
+    DependentesMorador buscarUiid(@PathVariable String uuid);
 }
