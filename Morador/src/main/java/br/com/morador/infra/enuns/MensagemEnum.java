@@ -5,7 +5,8 @@ public enum MensagemEnum {
     ERRO_BUSCAR_PROPRIETARIO("Não foi possivel buscar o proprietário."),
     ERRO_SALVAR_PROPRIETARIO_SIMPLES("Não foi possivel salvo o proprietário."),
     ERRO_DELETAR_PROPRIETARIO("Erro ao deletar proprietario"),
-    ERRO_SALVAR_DEPENDENTE("Não foi possivel salvar os dados do Dependente.");
+    ERRO_SALVAR_DEPENDENTE("Não foi possivel salvar os dados do Dependente."),
+    ERRO_BUSCAR_DEPENDENTE("Não foi possivel buscar o Dependente.");
     private final String mensagem;
     MensagemEnum(String mensagem){
         this.mensagem = mensagem;
