@@ -1,10 +1,7 @@
 package br.com.morador.infra;
 
 import br.com.morador.dto.ErroSalvarDependenteException;
-import br.com.morador.exception.ErroBuscarProprietarioException;
-import br.com.morador.exception.ErroDeletarProprietarioException;
-import br.com.morador.exception.ErroSalvarApartamentoException;
-import br.com.morador.exception.ErroSalvarProprietarioException;
+import br.com.morador.exception.*;
 import br.com.morador.infra.enuns.MensagemEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,5 +85,18 @@ public class TratadorDeErros {
         erro.setProjeto(projeto);
 
         return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ErroBuscarDependenteExcepton.class)
+    public ResponseEntity<ErroResponse> erroBuscarDepentende(ErroBuscarDependenteExcepton ex){
+        ErroResponse erroResponse = new ErroResponse();
+
+        erroResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        erroResponse.setMensagem(Collections.singletonList(MensagemEnum.ERRO_BUSCAR_DEPENDENTE.getMensagem()));
+        erroResponse.setTimestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        erroResponse.setEndpoint(request.getRequestURI());
+        erroResponse.setProjeto(projeto);
+
+        return new ResponseEntity<>(erroResponse, HttpStatus.BAD_REQUEST);
     }
 }
