@@ -1,6 +1,7 @@
 package br.com.morador.manager;
 
 import br.com.morador.domain.DependentesMorador;
+import br.com.morador.exception.ErroBuscarDependenteExcepton;
 import br.com.morador.query.DependentesMoradorQuery;
 import br.com.morador.repository.DependentesMoradorRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class DependentesManager {
     public Optional<DependentesMorador> buscar(String uuid) {
         if (uuid != null){
             DependentesMorador dependentesMorador = dependentesMoradorRepository.buscarUiid(uuid);
+            if(dependentesMorador == null) throw new ErroBuscarDependenteExcepton();
             return Optional.ofNullable(dependentesMorador);
         }
         return null;
