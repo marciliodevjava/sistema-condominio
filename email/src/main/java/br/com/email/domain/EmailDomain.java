@@ -1,5 +1,6 @@
 package br.com.email.domain;
 
+import br.com.email.enuns.StatusEmail;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "tb_email")
@@ -20,12 +22,14 @@ public class EmailDomain implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long emailId;
-    private String ownerRef;
-    private String emailFrom;
-    private String emailTo;
-    private String subject;
+    private String idUsuario;
+    private String remetente;
+    private String destinatario;
+    private String titulo;
     @Column(columnDefinition = "TEXT")
-    private String text;
-    private LocalDateTime sendDateEmail;
+    private String texto;
+    private LocalDate data;
+    private LocalTime hora;
+    @Enumerated(EnumType.STRING)
     private StatusEmail statusEmail;
 }
