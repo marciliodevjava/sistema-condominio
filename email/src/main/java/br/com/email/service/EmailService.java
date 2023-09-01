@@ -22,7 +22,7 @@ public class EmailService {
     public EmailDomain enviarEmail(EmailDomain dto) {
         dto.setData(LocalDate.now());
         dto.setHora(LocalTime.now());
-        try{
+        try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(dto.getRemetente());
             message.setTo(dto.getDestinatario());
@@ -31,7 +31,7 @@ public class EmailService {
             emailSender.send(message);
 
             dto.setStatusEmail(StatusEmail.ENVIADO);
-        } catch (MailException ex){
+        } catch (MailException ex) {
             dto.setStatusEmail(StatusEmail.ERROR);
         } finally {
             return emailRepository.save(dto);
