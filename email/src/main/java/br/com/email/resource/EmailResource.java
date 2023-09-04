@@ -23,7 +23,7 @@ public class EmailResource {
     public ResponseEntity<EmailDomain> enviarEmail(@RequestBody @Valid EmailDto emailDto) {
         EmailDomain dto = new EmailDomain();
         BeanUtils.copyProperties(emailDto, dto);
-        emailService.enviarEmail(dto);
+        dto = emailService.enviarEmail(dto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 }
